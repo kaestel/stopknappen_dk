@@ -5,10 +5,12 @@
 			<?= $HTML->link("Articles", "/janitor/article/list", array("wrapper" => "li.article")) ?>
 			<?= $HTML->link("Topics", "/janitor/topic/list", array("wrapper" => "li.topic")) ?>
 
+			<?= $HTML->link("Posts", "/janitor/post/list", array("wrapper" => "li.post")) ?>
 			<?= $HTML->link("Pages", "/janitor/page/list", array("wrapper" => "li.page")) ?>
 
 			<?= $HTML->link("Questions", "/janitor/admin/qna/list", array("wrapper" => "li.qna")) ?>
 			<?= $HTML->link("TODOs", "/janitor/admin/todo/list", array("wrapper" => "li.todo")) ?>
+			<?= $HTML->link("Wish lists", "/janitor/admin/wishlist/list", array("wrapper" => "li.wishlist")) ?>
 			<?= $HTML->link("Targets", "/janitor/target/list", array("wrapper" => "li.target")) ?>
 
 			<?= $HTML->link("Navigations", "/janitor/admin/navigation/list", array("wrapper" => "li.navigation")) ?>
