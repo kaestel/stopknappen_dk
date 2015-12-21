@@ -10,7 +10,7 @@
 
 			<?= $HTML->link("Questions", "/janitor/admin/qna/list", array("wrapper" => "li.qna")) ?>
 			<?= $HTML->link("TODOs", "/janitor/admin/todo/list", array("wrapper" => "li.todo")) ?>
-			<?= $HTML->link("Wish lists", "/janitor/admin/wishlist/list", array("wrapper" => "li.wishlist")) ?>
+			<?= $HTML->link("Wishes", "/janitor/admin/wish/list", array("wrapper" => "li.wish")) ?>
 			<?= $HTML->link("Targets", "/janitor/target/list", array("wrapper" => "li.target")) ?>
 
 			<?= $HTML->link("Navigations", "/janitor/admin/navigation/list", array("wrapper" => "li.navigation")) ?>
