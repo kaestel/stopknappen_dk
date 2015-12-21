@@ -26,7 +26,7 @@ define("DEFAULT_COUNTRY_ISO", "DK"); // Regional country Denmark
 
 // ENABLE ITEMS MODEL
 define("SITE_ITEMS", true);
-//define("SITE_SIGNUP", true);
+define("SITE_SIGNUP", true);
 
 // Enable notifications (send collection email after N notifications)
 define("SITE_COLLECT_NOTIFICATIONS", 50);
