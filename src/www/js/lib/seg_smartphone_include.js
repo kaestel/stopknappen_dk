@@ -6,10 +6,10 @@ document.write('<script type="text/javascript" src="http://parentnode.local/js/m
 
 document.write('<script type="text/javascript" src="http://parentnode.local/js/manipulator/src/u-svg.js"></script>');
 
-document.write('<script type="text/javascript" src="http://parentnode.local/js/global/smartphone/i-page-smartphone.js"></script>');
-document.write('<script type="text/javascript" src="http://parentnode.local/js/global/smartphone/i-login-smartphone.js"></script>');
-document.write('<script type="text/javascript" src="http://parentnode.local/js/global/smartphone/i-signup-smartphone.js"></script>');
-document.write('<script type="text/javascript" src="http://parentnode.local/js/global/smartphone/i-newsletter-smartphone.js"></script>');
+document.write('<script type="text/javascript" src="http://parentnode.local/js/global/smartphone/i-page.js"></script>');
+document.write('<script type="text/javascript" src="http://parentnode.local/js/global/smartphone/i-login.js"></script>');
+document.write('<script type="text/javascript" src="http://parentnode.local/js/global/smartphone/i-signup.js"></script>');
+document.write('<script type="text/javascript" src="http://parentnode.local/js/global/smartphone/i-newsletter.js"></script>');
 
 
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-front.js"></script>');

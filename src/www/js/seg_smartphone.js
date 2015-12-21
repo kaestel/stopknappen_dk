@@ -4835,7 +4835,7 @@ Util.svgShape = function(svg, svg_object) {
 }
 
 
-/*i-page-smartphone.js*/
+/*i-page.js*/
 u.bug_force = true;
 u.bug_console_only = true;
 Util.Objects["page"] = new function() {
@@ -4975,7 +4975,7 @@ Util.Objects["page"] = new function() {
 u.e.addDOMReadyEvent(u.init);
 
 
-/*i-login-smartphone.js*/
+/*i-login.js*/
 Util.Objects["login"] = new function() {
 	this.init = function(scene) {
 		scene.resized = function() {
@@ -4993,7 +4993,7 @@ Util.Objects["login"] = new function() {
 }
 
 
-/*i-signup-smartphone.js*/
+/*i-signup.js*/
 Util.Objects["signup"] = new function() {
 	this.init = function(scene) {
 		scene.resized = function() {
@@ -5011,7 +5011,7 @@ Util.Objects["signup"] = new function() {
 }
 
 
-/*i-newsletter-smartphone.js*/
+/*i-newsletter.js*/
 Util.Objects["newsletter"] = new function() {
 	this.init = function(scene) {
 		scene.resized = function() {

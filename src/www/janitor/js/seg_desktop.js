@@ -4737,6 +4737,31 @@ Util.videoPlayer = function(_options) {
 }
 
 
+/*u-basics.js*/
+u.toggleHeader = function(div, header) {
+	header = header ? header : "h2";
+	div._toggle_header = u.qs(header, div);
+	div._toggle_header_id = div.className.replace(/item_id:[0-9]+/, "").trim();
+	div._toggle_header.div = div;
+	u.e.click(div._toggle_header);
+	div._toggle_header.clicked = function() {
+		if(this.div._toggle_is_closed) {
+			u.as(this.div, "height", "auto");
+			this.div._toggle_is_closed = false;
+			u.saveCookie(this.div._toggle_header_id+"_open", 1);
+		}
+		else {
+			u.as(this.div, "height", this.offsetHeight+"px");
+			this.div._toggle_is_closed = true;
+			u.saveCookie(this.div._toggle_header_id+"_open", 0);
+		}
+	}
+	var state = u.getCookie(div._toggle_header_id+"_open");
+	if(state == "0") {
+		div._toggle_header.clicked();
+	}
+}
+
 /*beta-u-notifier.js*/
 u.notifier = function(node) {
 	var notifications = u.qs("div.notifications", node);
@@ -5055,10 +5080,11 @@ Util.History = u.h = new function() {
 
 
 /*u-form-htmleditor.js*/
-Util.Form.customInit["html"] = function(form, field) {
+Util.Form.customInit["html"] = function(_form, field) {
 	field._input = u.qs("textarea", field);
+	field._input._form = _form;
 	field._input.field = field;
-	form.fields[field._input.name] = field._input;
+	_form.fields[field._input.name] = field._input;
 	field._input._label = u.qs("label[for='"+field._input.id+"']", field);
 	field._input.val = u.f._value;
 	u.f.textEditor(field);
@@ -5163,7 +5189,7 @@ u.f.textEditor = function(field) {
 	field.media_add_action = field.getAttribute("data-media-add");
 	field.media_delete_action = field.getAttribute("data-media-delete");
 	field.item_id;
-	var item_id_match = field._input.form.action.match(/\/([0-9]+)(\/|$)/);
+	var item_id_match = field._input._form.action.match(/\/([0-9]+)(\/|$)/);
 	if(item_id_match) {
 		field.item_id = item_id_match[1];
 	}
@@ -5263,11 +5289,11 @@ u.f.textEditor = function(field) {
 	field.update = function() {
 		this.updateViewer();
 		this.updateContent();
-		if(this._input.form && typeof(this._input.form.updated) == "function") {
-			this._input.form.updated(this._input);
+		if(this._input._form && typeof(this._input._form.updated) == "function") {
+			this._input._form.updated(this._input);
 		}
-		if(this._input.form && typeof(this._input.form.changed) == "function") {
-			this._input.form.changed(this._input);
+		if(this._input._form && typeof(this._input._form.changed) == "function") {
+			this._input._form.changed(this._input);
 		}
 	}
 	field.updateViewer = function() {
@@ -5368,7 +5394,7 @@ u.f.textEditor = function(field) {
 			tag.parentNode.removeChild(tag);
 			u.sortable(this._editor, {"draggables":"tag", "targets":"editor"});
 			this.update();
-			this._input.form.submit();
+			this._input._form.submit();
 		}
 	}
 	field.createTagSelector = function(tag, allowed_tags) {
@@ -5525,7 +5551,7 @@ u.f.textEditor = function(field) {
 	}
 	field.deleteMedia = function(tag) {
 		var form_data = new FormData();
-		form_data.append("csrf-token", this._input.form.fields["csrf-token"].val());
+		form_data.append("csrf-token", this._input._form.fields["csrf-token"].val());
 		tag.response = function(response) {
 			page.notify(response);
 			if(response.cms_status && response.cms_status == "success") {
@@ -5537,7 +5563,7 @@ u.f.textEditor = function(field) {
 	field._media_updated = function(event) {
 		var form_data = new FormData();
 		form_data.append(this.name, this.files[0], this.value);
-		form_data.append("csrf-token", this.form.fields["csrf-token"].val());
+		form_data.append("csrf-token", this._form.fields["csrf-token"].val());
 		this.response = function(response) {
 			page.notify(response);
 			if(response.cms_status && response.cms_status == "success") {
@@ -5568,7 +5594,7 @@ u.f.textEditor = function(field) {
 				u.e.addEvent(this.tag._input, "blur", this.tag.field._blurred_content);
 				u.ac(this.tag, "done");
 				this.tag.field.update();
-				this.tag.field._input.form.submit();
+				this.tag.field._input._form.submit();
 			}
 		}
 		u.request(this, this.field.media_add_action+"/"+this.field.item_id, {"method":"post", "params":form_data});
@@ -5626,7 +5652,7 @@ u.f.textEditor = function(field) {
 	}
 	field.deleteFile = function(tag) {
 		var form_data = new FormData();
-		form_data.append("csrf-token", this._input.form.fields["csrf-token"].val());
+		form_data.append("csrf-token", this._input._form.fields["csrf-token"].val());
 		tag.response = function(response) {
 			page.notify(response);
 			if(response.cms_status && response.cms_status == "success") {
@@ -5638,7 +5664,7 @@ u.f.textEditor = function(field) {
 	field._file_updated = function(event) {
 		var form_data = new FormData();
 		form_data.append(this.name, this.files[0], this.value);
-		form_data.append("csrf-token", this.form.fields["csrf-token"].val());
+		form_data.append("csrf-token", this._form.fields["csrf-token"].val());
 		this.response = function(response) {
 			page.notify(response);
 			if(response.cms_status && response.cms_status == "success") {
@@ -5664,7 +5690,7 @@ u.f.textEditor = function(field) {
 				u.e.addEvent(this.tag._input, "blur", this.tag.field._blurred_content);
 				u.ac(this.tag, "done");
 				this.tag.field.update();
-				this.tag.field._input.form.submit();
+				this.tag.field._input._form.submit();
 			}
 		}
 		u.request(this, this.field.file_add_action+"/"+this.field.item_id, {"method":"post", "params":form_data});
@@ -5948,7 +5974,7 @@ u.f.textEditor = function(field) {
 		this.field.is_focused = true;
 		u.ac(this.tag, "focus");
 		u.ac(this.field, "focus");
-		u.as(this.field, "zIndex", this.field._input.form._focus_z_index);
+		u.as(this.field, "zIndex", this.field._input._form._focus_z_index);
 		u.f.positionHint(this.field);
 		if(this.field.backwards_tab) {
 			this.field.backwards_tab = false;
@@ -6518,6 +6544,7 @@ Util.Form.geoLocation = function(field) {
 
 
 /*u-form-builder.js*/
+u.f.customBuild = {};
 u.f.addForm = function(node, _options) {
 	var form_name = "js_form";
 	var form_action = "#";
@@ -6550,50 +6577,190 @@ u.f.addFieldset = function(node, _options) {
 	return u.ae(node, "fieldset", {"class":fieldset_class});
 }
 u.f.addField = function(node, _options) {
-	var field_type = "string";
-	var field_label = "Value";
 	var field_name = "js_name";
+	var field_label = "Label";
+	var field_type = "string";
 	var field_value = "";
+	var field_options = [];
 	var field_class = "";
-	var field_maxlength = "";
+	var field_id = "";
+	var field_max = false;
+	var field_min = false;
+	var field_disabled = false;
+	var field_readonly = false;
+	var field_required = false;
+	var field_pattern = false;
+	var field_error_message = "There is an error in your input";
+	var field_hint_message = "";
 	if(typeof(_options) == "object") {
 		var _argument;
 		for(_argument in _options) {
 			switch(_argument) {
-				case "type"			: field_type			= _options[_argument]; break;
-				case "label"		: field_label			= _options[_argument]; break;
-				case "name"			: field_name			= _options[_argument]; break;
-				case "value"		: field_value			= _options[_argument]; break;
-				case "class"		: field_class			= _options[_argument]; break;
-				case "max"			: field_maxlength		= _options[_argument]; break;
+				case "name"					: field_name			= _options[_argument]; break;
+				case "label"				: field_label			= _options[_argument]; break;
+				case "type"					: field_type			= _options[_argument]; break;
+				case "value"				: field_value			= _options[_argument]; break;
+				case "options"				: field_options			= _options[_argument]; break;
+				case "class"				: field_class			= _options[_argument]; break;
+				case "id"					: field_id				= _options[_argument]; break;
+				case "max"					: field_max				= _options[_argument]; break;
+				case "min"					: field_min				= _options[_argument]; break;
+				case "disabled"				: field_disabled		= _options[_argument]; break;
+				case "readonly"				: field_readonly		= _options[_argument]; break;
+				case "required"				: field_required		= _options[_argument]; break;
+				case "pattern"				: field_pattern			= _options[_argument]; break;
+				case "error_message"		: field_error_message	= _options[_argument]; break;
+				case "hint_message"			: field_hint_message	= _options[_argument]; break;
 			}
 		}
 	}
-	var input_id = "input_"+field_type+"_"+field_name;
-	var field = u.ae(node, "div", {"class":"field "+field_type+" "+field_class});
-	if(field_type == "string") {
-		var label = u.ae(field, "label", {"for":input_id, "html":field_label});
-		var input = u.ae(field, "input", {"id":input_id, "value":field_value, "name":field_name, "type":"text", "maxlength":field_maxlength});
+	var custom_build;
+	if(field_type in u.f.customBuild) {
+		return u.f.customBuild[field_type](node, _options);
 	}
-	else if(field_type == "email" || field_type == "number" || field_type == "tel") {
-		var label = u.ae(field, "label", {"for":input_id, "html":field_label});
-		var input = u.ae(field, "input", {"id":input_id, "value":field_value, "name":field_name, "type":field_type});
+	field_id = field_id ? field_id : "input_"+field_type+"_"+field_name;
+	field_disabled = !field_disabled ? (field_class.match(/(^| )disabled( |$)/) ? "disabled" : false) : "disabled";
+	field_readonly = !field_readonly ? (field_class.match(/(^| )readonly( |$)/) ? "readonly" : false) : "readonly";
+	field_required = !field_required ? (field_class.match(/(^| )required( |$)/) ? true : false) : true;
+	field_class += field_disabled ? (!field_class.match(/(^| )disabled( |$)/) ? " disabled" : "") : "";
+	field_class += field_readonly ? (!field_class.match(/(^| )readonly( |$)/) ? " readonly" : "") : "";
+	field_class += field_required ? (!field_class.match(/(^| )required( |$)/) ? " required" : "") : "";
+	field_class += field_min ? (!field_class.match(/(^| )min:[0-9]+( |$)/) ? " min:"+field_min : "") : "";
+	field_class += field_max ? (!field_class.match(/(^| )max:[0-9]+( |$)/) ? " max:"+field_max : "") : "";
+	var field = u.ae(node, "div", {"class":"field "+field_type+" "+field_class});
+	var attributes = {};
+	if(field_type == "string") {
+		field_max = field_max ? field_max : 255;
+		attributes = {
+			"type":"text", 
+			"id":field_id, 
+			"value":field_value, 
+			"name":field_name, 
+			"maxlength":field_max, 
+			"minlength":field_min,
+			"pattern":field_pattern,
+			"readonly":field_readonly,
+			"disabled":field_disabled
+		};
+		u.ae(field, "label", {"for":field_id, "html":field_label});
+		u.ae(field, "input", u.f.verifyAttributes(attributes));
+	}
+	else if(field_type == "email" || field_type == "tel" || field_type == "password") {
+		field_max = field_max ? field_max : 255;
+		attributes = {
+			"type":field_type, 
+			"id":field_id, 
+			"value":field_value, 
+			"name":field_name, 
+			"maxlength":field_max, 
+			"minlength":field_min,
+			"pattern":field_pattern,
+			"readonly":field_readonly,
+			"disabled":field_disabled
+		};
+		u.ae(field, "label", {"for":field_id, "html":field_label});
+		u.ae(field, "input", u.f.verifyAttributes(attributes));
+	}
+	else if(field_type == "number" || field_type == "integer" || field_type == "date" || field_type == "datetime") {
+		attributes = {
+			"type":field_type, 
+			"id":field_id, 
+			"value":field_value, 
+			"name":field_name, 
+			"max":field_max, 
+			"min":field_min,
+			"pattern":field_pattern,
+			"readonly":field_readonly,
+			"disabled":field_disabled
+		};
+		u.ae(field, "label", {"for":field_id, "html":field_label});
+		u.ae(field, "input", u.f.verifyAttributes(attributes));
 	}
 	else if(field_type == "checkbox") {
-		var input = u.ae(field, "input", {"id":input_id, "value":(field_value ? field_value : "true"), "name":field_name, "type":field_type});
-		var label = u.ae(field, "label", {"for":input_id, "html":field_label});
+		attributes = {
+			"type":field_type, 
+			"id":field_id, 
+			"value":field_value ? field_value : "true", 
+			"name":field_name, 
+			"disabled":field_disabled
+		};
+		u.ae(field, "input", u.f.verifyAttributes(attributes));
+		u.ae(field, "label", {"for":field_id, "html":field_label});
 	}
 	else if(field_type == "text") {
-		var label = u.ae(field, "label", {"for":input_id, "html":field_label});
-		var input = u.ae(field, "textarea", {"id":input_id, "html":field_value, "name":field_name});
+		attributes = {
+			"id":field_id, 
+			"html":field_value, 
+			"name":field_name, 
+			"maxlength":field_max, 
+			"minlength":field_min,
+			"pattern":field_pattern,
+			"readonly":field_readonly,
+			"disabled":field_disabled
+		};
+		u.ae(field, "label", {"for":field_id, "html":field_label});
+		u.ae(field, "textarea", u.f.verifyAttributes(attributes));
 	}
 	else if(field_type == "select") {
-		u.bug("Select not implemented yet")
+		attributes = {
+			"id":field_id, 
+			"name":field_name, 
+			"disabled":field_disabled
+		};
+		u.ae(field, "label", {"for":field_id, "html":field_label});
+		var select = u.ae(field, "select", u.f.verifyAttributes(attributes));
+		if(field_options) {
+			var i, option;
+			for(i = 0; option = field_options[i]; i++) {
+				if(option.value == field_value) {
+					u.ae(select, "option", {"value":option.value, "html":option.text, "selected":"selected"});
+				}
+				else {
+					u.ae(select, "option", {"value":option.value, "html":option.text});
+				}
+			}
+		}
+	}
+	else if(field_type == "radiobuttons") {
+		u.ae(field, "label", {"html":field_label});
+		if(field_options) {
+			var i, option;
+			for(i = 0; option = field_options[i]; i++) {
+				var div = u.ae(field, "div", {"class":"item"});
+				if(option.value == field_value) {
+					u.ae(div, "input", {"value":option.value, "id":field_id+"-"+i, "type":"radio", "name":field_name, "checked":"checked"});
+					u.ae(div, "label", {"for":field_id+"-"+i, "html":option.text});
+				}
+				else {
+					u.ae(div, "input", {"value":option.value, "id":field_id+"-"+i, "type":"radio", "name":field_name});
+					u.ae(div, "label", {"for":field_id+"-"+i, "html":option.text});
+				}
+			}
+		}
+	}
+	else if(field_type == "files") {
+		u.ae(field, "label", {"for":field_id, "html":field_label});
+		u.ae(field, "input", {"id":field_id, "name":field_name, "type":"file"});
 	}
 	else {
-		u.bug("input type not implemented yet")
+		u.bug("input type not implemented")
+	}
+	if(field_hint_message || field_error_message) {
+		var help = u.ae(field, "div", {"class":"help"});
+		if(field_hint_message) {
+			u.ae(field, "div", {"class":"hint", "html":field_hint_message});
+			u.ae(field, "div", {"class":"error", "html":field_error_message});
+		}
 	}
 	return field;
+}
+u.f.verifyAttributes = function(attributes) {
+	for(attribute in attributes) {
+		if(attributes[attribute] === undefined || attributes[attribute] === false || attributes[attribute] === null) {
+			delete attributes[attribute];
+		}
+	}
+	return attributes;
 }
 u.f.addAction = function(node, _options) {
 	var action_type = "submit";
@@ -6938,6 +7105,7 @@ Util.Objects["defaultList"] = new function() {
 					node._tag_options = u.ae(node, "div", {"class":"tagoptions"});
 					node._tag_options._field = u.ae(node._tag_options, "div", {"class":"field"});
 					node._tag_options._tagfilter = u.ae(node._tag_options._field, "input", {"class":"filter ignoreinput"});
+					node._tag_options._tagfilter.focus();
 					node._tag_options._tagfilter.node = node;
 					node._tag_options._tagfilter.onkeyup = function() {
 						if(this.node._new_tags) {
@@ -7079,9 +7247,6 @@ Util.Objects["defaultEdit"] = new function() {
 		var form = u.qs("form", div);
 		form.div = div;
 		u.f.init(form);
-		form.actions["cancel"].clicked = function(event) {
-			location.href = this.url;
-		}
 		form.submitted = function(iN) {
 			u.t.resetTimer(page.t_autosave);
 			this.response = function(response) {
@@ -7135,13 +7300,10 @@ Util.Objects["defaultEdit"] = new function() {
 Util.Objects["defaultNew"] = new function() {
 	this.init = function(form) {
 		u.f.init(form);
-		form.actions["cancel"].clicked = function(event) {
-			location.href = this.url;
-		}
 		form.submitted = function(iN) {
 			this.response = function(response) {
 				if(response.cms_status == "success" && response.cms_object) {
-					location.href = this.actions["cancel"].url.replace("\/list", "/edit/"+response.cms_object.item_id);
+					location.href = this.action.replace("\/save", "/edit/"+response.cms_object.item_id);
 				}
 				else {
 					page.notify(response);
@@ -8241,36 +8403,44 @@ Util.Objects["apitoken"] = new function() {
 		var token = u.qs("p.token", div);
 		var renew_form = u.qs("form.renew", div);
 		var disable_form = u.qs("form.disable", div);
-		renew_form._token = token;
-		renew_form.disable_form = disable_form
-		disable_form._token = token;
-		u.f.init(renew_form);
-		u.f.init(disable_form);
-		renew_form.submitted = function(iN) {
-			this.response = function(response) {
-				if(response.cms_status == "success") {
-					this._token.innerHTML = response.cms_object;
-					u.rc(this.disable_form.actions["disable"], "disabled");
-					page.notify({"isJSON":true, "cms_status":"success", "cms_message":"API token updated"});
-				}
-				else {
-					page.notify({"isJSON":true, "cms_status":"error", "cms_message":"API token could not be updated"});
-				}
+		if(renew_form) {
+			renew_form._token = token;
+			if(disable_form) {
+				renew_form.disable_form = disable_form;
 			}
-			u.request(this, this.action, {"method":"post", "params" : u.f.getParams(this)});
+			u.f.init(renew_form);
+			renew_form.submitted = function(iN) {
+				this.response = function(response) {
+					if(response.cms_status == "success") {
+						this._token.innerHTML = response.cms_object;
+						if(this.disable_form) {
+							u.rc(this.disable_form.actions["disable"], "disabled");
+						}
+						page.notify({"isJSON":true, "cms_status":"success", "cms_message":"API token updated"});
+					}
+					else {
+						page.notify({"isJSON":true, "cms_status":"error", "cms_message":"API token could not be updated"});
+					}
+				}
+				u.request(this, this.action, {"method":"post", "params" : u.f.getParams(this)});
+			}
 		}
-		disable_form.submitted = function(iN) {
-			this.response = function(response) {
-				if(response.cms_status == "success") {
-					this._token.innerHTML = "N/A";
-					u.ac(this.actions["disable"], "disabled");
-					page.notify({"isJSON":true, "cms_status":"success", "cms_message":"API token disabled"});
+		if(disable_form) {
+			disable_form._token = token;
+			u.f.init(disable_form);
+			disable_form.submitted = function(iN) {
+				this.response = function(response) {
+					if(response.cms_status == "success") {
+						this._token.innerHTML = "N/A";
+						u.ac(this.actions["disable"], "disabled");
+						page.notify({"isJSON":true, "cms_status":"success", "cms_message":"API token disabled"});
+					}
+					else {
+						page.notify({"isJSON":true, "cms_status":"error", "cms_message":"API token could not be disables"});
+					}
 				}
-				else {
-					page.notify({"isJSON":true, "cms_status":"error", "cms_message":"API token could not be disables"});
-				}
+				u.request(this, this.action, {"method":"post", "params" : u.f.getParams(this)});
 			}
-			u.request(this, this.action, {"method":"post", "params" : u.f.getParams(this)});
 		}
 	}
 }

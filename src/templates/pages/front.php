@@ -46,7 +46,7 @@
 	<h3 class="everything">alt</h3>
 
 	<p class="content">tilfredse</p>
-	<p class="slaves"><span class="s1">som mættede</span> <span class="s2">slaver</span></p>
+	<p class="slaves"><span class="s1">som mættede</span> <span class="s2">får</span></p>
 	<p class="nothing"><span class="s1">men</span> <span class="s2"><a href="/artikler/intet-er-vores">intet er vores</a></span></p>
 	<p class="except">bortset fra</p>
 	<h3 class="ability">evnen</h3>

@@ -3,7 +3,7 @@
 
 /*seg_desktop_include.css*/
 
-/*s-page-desktop.css*/
+/*s-page.css*/
 * {font-family: "OpenSans", Verdana, Arial, sans-serif; color: #000000;
 	-webkit-text-size-adjust: none;
 	-webkit-font-smoothing: antialiased;
@@ -55,7 +55,7 @@ dd {display: inline-block; vertical-align: top; font-size: 13px; line-height: 1.
 .terms_notification .details {}
 
 
-/*s-header-desktop.css*/
+/*s-header.css*/
 #header {position: relative; height: 100px;}
 #header .logo {z-index: 10; position: absolute; top: 10px; left: 40px; font-size: 30px; padding: 10px; color: #888888; cursor: pointer; background-color: rgba(255,255,255, 0.8); border-radius: 5px;
 	font-family: "PT Serif", Times, serif;
@@ -76,11 +76,11 @@ dd {display: inline-block; vertical-align: top; font-size: 13px; line-height: 1.
 #navigation ul li.front {display: none;}
 
 
-/*s-footer-desktop.css*/
+/*s-footer.css*/
 #footer {text-align: center; border-top: 1px solid #888888;}
 #footer p {padding: 10px; cursor: pointer; font-size: 13px;}
 
-/*s-content-desktop.css*/
+/*s-content.css*/
 #content {position: relative;}
 #content .scene {position: relative; padding: 50px 0;}
 #content .scene .link {cursor: pointer;}
@@ -268,7 +268,7 @@ dd {display: inline-block; vertical-align: top; font-size: 13px; line-height: 1.
 #content .errormessage {color: #df0000;}
 
 
-/*s-form-desktop.css*/
+/*s-form.css*/
 #content {}
 #content form {
 }
@@ -502,7 +502,7 @@ body #selection_options ul.actions a.button {background-color: #8c9399; color: #
 }
 
 
-/*s-itemtypes-desktop.css*/
+/*s-itemtypes.css*/
 #content .scene .articlebody {position: relative; z-index: 1;}
 #content .scene .articlebody ul,
 #content .scene .articlebody ol {list-style-position: outside; margin-left: 15px; width: 485px;}
@@ -521,7 +521,7 @@ body #selection_options ul.actions a.button {background-color: #8c9399; color: #
 #content .scene ul.todos > li ul.actions.closed .open {display: inline-block;}
 
 
-/*s-documentation-desktop.css*/
+/*s-documentation.css*/
 #content .scene.docsindex {}
 #content .scene.docsindex h1+ul.actions {display: none;}
 #content .scene.docsindex .notes {display: none;}
@@ -583,7 +583,7 @@ body #selection_options ul.actions a.button {background-color: #8c9399; color: #
 #content .scene div.segmentsupport dd {padding-bottom: 5px;}
 
 
-/*s-hovers-desktop.css*/
+/*s-hovers.css*/
 #header .logo:hover,
 #navigation ul li:hover {text-decoration: none;}
 #content .scene a:hover {text-decoration: underline;}
