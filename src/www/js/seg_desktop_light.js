@@ -6724,7 +6724,7 @@ if(String.prototype.substr == undefined || "ABC".substr(-1,1) == "A") {
 
 
 /*u-settings.js*/
-u.site_name = "stopknappen.dk";
+u.site_name = "Stopknappen";
 u.txt = {};
 u.txt["share"] = "Del artiklen";
 u.txt["not_read"] = "Klik på <em>Tjek</em>-ikonet når du har læst et emne, så husker vi det for dig.";

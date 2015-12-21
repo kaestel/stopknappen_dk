@@ -1,4 +1,4 @@
-u.site_name = "stopknappen.dk";
+u.site_name = "Stopknappen";
 
 u.txt = {};
 u.txt["share"] = "Del artiklen";
