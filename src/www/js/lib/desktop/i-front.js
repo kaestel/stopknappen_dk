@@ -655,7 +655,7 @@ Util.Objects["front"] = new function() {
 				// start sequence after 1s
 				page.resized();
 
-//				this.nextSequence(1000);
+				this.nextSequence(1000);
 			}
 
 

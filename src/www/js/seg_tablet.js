@@ -6465,6 +6465,7 @@ Util.Objects["front"] = new function() {
 			});
 			scene.fontsLoaded = function() {
 				page.resized();
+				this.nextSequence(1000);
 			}
 			page.cN.scene = this;
 			page.resized();
