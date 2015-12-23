@@ -6068,12 +6068,12 @@ Util.Objects["front"] = new function() {
 			u.a.translate(this._long, this._h1._x + this._long.offsetWidth/1.8, this._h1._y-this._long.offsetHeight/1.5);
 			u.a.translate(this._realize, this._h1._x + this._realize.offsetWidth*1.15, this._h1._y-this._long.offsetHeight/2.3	);
 			u.a.translate(this._now, this._realize._x + this._realize.offsetWidth/4.5, this._realize._y - this._now.offsetHeight*1.1);
-			u.a.translate(this._nothing, this._long._x*0.98, this._long._y-this._nothing.offsetHeight);
+			u.a.translate(this._nothing, this._long._x*1.01, this._long._y-this._nothing.offsetHeight);
 			u.a.translate(this._busy, this._idleness._x + this._idleness.offsetWidth*0.1, this._long._y-this._busy.offsetHeight*1.1);
-			u.a.translate(this._slaves, this._busy._x + this._busy.offsetWidth*0.15, this._busy._y-this._slaves.offsetHeight*1.15);
-			u.a.translate(this._cost, this._slaves._x + this._slaves.offsetWidth*1.01, this._nothing._y-this._cost.offsetHeight*1.1);
-			u.a.translate(this._goal, this._slaves._x + this._goal.offsetWidth*0.25, this._slaves._y - this._goal.offsetHeight);
-			u.a.translate(this._wake, this._goal._x + this._goal.offsetWidth*1.15, this._goal._y);
+			u.a.translate(this._sheep, this._busy._x + this._busy.offsetWidth*0.16, this._busy._y-this._sheep.offsetHeight*1.2);
+			u.a.translate(this._cost, this._sheep._x + this._sheep.offsetWidth*1.05, this._nothing._y-this._cost.offsetHeight*1.15);
+			u.a.translate(this._goal, this._sheep._x + this._goal.offsetWidth*0.2, this._sheep._y - this._goal.offsetHeight*1.1);
+			u.a.translate(this._wake, this._goal._x + this._goal.offsetWidth*1.35, this._goal._y);
 		}
 		scene.scrolled = function() {
 		}
@@ -6134,8 +6134,8 @@ Util.Objects["front"] = new function() {
 			this._cost = u.qs(".cost", this);
 			this._everything = u.qs(".everything", this);
 			this._content = u.qs(".content", this);
-			this._slaves = u.qs(".slaves", this);
-			this._slaves._spans = u.qsa("span", this._slaves);
+			this._sheep = u.qs(".sheep", this);
+			this._sheep._spans = u.qsa("span", this._sheep);
 			this._nothing = u.qs(".nothing", this);
 			this._nothing._spans = u.qsa("span", this._nothing);
 			this._except = u.qs(".except", this);
@@ -6400,15 +6400,15 @@ Util.Objects["front"] = new function() {
 				this.nextSequence(700);
 			});
 			scene.addSequence(function() {
-				this.showSpan(this._slaves._spans[0], true);
+				this.showSpan(this._sheep._spans[0], true);
 				this.nextSequence(200);
 			});
 			scene.addSequence(function() {
-				this.showSpan(this._slaves._spans[1]);
+				this.showSpan(this._sheep._spans[1]);
 				this.nextSequence(1000);
 			});
 			scene.addSequence(function() {
-				this.hide(this._slaves._spans[0]);
+				this.hide(this._sheep._spans[0]);
 				this.nextSequence(800);
 			});
 			scene.addSequence(function() {
@@ -6416,7 +6416,7 @@ Util.Objects["front"] = new function() {
 				this.nextSequence(100);
 			});
 			scene.addSequence(function() {
-				this.hide(this._slaves._spans[1]);
+				this.hide(this._sheep._spans[1]);
 				this.nextSequence(400);
 			});
 			scene.addSequence(function() {
@@ -6465,7 +6465,6 @@ Util.Objects["front"] = new function() {
 			});
 			scene.fontsLoaded = function() {
 				page.resized();
-				this.nextSequence(1000);
 			}
 			page.cN.scene = this;
 			page.resized();

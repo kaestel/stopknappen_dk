@@ -29,6 +29,8 @@ if(is_array($action) && count($action)) {
 	// /newsletter/subscribe
 	else if($action[0] == "tilmelding" && $page->validateCsrfToken()) {
 
+		$page->addLog("Newsletter signup submitted");
+
 		$user = $model->newUser(array("newUser"));
 
 		// successful creation

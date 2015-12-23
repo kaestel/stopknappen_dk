@@ -42,11 +42,11 @@
 	<p class="idleness"><span class="s1">at</span> <span class="s2">stilstand</span>
 	<h2 class="safety"><span class="s1">er</span> <span class="s2">tryghed</span></h2>
 	<p class="luxery"><span class="s1">og tryghed er</span> <span class="s2">en luksus</span></p>
-	<p class="cost">som koster os</p> 
+	<p class="cost"><span class="s2">som koster os</span></p> 
 	<h3 class="everything">alt</h3>
 
 	<p class="content">tilfredse</p>
-	<p class="slaves"><span class="s1">som mættede</span> <span class="s2">får</span></p>
+	<p class="sheep"><span class="s1">som mættede</span> <span class="s2">får</span></p>
 	<p class="nothing"><span class="s1">men</span> <span class="s2"><a href="/artikler/intet-er-vores">intet er vores</a></span></p>
 	<p class="except">bortset fra</p>
 	<h3 class="ability">evnen</h3>

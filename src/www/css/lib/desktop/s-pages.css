@@ -9,6 +9,7 @@
 }
 
 #content .scene.front a {cursor: default;}
+#content .scene.front span {display: inline-block; vertical-align: baseline;}
 #content .scene.front .active a {cursor: pointer;}
 
 #content .scene.front h1 {font-size: 100px;}
@@ -29,14 +30,14 @@
 
 #content .scene.front .content,
 #content .scene.front .content a {font-size: 34px; color: #01939a;}
-#content .scene.front .slaves .s2,
-#content .scene.front .slaves .s2 a {font-size: 30px; color: #bf7230;}
+#content .scene.front .sheep .s2,
+#content .scene.front .sheep .s2 a {font-size: 30px; color: #01939a; line-height: 24px;}
 
 
 #content .scene.front h1,
 #content .scene.front h2,
 #content .scene.front h3,
-#content .scene.front p {position: absolute; top: 0; left: 0; padding: 0 5px; opacity: 0; width: auto;}
+#content .scene.front p {position: absolute; top: 0; left: 0; padding: 0 5px; opacity: 1; width: auto;}
 #content .scene.front h1 {padding: 0 10px;}
 
 

@@ -43,25 +43,19 @@ Util.Objects["front"] = new function() {
 
 			u.a.translate(this._now, this._realize._x + this._realize.offsetWidth/4.5, this._realize._y - this._now.offsetHeight*1.1);
 
-			u.a.translate(this._nothing, this._long._x*0.98, this._long._y-this._nothing.offsetHeight);
+			u.a.translate(this._nothing, this._long._x*1.01, this._long._y-this._nothing.offsetHeight);
 			u.a.translate(this._busy, this._idleness._x + this._idleness.offsetWidth*0.1, this._long._y-this._busy.offsetHeight*1.1);
 
 
-			u.a.translate(this._slaves, this._busy._x + this._busy.offsetWidth*0.15, this._busy._y-this._slaves.offsetHeight*1.15);
+			u.a.translate(this._sheep, this._busy._x + this._busy.offsetWidth*0.16, this._busy._y-this._sheep.offsetHeight*1.2);
 
 
-			u.a.translate(this._cost, this._slaves._x + this._slaves.offsetWidth*1.01, this._nothing._y-this._cost.offsetHeight*1.1);
+			u.a.translate(this._cost, this._sheep._x + this._sheep.offsetWidth*1.05, this._nothing._y-this._cost.offsetHeight*1.15);
 
 
+			u.a.translate(this._goal, this._sheep._x + this._goal.offsetWidth*0.2, this._sheep._y - this._goal.offsetHeight*1.1);
 
-
-
-
-
-
-			u.a.translate(this._goal, this._slaves._x + this._goal.offsetWidth*0.25, this._slaves._y - this._goal.offsetHeight);
-
-			u.a.translate(this._wake, this._goal._x + this._goal.offsetWidth*1.15, this._goal._y);
+			u.a.translate(this._wake, this._goal._x + this._goal.offsetWidth*1.35, this._goal._y);
 
 
 
@@ -71,10 +65,10 @@ Util.Objects["front"] = new function() {
 			// u.a.translate(this._long, this._safety._x + this._safety.offsetWidth, this._h1._y-this._long.offsetHeight/2);
 			// u.a.translate(this._bills, this._safety._x + this._safety.offsetWidth, this._long._y-this._bills.offsetHeight);
 			// u.a.translate(this._everything, this._h1._x - this._everything.offsetWidth, this._h1._y + this._everything.offsetHeight/3);
-			// u.a.translate(this._slaves, this._forgotten._x - this._slaves.offsetWidth, this._forgotten._y);
+			// u.a.translate(this._sheep, this._forgotten._x - this._sheep.offsetWidth, this._forgotten._y);
 			// u.a.translate(this._ability, this._h1._x + this._h1.offsetWidth, this._long._y + this._long.offsetHeight);
-			// u.a.translate(this._tyrant, this._slaves._x + this._slaves.offsetWidth/3, this._forgotten._y + this._now.offsetHeight);
-			// u.a.translate(this._means, this._h1._x - this._means.offsetWidth, this._slaves._y-this._slaves.offsetHeight);
+			// u.a.translate(this._tyrant, this._sheep._x + this._sheep.offsetWidth/3, this._forgotten._y + this._now.offsetHeight);
+			// u.a.translate(this._means, this._h1._x - this._means.offsetWidth, this._sheep._y-this._sheep.offsetHeight);
 			// u.a.translate(this._luxery, this._tyrant._x - this._tyrant.offsetWidth/2, this._tyrant._y+this._tyrant.offsetHeight);
 			// u.a.translate(this._wake, this._bills._x - this._bills.offsetWidth/2, this._safety._y-this._wake.offsetHeight);
 			// u.a.translate(this._goal, this._bills._x + this._bills.offsetWidth, this._bills._y);
@@ -133,55 +127,6 @@ Util.Objects["front"] = new function() {
 			});
 
 
-			// u.textscaler(this, {
-			// 	"min_width":600,
-			// 	"max_width":1300,
-			// 	"min_height":400,
-			// 	"max_height":1000,
-			// 	"h1":{
-			// 		"unit":"rem",
-			// 		"min_size":4,
-			// 		"min_width":600,
-			// 		"max_size":8,
-			// 		"max_width":1300
-			// 	},
-			// 	"h2":{
-			// 		"unit":"rem",
-			// 		"min_size":2,
-			// 		"min_width":600,
-			// 		"max_size":4,
-			// 		"max_width":1300
-			// 	},
-			// 	"h2 span.s2":{
-			// 		"unit":"rem",
-			// 		"min_size":2.4,
-			// 		"min_width":600,
-			// 		"max_size":4.8,
-			// 		"max_width":1300
-			// 	},
-			// 	"h3":{
-			// 		"unit":"rem",
-			// 		"min_size":1.4,
-			// 		"min_width":600,
-			// 		"max_size":2.8,
-			// 		"max_width":1300
-			// 	},
-			// 	"p":{
-			// 		"unit":"rem",
-			// 		"min_size":1,
-			// 		"min_width":600,
-			// 		"max_size":2,
-			// 		"max_width":1300
-			// 	},
-			// 	"p span.s2":{
-			// 		"unit":"rem",
-			// 		"min_size":1.6,
-			// 		"min_width":600,
-			// 		"max_size":3.2,
-			// 		"max_width":1300
-			// 	}
-			// });
-
 			// reference content
 			this._h1 = u.qs("h1", this);
 			this._long = u.qs(".long", this);
@@ -215,8 +160,8 @@ Util.Objects["front"] = new function() {
 			this._cost = u.qs(".cost", this);
 			this._everything = u.qs(".everything", this);
 			this._content = u.qs(".content", this);
-			this._slaves = u.qs(".slaves", this);
-			this._slaves._spans = u.qsa("span", this._slaves);
+			this._sheep = u.qs(".sheep", this);
+			this._sheep._spans = u.qsa("span", this._sheep);
 
 			this._nothing = u.qs(".nothing", this);
 			this._nothing._spans = u.qsa("span", this._nothing);
@@ -611,19 +556,19 @@ Util.Objects["front"] = new function() {
 
 			// show: som mættede slaver
 			scene.addSequence(function() {
-				this.showSpan(this._slaves._spans[0], true);
+				this.showSpan(this._sheep._spans[0], true);
 				this.nextSequence(200);
 			});
 			// show: som mættede slaver
 			scene.addSequence(function() {
-				this.showSpan(this._slaves._spans[1]);
+				this.showSpan(this._sheep._spans[1]);
 				this.nextSequence(1000);
 			});
 
 
 			// hide: som mættede
 			scene.addSequence(function() {
-				this.hide(this._slaves._spans[0]);
+				this.hide(this._sheep._spans[0]);
 				this.nextSequence(800);
 			});
 
@@ -635,7 +580,7 @@ Util.Objects["front"] = new function() {
 
 			// hide: slaver
 			scene.addSequence(function() {
-				this.hide(this._slaves._spans[1]);
+				this.hide(this._sheep._spans[1]);
 				this.nextSequence(400);
 			});
 
@@ -710,7 +655,7 @@ Util.Objects["front"] = new function() {
 				// start sequence after 1s
 				page.resized();
 
-				this.nextSequence(1000);
+//				this.nextSequence(1000);
 			}
 
 
