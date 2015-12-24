@@ -8331,6 +8331,43 @@ Util.Objects["navigationNodes"] = new function() {
 		}
 	}
 }
+Util.Objects["newNavigationNode"] = new function() {
+	this.init = function(form) {
+		u.f.init(form);
+		form.submitted = function(iN) {
+			this.response = function(response) {
+				if(response.cms_status == "success" && response.cms_object) {
+					location.href = this.actions["cancel"].url;
+				}
+				else {
+					page.notify(response);
+				}
+			}
+			u.request(this, this.action, {"method":"post", "params" : u.f.getParams(this, {"send_as":"formdata"})});
+		}
+	}
+}
+Util.Objects["editNavigationNode"] = new function() {
+	this.init = function(div) {
+		div._item_id = u.cv(div, "item_id");
+		var form = u.qs("form", div);
+		form.div = div;
+		u.f.init(form);
+		form.submitted = function(iN) {
+			u.t.resetTimer(page.t_autosave);
+			this.response = function(response) {
+				page.notify(response);
+			}
+			u.request(this, this.action, {"method":"post", "params" : u.f.getParams(this, {"send_as":"formdata"})});
+		}
+		form.cancelBackspace = function(event) {
+			if(event.keyCode == 8 && !u.qsa(".field.focus").length) {
+				u.e.kill(event);
+			}
+		}
+		u.e.addEvent(document.body, "keydown", form.cancelBackspace);
+	}
+}
 
 /*i-users.js*/
 Util.Objects["usernames"] = new function() {

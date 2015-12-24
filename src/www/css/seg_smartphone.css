@@ -323,7 +323,9 @@ iframe#geolocationmap {width: 300px; height: 300px; position: absolute; top: 0; 
 	-webkit-user-select: none;
 	user-select: none;
 }
-#content ul.actions input.button {width: auto; height: 28px; padding: 3px 12px; display: inline-block; vertical-align: top;}
+#content ul.actions input.button {width: auto; height: 28px; padding: 3px 12px; display: inline-block; vertical-align: top; outline: none;
+	-webkit-appearance: none;
+}
 @media all and (-webkit-min-device-pixel-ratio:0) {
 	#content ul.actions input.button {padding-bottom: 5px;}
 }
@@ -604,6 +606,7 @@ body {}
 	user-select: none;
 }
 #content .scene.front a {cursor: default;}
+#content .scene.front span {display: inline-block; vertical-align: baseline;}
 #content .scene.front .active a {cursor: pointer;}
 #content .scene.front h1 {font-size: 65px; padding: 0 5px 10px;}
 #content .scene.front h2 {font-size: 50px; padding: 10px 5px 10px;}
@@ -622,8 +625,8 @@ body {}
 #content .scene.front .idleness .s2 {font-size: 28px; color: #01939a;}
 #content .scene.front .content,
 #content .scene.front .content a {font-size: 28px; color: #01939a;}
-#content .scene.front .slaves .s2,
-#content .scene.front .slaves .s2 a {font-size: 26px; color: #bf7230;}
+#content .scene.front .sheep .s2,
+#content .scene.front .sheep .s2 a {font-size: 26px; color: #bf7230;}
 #content .scene.front .everything {font-size: 38px;}
 #content .scene.front h1,
 #content .scene.front h2,

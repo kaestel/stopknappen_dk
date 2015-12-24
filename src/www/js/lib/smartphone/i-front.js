@@ -75,7 +75,7 @@ Util.Objects["front"] = new function() {
 			this._cost = u.qs(".cost", this);
 			this._everything = u.qs(".everything", this);
 			this._content = u.qs(".content", this);
-			this._slaves = u.qs(".slaves", this);
+			this._slaves = u.qs(".sheep", this);
 			this._slaves._spans = u.qsa("span", this._slaves);
 
 			this._nothing = u.qs(".nothing", this);
