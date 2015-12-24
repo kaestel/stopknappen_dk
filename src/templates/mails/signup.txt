@@ -6,12 +6,13 @@ Bekræft din tilmelding på linket nedenfor:
 
 {SITE_URL}/signup/bekræft/email/{EMAIL}/{VERIFICATION}
 
+
+Hvis du vil ændre din tilmelding eller dit password, kan du gøre det ved at logge ind på sitet.
+
 Login oplysninger: 
 Dit brugernavn er: {EMAIL}
 Dit password er: {PASSWORD}
 
-
-Hvis du vil ændre din tilmelding eller dit password, kan du gøre det ved at logge ind på sitet.
 
 
 Med vilje og tro bliver vejen virkelig,
