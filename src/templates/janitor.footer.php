@@ -6,7 +6,7 @@
 			<?= $HTML->link("Topics", "/janitor/topic/list", array("wrapper" => "li.topic")) ?>
 
 			<?= $HTML->link("Posts", "/janitor/admin/post/list", array("wrapper" => "li.post")) ?>
-			<?= $HTML->link("Pages", "/janitor/page/list", array("wrapper" => "li.page")) ?>
+			<?= $HTML->link("Pages", "/janitor/admin/page/list", array("wrapper" => "li.page")) ?>
 
 			<?= $HTML->link("Questions", "/janitor/admin/qna/list", array("wrapper" => "li.qna")) ?>
 			<?= $HTML->link("TODOs", "/janitor/admin/todo/list", array("wrapper" => "li.todo")) ?>
