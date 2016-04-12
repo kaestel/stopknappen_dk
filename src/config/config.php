@@ -20,6 +20,8 @@ define("SITE_EMAIL", "start@stopknappen.dk");
 * Optional constants
 */
 define("DEFAULT_PAGE_DESCRIPTION", "");
+define("DEFAULT_PAGE_IMAGE", "/img/logo-large.png");
+
 define("DEFAULT_LANGUAGE_ISO", "EN"); // Reginal language English
 define("DEFAULT_COUNTRY_ISO", "DK"); // Regional country Denmark
 

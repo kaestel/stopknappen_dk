@@ -7,10 +7,10 @@ $segments_config["www"] = array(
 	"desktop_edge"  => "desktop",
 	"desktop"       => "desktop",
 	"desktop_ie11"  => "desktop",
+	"desktop_ie10"  => "desktop",
 
 	"smartphone"    => "smartphone",
 
-	"desktop_ie10"  => "desktop_light",
 	"desktop_ie9"   => "desktop_light",
 	"desktop_light" => "desktop_light",
 	"tv"            => "desktop_light",

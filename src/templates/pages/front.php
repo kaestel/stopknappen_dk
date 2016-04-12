@@ -20,7 +20,7 @@
 	som koster os alt
 
 	tilfredse
-	som mættede slaver
+	som mættede slaver/får
 	men intet er vores
 	bortset fra evnen til at tænke selv
 	-->
