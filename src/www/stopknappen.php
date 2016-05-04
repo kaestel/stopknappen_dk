@@ -1,5 +1,5 @@
 <?php
-$access_item["/"] = true;
+$access_item = false;
 if(isset($read_access) && $read_access) {
 	return;
 }

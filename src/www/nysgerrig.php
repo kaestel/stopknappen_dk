@@ -11,26 +11,44 @@ $action = $page->actions();
 $model = new User();
 
 
-$page->bodyClass("newsletter");
+$page->bodyClass("signup");
 $page->pageTitle("Nysgerrig?");
 
 
 if(is_array($action) && count($action)) {
 
-	// /newsletter/receipt (user just signed up)
+	// /nysgerrig/kvittering (user just signed up)
 	if($action[0] == "kvittering") {
 
 		$page->page(array(
-			"templates" => "pages/newsletter_receipt.php"
+			"templates" => "signup/receipt.php"
 		));
 		exit();
 	}
 
-	// /newsletter/subscribe
+	// /nysgerrig/bekraeft/email|mobile/#email|mobile#/#verification_code#
+	else if($action[0] == "bekraeft" && count($action) == 4) {
+
+		if($model->confirmUser($action)) {
+			$page->page(array(
+				"templates" => "signup/signup_confirmed.php"
+			));
+		}
+		else {
+			$page->page(array(
+				"templates" => "signup/signup_confirmation_failed.php"
+			));
+		}
+		exit();
+	}
+
+	// /nysgerrig/tilmelding
 	else if($action[0] == "tilmelding" && $page->validateCsrfToken()) {
 
-		$page->addLog("Newsletter signup submitted");
+		// add to log
+		$page->addLog("Signup submitted");
 
+		// create new user
 		$user = $model->newUser(array("newUser"));
 
 		// successful creation
@@ -53,10 +71,20 @@ if(is_array($action) && count($action)) {
 
 	}
 
+	// /nysgerrig/afmeld
+	// post email + newsletter
+	else if($action[0] == "afmeld" && $page->validateCsrfToken()) {
+
+		// TODO
+
+	}
+
 }
 
+// plain signup directly
+// /curious
 $page->page(array(
-	"templates" => "pages/newsletter.php"
+	"templates" => "signup/signup.php"
 ));
 
 ?>

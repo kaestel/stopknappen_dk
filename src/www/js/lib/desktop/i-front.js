@@ -1,676 +1,753 @@
 Util.Objects["front"] = new function() {
 	this.init = function(scene) {
 //		u.bug("scene init:" + u.nodeId(scene))
-		
 
-		scene.resized = function() {
-			u.bug("scene.resized:" + u.nodeId(this));
-			var counter = 0;
-			var center = page.cN.offsetWidth/2;
+		scene.resized = function(event) {
+//			u.bug("scene.resized:" + u.nodeId(this));
 
-			// Position all content relatively to this._h1
-			u.a.translate(this._h1, (center)-(this._h1.offsetWidth/2), (page.cN.offsetHeight/2)-(this._h1.offsetHeight))
+			if(this.intro) {
 
-			u.a.translate(this._means, this._h1._x - this._means.offsetWidth/3, this._h1._y+this._h1.offsetHeight*1.05);
-			u.a.translate(this._tyrant, this._h1._x + this._h1.offsetWidth/2, this._h1._y+this._h1.offsetHeight/1.1);
+				u.ass(this.intro, {
+					"height":page.available_height+"px"
+				});
 
-			u.a.translate(this._safety, this._tyrant._x - this._tyrant.offsetHeight*0.9, this._tyrant._y + this._tyrant.offsetHeight);
-			u.a.translate(this._luxery, center - this._luxery.offsetWidth/2, this._safety._y + this._safety.offsetHeight*1.1);
+				if(this.intro.is_ready) {
+					
 
-			u.a.translate(this._bills, center - this._bills.offsetWidth/2, this._luxery._y + this._bills.offsetHeight*1.2);
-			u.a.translate(this._think, center - this._think.offsetWidth/2, this._bills._y+this._bills.offsetHeight);
-			u.a.translate(this._everything, center - this._everything.offsetWidth/2, this._think._y + this._everything.offsetHeight/1.1);
-
-//			u.a.translate(this._idleness, this._h1._x - this._idleness.offsetWidth/5, this._h1._y+this._h1.offsetHeight*1.1);
-
-			u.a.translate(this._time, this._means._x+this._means.offsetWidth/5, this._means._y+this._means.offsetHeight);
+		//			var counter = 0;
+					var center_x = this.intro.offsetWidth/2;
+					var center_y = this.intro.offsetHeight/2;
 
 
+//					u.bug("this.intro._i_think:" + ((page.cN.offsetHeight/2)-this.intro._i_think.offsetHeight) + ", " + this.intro._i_think.offsetHeight)
 
-			u.a.translate(this._except, this._h1._x + this._h1.offsetWidth*0.94, this._h1._y + this._except.offsetHeight*1.7);
+					// Position all content relatively to this._h1
+					u.a.translate(this.intro._i_think, (center_x)-(this.intro._i_think.offsetWidth/2), (center_y)-(this.intro._i_think.offsetHeight))
+					u.a.translate(this.intro._means, this.intro._i_think._x - this.intro._means.offsetWidth/3, this.intro._i_think._y+this.intro._i_think.offsetHeight*1.05);
+					u.a.translate(this.intro._tyrant, this.intro._i_think._x + this.intro._i_think.offsetWidth/2, this.intro._i_think._y+this.intro._i_think.offsetHeight/1.1);
+					u.a.translate(this.intro._safety, this.intro._tyrant._x - this.intro._tyrant.offsetHeight*0.9, this.intro._tyrant._y + this.intro._tyrant.offsetHeight);
+					u.a.translate(this.intro._luxery, center_x - this.intro._luxery.offsetWidth/2, this.intro._safety._y + this.intro._safety.offsetHeight*1.1);
+					u.a.translate(this.intro._bills, center_x - this.intro._bills.offsetWidth/2, this.intro._luxery._y + this.intro._bills.offsetHeight*1.2);
+					u.a.translate(this.intro._to_think, center_x - this.intro._to_think.offsetWidth/2, this.intro._bills._y+this.intro._bills.offsetHeight);
+					u.a.translate(this.intro._everything, center_x - this.intro._everything.offsetWidth/2, this.intro._to_think._y + this.intro._everything.offsetHeight/1.1);
+					u.a.translate(this.intro._time, this.intro._means._x+this.intro._means.offsetWidth/5, this.intro._means._y+this.intro._means.offsetHeight);
+					u.a.translate(this.intro._except, this.intro._i_think._x + this.intro._i_think.offsetWidth*0.94, this.intro._i_think._y + this.intro._except.offsetHeight*1.7);
+					u.a.translate(this.intro._ability, this.intro._i_think._x + this.intro._i_think.offsetWidth*1.015, this.intro._i_think._y + this.intro._ability.offsetHeight*0.3);
+					u.a.translate(this.intro._forgotten, this.intro._i_think._x - this.intro._forgotten.offsetWidth*0.9, this.intro._i_think._y + this.intro._forgotten.offsetHeight*1.4);
+					u.a.translate(this.intro._content, this.intro._i_think._x - this.intro._content.offsetWidth*0.9, this.intro._i_think._y + this.intro._content.offsetHeight*0.7);
+					u.a.translate(this.intro._idleness, this.intro._i_think._x - this.intro._idleness.offsetWidth/2, this.intro._i_think._y - this.intro._idleness.offsetHeight/1.5);
+					u.a.translate(this.intro._long, this.intro._i_think._x + this.intro._long.offsetWidth/1.8, this.intro._i_think._y-this.intro._long.offsetHeight/1.5);
+					u.a.translate(this.intro._realize, this.intro._i_think._x + this.intro._realize.offsetWidth*1.15, this.intro._i_think._y-this.intro._long.offsetHeight/2.3	);
+					u.a.translate(this.intro._now, this.intro._realize._x + this.intro._realize.offsetWidth/4.5, this.intro._realize._y - this.intro._now.offsetHeight*1.1);
+					u.a.translate(this.intro._nothing, this.intro._long._x*1.01, this.intro._long._y-this.intro._nothing.offsetHeight);
+					u.a.translate(this.intro._busy, this.intro._idleness._x + this.intro._idleness.offsetWidth*0.1, this.intro._long._y-this.intro._busy.offsetHeight*1.1);
+					u.a.translate(this.intro._sheep, this.intro._busy._x + this.intro._busy.offsetWidth*0.16, this.intro._busy._y-this.intro._sheep.offsetHeight*1.2);
+					u.a.translate(this.intro._cost, this.intro._sheep._x + this.intro._sheep.offsetWidth*1.05, this.intro._nothing._y-this.intro._cost.offsetHeight*1.15);
+					u.a.translate(this.intro._goal, this.intro._sheep._x + this.intro._goal.offsetWidth*0.2, this.intro._sheep._y - this.intro._goal.offsetHeight*1.1);
+					u.a.translate(this.intro._wake, this.intro._goal._x + this.intro._goal.offsetWidth*1.35, this.intro._goal._y);
 
-			u.a.translate(this._ability, this._h1._x + this._h1.offsetWidth*1.015, this._h1._y + this._ability.offsetHeight*0.3);
+				}
 
+			}
+			
 
-			u.a.translate(this._forgotten, this._h1._x - this._forgotten.offsetWidth*0.9, this._h1._y + this._forgotten.offsetHeight*1.4);
-			u.a.translate(this._content, this._h1._x - this._content.offsetWidth*0.9, this._h1._y + this._content.offsetHeight*0.7);
+			if(this.div_article) {
+				this.div_article_y = u.absY(this.div_article);
+			}
 
-			u.a.translate(this._idleness, this._h1._x - this._idleness.offsetWidth/2, this._h1._y - this._idleness.offsetHeight/1.5);
-//			u.a.translate(this._tyrant, this._h1._x - this._tyrant.offsetWidth/2.3, this._h1._y - this._tyrant.offsetHeight/1.6);
+			if(this.div_news) {
+				this.div_news_y = u.absY(this.div_news);
+			}
 
-			u.a.translate(this._long, this._h1._x + this._long.offsetWidth/1.8, this._h1._y-this._long.offsetHeight/1.5);
-			u.a.translate(this._realize, this._h1._x + this._realize.offsetWidth*1.15, this._h1._y-this._long.offsetHeight/2.3	);
-
-			u.a.translate(this._now, this._realize._x + this._realize.offsetWidth/4.5, this._realize._y - this._now.offsetHeight*1.1);
-
-			u.a.translate(this._nothing, this._long._x*1.01, this._long._y-this._nothing.offsetHeight);
-			u.a.translate(this._busy, this._idleness._x + this._idleness.offsetWidth*0.1, this._long._y-this._busy.offsetHeight*1.1);
-
-
-			u.a.translate(this._sheep, this._busy._x + this._busy.offsetWidth*0.16, this._busy._y-this._sheep.offsetHeight*1.2);
-
-
-			u.a.translate(this._cost, this._sheep._x + this._sheep.offsetWidth*1.05, this._nothing._y-this._cost.offsetHeight*1.15);
-
-
-			u.a.translate(this._goal, this._sheep._x + this._goal.offsetWidth*0.2, this._sheep._y - this._goal.offsetHeight*1.1);
-
-			u.a.translate(this._wake, this._goal._x + this._goal.offsetWidth*1.35, this._goal._y);
-
-
-
-			// u.a.translate(this._h1, (page.cN.offsetWidth/2)-(this._h1.offsetWidth/2), (page.cN.offsetHeight/2)-(this._h1.offsetHeight))
-			// u.a.translate(this._forgotten, this._h1._x + this._h1.offsetWidth/2, this._h1._y+this._h1.offsetHeight);
-			// u.a.translate(this._safety, this._h1._x - this._h1.offsetWidth/1.5, this._h1._y-this._safety.offsetHeight);
-			// u.a.translate(this._long, this._safety._x + this._safety.offsetWidth, this._h1._y-this._long.offsetHeight/2);
-			// u.a.translate(this._bills, this._safety._x + this._safety.offsetWidth, this._long._y-this._bills.offsetHeight);
-			// u.a.translate(this._everything, this._h1._x - this._everything.offsetWidth, this._h1._y + this._everything.offsetHeight/3);
-			// u.a.translate(this._sheep, this._forgotten._x - this._sheep.offsetWidth, this._forgotten._y);
-			// u.a.translate(this._ability, this._h1._x + this._h1.offsetWidth, this._long._y + this._long.offsetHeight);
-			// u.a.translate(this._tyrant, this._sheep._x + this._sheep.offsetWidth/3, this._forgotten._y + this._now.offsetHeight);
-			// u.a.translate(this._means, this._h1._x - this._means.offsetWidth, this._sheep._y-this._sheep.offsetHeight);
-			// u.a.translate(this._luxery, this._tyrant._x - this._tyrant.offsetWidth/2, this._tyrant._y+this._tyrant.offsetHeight);
-			// u.a.translate(this._wake, this._bills._x - this._bills.offsetWidth/2, this._safety._y-this._wake.offsetHeight);
-			// u.a.translate(this._goal, this._bills._x + this._bills.offsetWidth, this._bills._y);
-			// u.a.translate(this._think, this._h1._x + this._h1.offsetWidth/2, this._luxery._y+this._luxery.offsetHeight);
-			// u.a.translate(this._busy, this._ability._x, this._ability._y+this._ability.offsetHeight);
-			// u.a.translate(this._nothing, this._luxery._x + this._luxery.offsetWidth, this._luxery._y);
-			// u.a.translate(this._cost, this._forgotten._x + this._forgotten.offsetWidth, this._h1._y+this._h1.offsetHeight);
-			// u.a.translate(this._idleness, this._tyrant._x - this._idleness.offsetWidth, this._tyrant._y);
-			// u.a.translate(this._except, this._everything._x - this._except.offsetWidth, this._safety._y + this._safety.offsetHeight);
-			// u.a.translate(this._content, this._long._x + this._long.offsetWidth, this._ability._y - this._now.offsetHeight);
-			// u.a.translate(this._now, this._tyrant._x + this._tyrant.offsetWidth, this._tyrant._y);
-			// u.a.translate(this._time, this._now._x + this._now.offsetWidth, this._cost._y + this._cost.offsetHeight);
-
-			// refresh dom
-			//this.offsetHeight;
 		}
 
-		scene.scrolled = function() {
+		scene.scrolled = function(event) {
 //			u.bug("scrolled:" + u.nodeId(this))
+
+			this.renderControl();
 		}
+
+		scene.renderControl = function() {
+//			u.bug("renderControl:" + u.nodeId(this));
+
+			if(this.intro_done && !this.div_article_done && page.scrolled_y - 100 > this.div_article_y - page.browser_h) {
+				this.initArticle();
+			}
+			else if(this.intro_done && this.div_article_done && !this.div_news_done && page.scrolled_y - 100 > this.div_news_y - page.browser_h) {
+				this.initNews();
+			}
+
+			// show terms
+			if(this.intro_done && !this.terms) {
+				this.terms = true;
+				// accept cookies?
+				page.acceptCookies();
+			}
+			// end intro if still running
+			else if(!this.intro_chain_ended && page.scrolled_y > 40) {
+				this.intro.clicked();
+			}
+
+		}
+
 
 		scene.ready = function() {
 //			u.bug("scene.ready:" + u.nodeId(this));
 
-
-			u.textscaler(this, {
-				"min_height":400,
-				"max_height":1000,
-				"min_width":600,
-				"max_width":1300,
-				"unit":"rem",
-				"h1":{
-					"min_size":4,
-					"max_size":8
-				},
-				"h2":{
-					"min_size":2,
-					"max_size":4
-				},
-				"h2 span.s2":{
-					"min_size":2.2,
-					"max_size":4.4
-				},
-				"h3":{
-					"min_size":1.4,
-					"max_size":2.8
-				},
-				"p":{
-					"min_size":1,
-					"max_size":2
-				},
-				"p span.s2":{
-					"min_size":1.4,
-					"max_size":2.8
-				}
-			});
-
-
-			// reference content
-			this._h1 = u.qs("h1", this);
-			this._long = u.qs(".long", this);
-			this._long._spans = u.qsa("span", this._long);
-
-			this._now = u.qs(".now", this);
-			this._time = u.qs(".time", this);
-			this._wake = u.qs(".wake", this);
-			this._wake._spans = u.qsa("span", this._wake);
-			this._realize = u.qs(".realize", this);
-
-			this._means = u.qs(".means", this);
-			this._tyrant = u.qs(".tyrant", this);
-			this._tyrant._spans = u.qsa("span", this._tyrant);
-
-			this._goal = u.qs(".goal", this);
-			this._goal._spans = u.qsa("span", this._goal);
-
-			this._forgotten = u.qs(".forgotten", this);
-			this._bills = u.qs(".bills", this);
-			this._busy = u.qs(".busy", this);
-			this._idleness = u.qs(".idleness", this);
-			this._idleness._spans = u.qsa("span", this._idleness);
-
-			this._safety = u.qs(".safety", this);
-			this._safety._spans = u.qsa("span", this._safety);
-
-			this._luxery = u.qs(".luxery", this);
-			this._luxery._spans = u.qsa("span", this._luxery);
-
-			this._cost = u.qs(".cost", this);
-			this._everything = u.qs(".everything", this);
-			this._content = u.qs(".content", this);
-			this._sheep = u.qs(".sheep", this);
-			this._sheep._spans = u.qsa("span", this._sheep);
-
-			this._nothing = u.qs(".nothing", this);
-			this._nothing._spans = u.qsa("span", this._nothing);
-
-			this._except = u.qs(".except", this);
-			this._ability = u.qs(".ability", this);
-			this._think = u.qs(".think", this);
-
-
-			// show all content - makes for a nice final splash
-			this.showAllContent = function() {
-				var node, i, span;
-				var nodes = u.qsa("p,h1,h2,h3", this);
-				for(i = 0; node = nodes[i]; i++) {
-					node.transitioned = function() {
-						u.ac(this, "active");
-					}
-					if(node._opacity == 0) {
-						u.a.transition(node, "all 0.4s ease-in-out " + (i)*100 + "ms");
-						u.a.setOpacity(node, 1);
-					}
-					// else {
-					// 	u.a.transition(node, "none");
-					// }
-				}
-				var spans = u.qsa("span", this);
-				for(i = 0; span = spans[i]; i++) {
-					span.transitioned = function() {
-						u.ac(this, "active");
-						u.a.transition(this, "none");
-					}
-					if(span._opacity == 0) {
-						u.a.transition(span, "all 0.4s ease-in-out " + ((i)*100)+((nodes.length)*100));
-						u.a.setOpacity(span, 1);
-					}
-					// else {
-					// 	u.a.transition(span, "none");
-					// }
-				}
-
-				// // map links to texts
-				// u.ce(this._time);
-				// u.ac(this._time, "link");
-				// this._time.clicked = function() {
-				// 	location.href = "/artikler/det-er-på-tide";
-				// }
-				// u.ce(this._h1);
-				// u.ac(this._h1, "link");
-				// this._h1.clicked = function() {
-				// 	location.href = "/artikler/jeg-tror";
-				// }
-			}
-
-
-			scene.sequence = new Array();
-			scene.addSequence = function(sequence) {
-				this.sequence.push(sequence);
-			}
-
-			scene.nextSequence = function(delay) {
-				if(this.random) {
-					this.playRandom(delay);
-				}
-				else {
-					if(this.sequence.length) {
-						this._sequence = this.sequence.shift();
-	
-						if(delay) {
-							this.t_sequence = u.t.setTimer(this, this._sequence, delay);
-						}
-						else {
-							this._sequence();
-						}
-					}
-				}
-			}
-
-			// show node
-			scene.show = function(node) {
-				node.transitioned = function() {
-					u.ac(this, "active");
-				}
-				u.a.transition(node, "all 0.5s ease-in");
-				u.a.setOpacity(node, 1);
-			}
-	
-			// hide node
-			scene.hide = function(node) {
-				node.transitioned = function() {
-					u.rc(this, "active");
-				}
-				u.a.transition(node, "all 0.3s ease-in");
-				u.a.setOpacity(node, 0);
-			}
-	
-
-			// show one span, and hide the rest for later
-			scene.showSpan = function(span, show_node) {
-				var i, _span;
-				if(show_node) {
-					for(i = 0; _span = span.parentNode._spans[i]; i++) {
-						if(_span != span) {
-							u.a.transition(_span, "none");
-							u.a.setOpacity(_span, 0);
-						}
-					}
-					this.show(span.parentNode);
-				}
-				else {
-					this.show(span);
-				}
-			}
-
-
-			// show: jeg tror
-			scene.addSequence(function() {
-				this.show(this._h1);
-				this.nextSequence(1200);
-			});
-
-			// show: vi har
-			scene.addSequence(function() {
-				this.showSpan(this._long._spans[0], true);
-				this.nextSequence(100);
-			});
-
-			// show: sovet
-			scene.addSequence(function() {
-				this.showSpan(this._long._spans[1]);
-				this.nextSequence(600);
-			});
-
-			// hide: jeg tror
-			scene.addSequence(function() {
-				this.hide(this._h1);
-				this.nextSequence(200);
-			});
-
-			// show: længe nok
-			scene.addSequence(function() {
-				this.showSpan(this._long._spans[2]);
-				this.nextSequence(500);
-			});
-
-			// hide: vi har
-			scene.addSequence(function() {
-				this.hide(this._long._spans[0]);
-				this.nextSequence(200);
-			});
-
-			// hide: sovet
-			scene.addSequence(function() {
-				this.hide(this._long._spans[1]);
-				this.nextSequence(300);
-			});
-
-			// show: nu
-			scene.addSequence(function() {
-				this.show(this._now);
-				this.nextSequence(700);
-			});
-
-
-			// hide: længe nok
-			scene.addSequence(function() {
-				this.hide(this._long._spans[2]);
-				this.nextSequence(500);
-			});
-
-			// show: er det på tide
-			scene.addSequence(function() {
-				this.show(this._time);
-				this.nextSequence(600);
-			});
-
-			// hide: nu
-			scene.addSequence(function() {
-				this.hide(this._now);
-				this.nextSequence(500);
-			});
-
-			// hide: er det på tide
-			scene.addSequence(function() {
-				this.hide(this._time);
-				this.nextSequence(100);
-			});
-
-			// show: at
-			scene.addSequence(function() {
-				this.showSpan(this._wake._spans[0], true);
-				this.nextSequence(200);
-			});
-
-			// show: vågne
-			scene.addSequence(function() {
-				this.showSpan(this._wake._spans[1]);
-				this.nextSequence(800);
-			});
-
-
-			// show: og
-			scene.addSequence(function() {
-				this.showSpan(this._wake._spans[2]);
-				this.nextSequence(300);
-			});
-
-			// hide: at
-			scene.addSequence(function() {
-				this.hide(this._wake._spans[0]);
-				this.nextSequence(100);
-			});
-
-			// hide: vågne
-			scene.addSequence(function() {
-				this.hide(this._wake._spans[1]);
-				this.nextSequence(300);
-			});
-
-			// show: indse
-			scene.addSequence(function() {
-				this.show(this._realize);
-				this.nextSequence(500);
-			});
-
-			// hide: og
-			scene.addSequence(function() {
-				this.hide(this._wake);
-				this.nextSequence(800);
-			});
-
-			// show: at midlet
-			scene.addSequence(function() {
-				this.show(this._means);
-				this.nextSequence(300);
-			});
-
-			// hide: indse
-			scene.addSequence(function() {
-				this.hide(this._realize);
-				this.nextSequence(700);
-			});
-
-			// show: er blevet en tyran
-			scene.addSequence(function() {
-				this.show(this._tyrant);
-				this.nextSequence(400);
-			});
-
-			// hide: at midlet
-			scene.addSequence(function() {
-				this.hide(this._means);
-				this.nextSequence(500);
-			});
-
-			// hide: er blevet
-			scene.addSequence(function() {
-				this.hide(this._tyrant._spans[0]);
-				this.nextSequence(700);
-			});
-
-			// hide: en tyran
-			scene.addSequence(function() {
-				this.hide(this._tyrant._spans[1]);
-				this.nextSequence(100);
-			});
-
-			// show: og målet er
-			scene.addSequence(function() {
-				this.show(this._goal);
-				this.nextSequence(800);
-			});
-
-			// show: glemt
-			scene.addSequence(function() {
-				this.show(this._forgotten);
-				this.nextSequence(600);
-			});
-
-			// hide: og målet er
-			scene.addSequence(function() {
-				this.hide(this._goal);
-				this.nextSequence(300);
-			});
-
-			// show: is stakken af regninger
-			scene.addSequence(function() {
-				this.show(this._bills);
-				this.nextSequence(500);
-			});
-
-			// hide: glemt
-			scene.addSequence(function() {
-				this.hide(this._forgotten);
-				this.nextSequence(1300);
-			});
-
-			// hide: i stakken af regning
-			scene.addSequence(function() {
-				this.hide(this._bills);
-				this.nextSequence(700);
-			});
-
-			// show: vi har så travlt
-			scene.addSequence(function() {
-				this.show(this._busy);
-				this.nextSequence(1000);
-			});
-
-			// show: at stilstand
-			scene.addSequence(function() {
-				this.show(this._idleness);
-				this.nextSequence(400);
-			});
-
-			// hide: vi har så travlt
-			scene.addSequence(function() {
-				this.hide(this._busy);
-				this.nextSequence(500);
-			});
-
-			// show: er tryghed
-			scene.addSequence(function() {
-				this.show(this._safety);
-				this.nextSequence(1000);
-			});
-
-			// hide: at stilstand
-			scene.addSequence(function() {
-				this.hide(this._idleness);
-				this.nextSequence(400);
-			});
-
-			// hide: er tryghed
-			scene.addSequence(function() {
-				this.hide(this._safety);
-				this.nextSequence(100);
-			});
-
-			// show: og tryghed er
-			scene.addSequence(function() {
-				this.showSpan(this._luxery._spans[0], true);
-				this.nextSequence(500);
-			});
-
-			// show: en luksus
-			scene.addSequence(function() {
-				this.showSpan(this._luxery._spans[1]);
-				this.nextSequence(900);
-			});
-
-			// hide: og tryghed er
-			scene.addSequence(function() {
-				this.hide(this._luxery._spans[0]);
-				this.nextSequence(300);
-			});
-
-			// show: der koster os
-			scene.addSequence(function() {
-				this.show(this._cost);
-				this.nextSequence(600);
-			});
-
-			// hide: en luxus
-			scene.addSequence(function() {
-				this.hide(this._luxery._spans[1]);
-				this.nextSequence(600);
-			});
-
-			// hide: der koster os
-			scene.addSequence(function() {
-				this.hide(this._cost);
-				this.nextSequence(100);
-			});
-
-			// show: alt
-			scene.addSequence(function() {
-				this.show(this._everything);
-				this.nextSequence(1600);
-			});
-
-			// hide: alt
-			scene.addSequence(function() {
-				this.hide(this._everything);
-				this.nextSequence(800);
-			});
-
-			// show: tilfredse
-			scene.addSequence(function() {
-				this.show(this._content);
-				this.nextSequence(700);
-			});
-
-			// show: som mættede slaver
-			scene.addSequence(function() {
-				this.showSpan(this._sheep._spans[0], true);
-				this.nextSequence(200);
-			});
-			// show: som mættede slaver
-			scene.addSequence(function() {
-				this.showSpan(this._sheep._spans[1]);
-				this.nextSequence(1000);
-			});
-
-
-			// hide: som mættede
-			scene.addSequence(function() {
-				this.hide(this._sheep._spans[0]);
-				this.nextSequence(800);
-			});
-
-			// hide: tilfredse
-			scene.addSequence(function() {
-				this.hide(this._content);
-				this.nextSequence(100);
-			});
-
-			// hide: slaver
-			scene.addSequence(function() {
-				this.hide(this._sheep._spans[1]);
-				this.nextSequence(400);
-			});
-
-			// show: men
-			scene.addSequence(function() {
-				this.showSpan(this._nothing._spans[0], true);
-				this.nextSequence(400);
-			});
-
-			// show: intet er vores
-			scene.addSequence(function() {
-				this.showSpan(this._nothing._spans[1]);
-				this.nextSequence(800);
-			});
-
-			// hide: men
-			scene.addSequence(function() {
-				this.hide(this._nothing._spans[0]);
-				this.nextSequence(100);
-			});
-
-			// show: bortset fra
-			scene.addSequence(function() {
-				this.show(this._except);
-				this.nextSequence(400);
-			});
-
-			// hide: intet er vores
-			scene.addSequence(function() {
-				this.hide(this._nothing._spans[1]);
-				this.nextSequence(500);
-			});
-
-			// show: evnen
-			scene.addSequence(function() {
-				this.show(this._ability);
-				this.nextSequence(900);
-			});
-
-			// hide: bortset fra
-			scene.addSequence(function() {
-				this.hide(this._except);
-				this.nextSequence(1000);
-			});
-
-			// hide: evnen
-			scene.addSequence(function() {
-				this.hide(this._ability);
-				this.nextSequence(400);
-			});
-
-			// show: til at tænke selv
-			scene.addSequence(function() {
-				this.show(this._think);
-				this.nextSequence(3000);
-			});
-
-			// hide: til at tænke selv
-			scene.addSequence(function() {
-				this.hide(this._think);
-				this.nextSequence(500);
-			});
-
-			scene.addSequence(function() {
-				page.resized();
-
-				this.showAllContent();
-			});
-
-
-			scene.fontsLoaded = function() {
-				// start sequence after 1s
-				page.resized();
-
-				this.nextSequence(1000);
-			}
-
-
-
 			page.cN.scene = this;
-			page.resized();
+
+			// get main elements
+			this.intro = u.qs(".intro", this);
+			this.div_article = u.qs("div.article", this);
+			this.div_news = u.qs("div.news", this);
 
 
-			u.fontsReady(scene, [
+			// required fonts loaded
+			this.fontsLoaded = function() {
+
+				page.resized();
+				this.initIntro();
+			}
+
+			// preload fonts
+			u.fontsReady(this, [
 				{"family":"OpenSans", "weight":"normal", "style":"normal"},
 				{"family":"OpenSans", "weight":"bold", "style":"normal"},
 				{"family":"OpenSans", "weight":"normal", "style":"italic"},
 				{"family":"PT Serif", "weight":"normal", "style":"normal"}
 			]);
+
 		}
+
+
+		// INTRO
+
+		// Prepare intro content for playback
+		scene.initIntro = function() {
+//			u.bug("initIntro")
+
+			// if intro exists
+			if(this.intro) {
+
+				// map reference
+				this.intro.scene = this;
+
+
+				// end intro on click
+				u.e.click(this.intro);
+				this.intro.clicked = function() {
+//					u.bug("intro clicked")
+
+					// stop event chain
+					if(typeof(this.stop) == "function") {
+						// stop any playback
+						this.stop();
+					}
+					// or just hide intro
+					else {
+						// hide intro
+						this.scene.endIntro();
+					}
+				}
+
+
+				// apply text-scaling
+				u.textscaler(this.intro, {
+					"min_height":400,
+					"max_height":1000,
+					"min_width":600,
+					"max_width":1300,
+					"unit":"rem",
+					"h2.i_think":{
+						"min_size":4,
+						"max_size":8
+					},
+					"h2":{
+						"min_size":2,
+						"max_size":4
+					},
+					"h2 span.s2":{
+						"min_size":2.2,
+						"max_size":4.4
+					},
+					"h3":{
+						"min_size":1.4,
+						"max_size":2.8
+					},
+					"p":{
+						"min_size":1,
+						"max_size":2
+					},
+					"p span.s2":{
+						"min_size":1.4,
+						"max_size":2.8
+					}
+				});
+
+
+				// reference intro content
+				this.intro._i_think = u.qs(".i_think", this.intro);
+				this.intro._long = u.qs(".long", this.intro);
+				this.intro._long._spans = u.qsa("span", this.intro._long);
+
+				this.intro._now = u.qs(".now", this.intro);
+				this.intro._time = u.qs(".time", this.intro);
+				this.intro._wake = u.qs(".wake", this.intro);
+				this.intro._wake._spans = u.qsa("span", this.intro._wake);
+				this.intro._realize = u.qs(".realize", this.intro);
+
+				this.intro._means = u.qs(".means", this.intro);
+				this.intro._tyrant = u.qs(".tyrant", this.intro);
+				this.intro._tyrant._spans = u.qsa("span", this.intro._tyrant);
+
+				this.intro._goal = u.qs(".goal", this.intro);
+				this.intro._goal._spans = u.qsa("span", this.intro._goal);
+
+				this.intro._forgotten = u.qs(".forgotten", this.intro);
+				this.intro._bills = u.qs(".bills", this.intro);
+				this.intro._busy = u.qs(".busy", this.intro);
+				this.intro._idleness = u.qs(".idleness", this.intro);
+				this.intro._idleness._spans = u.qsa("span", this.intro._idleness);
+
+				this.intro._safety = u.qs(".safety", this.intro);
+				this.intro._safety._spans = u.qsa("span", this.intro._safety);
+
+				this.intro._luxery = u.qs(".luxery", this.intro);
+				this.intro._luxery._spans = u.qsa("span", this.intro._luxery);
+
+				this.intro._cost = u.qs(".cost", this.intro);
+				this.intro._everything = u.qs(".everything", this.intro);
+				this.intro._content = u.qs(".content", this.intro);
+				this.intro._sheep = u.qs(".sheep", this.intro);
+				this.intro._sheep._spans = u.qsa("span", this.intro._sheep);
+
+				this.intro._nothing = u.qs(".nothing", this.intro);
+				this.intro._nothing._spans = u.qsa("span", this.intro._nothing);
+
+				this.intro._except = u.qs(".except", this.intro);
+				this.intro._ability = u.qs(".ability", this.intro);
+				this.intro._to_think = u.qs(".to_think", this.intro);
+
+				// apply correct link handling
+				var links = u.qsa("a", this.intro);
+				for(i = 0; link = links[i]; i++) {
+					link.intro = this.intro;
+					u.ce(link);
+					link.clicked = function() {
+						if(this._active) {
+							location.href = this.url;
+						}
+						else {
+							this.intro.clicked();
+						}
+					}
+				}
+
+
+				this.intro.is_ready = true;
+
+				// re-position the intro elements
+				page.resized();
+
+
+				// start new event chain
+				u.eventChain(this.intro);
+
+
+				// show: jeg tror
+				this.intro._step1 = function() {this.show(this._i_think);};
+				this.intro.addEvent(this.intro, this.intro._step1, 1200);
+
+				// show: vi har
+				this.intro._step2 = function() {this.showSpan(this._long._spans[0], true);};
+				this.intro.addEvent(this.intro, this.intro._step2, 100);
+
+				// show: sovet
+				this.intro._step3 = function() {this.showSpan(this._long._spans[1]);};
+				this.intro.addEvent(this.intro, this.intro._step3, 600);
+
+				// hide: jeg tror
+				this.intro._step4 = function() {this.hide(this._i_think);};
+				this.intro.addEvent(this.intro, this.intro._step4, 200);
+
+				// show: længe nok
+				this.intro._step5 = function() {this.showSpan(this._long._spans[2]);};
+				this.intro.addEvent(this.intro, this.intro._step5, 500);
+
+				// hide: vi har
+				this.intro._step6 = function() {this.hide(this._long._spans[0]);};
+				this.intro.addEvent(this.intro, this.intro._step6, 200);
+
+				// hide: sovet
+				this.intro._step7 = function() {this.hide(this._long._spans[1]);};
+				this.intro.addEvent(this.intro, this.intro._step7, 300);
+
+				// show: nu
+				this.intro._step8 = function() {this.show(this._now);};
+				this.intro.addEvent(this.intro, this.intro._step8, 700);
+
+				// hide: længe nok
+				this.intro._step9 = function() {this.hide(this._long._spans[2]);};
+				this.intro.addEvent(this.intro, this.intro._step9, 500);
+
+				// show: er det på tide
+				this.intro._step10 = function() {this.show(this._time);};
+				this.intro.addEvent(this.intro, this.intro._step10, 600);
+
+				// hide: nu
+				this.intro._step11 = function() {this.hide(this._now);};
+				this.intro.addEvent(this.intro, this.intro._step11, 500);
+
+				// hide: er det på tide
+				this.intro._step12 = function() {this.hide(this._time);};
+				this.intro.addEvent(this.intro, this.intro._step12, 100);
+
+				// show: at
+				this.intro._step13 = function() {this.showSpan(this._wake._spans[0], true);};
+				this.intro.addEvent(this.intro, this.intro._step13, 200);
+
+				// show: vågne
+				this.intro._step14 = function() {this.showSpan(this._wake._spans[1]);};
+				this.intro.addEvent(this.intro, this.intro._step14, 800);
+
+				// show: og
+				this.intro._step15 = function() {this.showSpan(this._wake._spans[2]);};
+				this.intro.addEvent(this.intro, this.intro._step15, 300);
+
+				// hide: at
+				this.intro._step16 = function() {this.hide(this._wake._spans[0]);};
+				this.intro.addEvent(this.intro, this.intro._step16, 100);
+
+				// hide: vågne
+				this.intro._step17 = function() {this.hide(this._wake._spans[1]);};
+				this.intro.addEvent(this.intro, this.intro._step17, 300);
+
+				// show: indse
+				this.intro._step18 = function() {this.show(this._realize);};
+				this.intro.addEvent(this.intro, this.intro._step18, 500);
+
+				// hide: og
+				this.intro._step19 = function() {this.hide(this._wake);};
+				this.intro.addEvent(this.intro, this.intro._step19, 800);
+
+				// show: at midlet
+				this.intro._step20 = function() {this.show(this._means);};
+				this.intro.addEvent(this.intro, this.intro._step20, 300);
+
+				// hide: indse
+				this.intro._step21 = function() {this.hide(this._realize);};
+				this.intro.addEvent(this.intro, this.intro._step21, 700);
+
+				// show: er blevet en tyran
+				this.intro._step22 = function() {this.show(this._tyrant);};
+				this.intro.addEvent(this.intro, this.intro._step22, 400);
+
+				// hide: at midlet
+				this.intro._step23 = function() {this.hide(this._means);};
+				this.intro.addEvent(this.intro, this.intro._step23, 500);
+
+				// hide: er blevet
+				this.intro._step24 = function() {this.hide(this._tyrant._spans[0]);};
+				this.intro.addEvent(this.intro, this.intro._step24, 700);
+
+				// hide: en tyran
+				this.intro._step25 = function() {this.hide(this._tyrant._spans[1]);};
+				this.intro.addEvent(this.intro, this.intro._step25, 100);
+
+				// show: og målet er
+				this.intro._step26 = function() {this.show(this._goal);};
+				this.intro.addEvent(this.intro, this.intro._step26, 800);
+
+				// show: glemt
+				this.intro._step27 = function() {this.show(this._forgotten);};
+				this.intro.addEvent(this.intro, this.intro._step27, 600);
+
+				// hide: og målet er
+				this.intro._step28 = function() {this.hide(this._goal);};
+				this.intro.addEvent(this.intro, this.intro._step28, 300);
+
+				// show: is stakken af regninger
+				this.intro._step29 = function() {this.show(this._bills);};
+				this.intro.addEvent(this.intro, this.intro._step29, 500);
+
+				// hide: glemt
+				this.intro._step30 = function() {this.hide(this._forgotten);};
+				this.intro.addEvent(this.intro, this.intro._step30, 1300);
+
+				// hide: i stakken af regninger
+				this.intro._step31 = function() {this.hide(this._bills);};
+				this.intro.addEvent(this.intro, this.intro._step31, 700);
+
+				// show: vi har så travlt
+				this.intro._step32 = function() {this.show(this._busy);};
+				this.intro.addEvent(this.intro, this.intro._step32, 1000);
+
+				// show: at stilstand
+				this.intro._step33 = function() {this.show(this._idleness);};
+				this.intro.addEvent(this.intro, this.intro._step33, 400);
+
+				// hide: vi har så travlt
+				this.intro._step34 = function() {this.hide(this._busy);};
+				this.intro.addEvent(this.intro, this.intro._step34, 500);
+
+				// show: er tryghed
+				this.intro._step35 = function() {this.show(this._safety);};
+				this.intro.addEvent(this.intro, this.intro._step35, 1000);
+
+				// hide: at stilstand
+				this.intro._step36 = function() {this.hide(this._idleness);};
+				this.intro.addEvent(this.intro, this.intro._step36, 400);
+
+				// hide: er tryghed
+				this.intro._step37 = function() {this.hide(this._safety);};
+				this.intro.addEvent(this.intro, this.intro._step37, 100);
+
+				// show: og tryghed er
+				this.intro._step38 = function() {this.showSpan(this._luxery._spans[0], true);};
+				this.intro.addEvent(this.intro, this.intro._step38, 500);
+
+				// show: en luksus
+				this.intro._step39 = function() {this.showSpan(this._luxery._spans[1]);};
+				this.intro.addEvent(this.intro, this.intro._step39, 900);
+
+				// hide: og tryghed er
+				this.intro._step40 = function() {this.hide(this._luxery._spans[0]);};
+				this.intro.addEvent(this.intro, this.intro._step40, 300);
+
+				// show: der koster os
+				this.intro._step41 = function() {this.show(this._cost);};
+				this.intro.addEvent(this.intro, this.intro._step41, 600);
+
+				// hide: en luxus
+				this.intro._step42 = function() {this.hide(this._luxery._spans[1]);};
+				this.intro.addEvent(this.intro, this.intro._step42, 600);
+
+				// hide: der koster os
+				this.intro._step43 = function() {this.hide(this._cost);};
+				this.intro.addEvent(this.intro, this.intro._step43, 100);
+
+				// show: alt
+				this.intro._step44 = function() {this.show(this._everything);};
+				this.intro.addEvent(this.intro, this.intro._step44, 1600);
+
+				// hide: alt
+				this.intro._step45 = function() {this.hide(this._everything);};
+				this.intro.addEvent(this.intro, this.intro._step45, 800);
+
+				// show: tilfredse
+				this.intro._step46 = function() {this.show(this._content);};
+				this.intro.addEvent(this.intro, this.intro._step46, 700);
+
+				// show: som mættede slaver
+				this.intro._step47 = function() {this.showSpan(this._sheep._spans[0], true);};
+				this.intro.addEvent(this.intro, this.intro._step47, 200);
+
+				// show: som mættede slaver
+				this.intro._step48 = function() {this.showSpan(this._sheep._spans[1]);};
+				this.intro.addEvent(this.intro, this.intro._step48, 1000);
+
+				// hide: som mættede
+				this.intro._step49 = function() {this.hide(this._sheep._spans[0]);};
+				this.intro.addEvent(this.intro, this.intro._step49, 800);
+
+				// hide: tilfredse
+				this.intro._step50 = function() {this.hide(this._content);};
+				this.intro.addEvent(this.intro, this.intro._step50, 100);
+
+				// hide: slaver
+				this.intro._step51 = function() {this.hide(this._sheep._spans[1]);};
+				this.intro.addEvent(this.intro, this.intro._step51, 400);
+
+				// show: men
+				this.intro._step52 = function() {this.showSpan(this._nothing._spans[0], true);};
+				this.intro.addEvent(this.intro, this.intro._step52, 400);
+
+				// show: intet er vores
+				this.intro._step53 = function() {this.showSpan(this._nothing._spans[1]);};
+				this.intro.addEvent(this.intro, this.intro._step53, 800);
+
+				// hide: men
+				this.intro._step54 = function() {this.hide(this._nothing._spans[0]);};
+				this.intro.addEvent(this.intro, this.intro._step54, 100);
+
+				// show: bortset fra
+				this.intro._step55 = function() {this.show(this._except);};
+				this.intro.addEvent(this.intro, this.intro._step55, 400);
+
+				// hide: intet er vores
+				this.intro._step56 = function() {this.hide(this._nothing._spans[1]);};
+				this.intro.addEvent(this.intro, this.intro._step56, 500);
+
+				// show: evnen
+				this.intro._step57 = function() {this.show(this._ability);};
+				this.intro.addEvent(this.intro, this.intro._step57, 900);
+
+				// hide: bortset fra
+				this.intro._step58 = function() {this.hide(this._except);};
+				this.intro.addEvent(this.intro, this.intro._step58, 1000);
+
+				// hide: evnen
+				this.intro._step59 = function() {this.hide(this._ability);};
+				this.intro.addEvent(this.intro, this.intro._step59, 400);
+
+				// show: til at tænke selv
+				this.intro._step60 = function() {this.show(this._to_think);};
+				this.intro.addEvent(this.intro, this.intro._step60, 3000);
+
+				// hide: til at tænke selv
+				this.intro._step61 = function() {this.hide(this._to_think);};
+				this.intro.addEvent(this.intro, this.intro._step61, 500);
+
+
+
+				// show node
+				this.intro.show = function(node) {
+					node.transitioned = function() {
+						var i, a, as = u.qsa("a", node);
+						for(i = 0; a = as[i]; i++) {
+							a._active = true;
+							u.ac(a, "active");
+						}
+					}
+					u.a.transition(node, "all 0.4s ease-in");
+					u.a.setOpacity(node, 1);
+				}
+
+				// hide node
+				this.intro.hide = function(node) {
+					var i, a, as = u.qsa("a", node);
+					for(i = 0; a = as[i]; i++) {
+						a._active = false; 
+						u.rc(a, "active");
+					}
+					u.a.transition(node, "all 0.2s ease-in");
+					u.a.setOpacity(node, 0);
+				}
+
+				// show one span, and hide the rest for later
+				this.intro.showSpan = function(span, show_node) {
+					var i, _span;
+					if(show_node) {
+						for(i = 0; _span = span.parentNode._spans[i]; i++) {
+							if(_span != span) {
+								u.a.transition(_span, "none");
+								u.a.setOpacity(_span, 0);
+							}
+						}
+						this.show(span.parentNode);
+					}
+					else {
+						this.show(span);
+					}
+				}
+
+				// show all content - makes for a nice final splash
+				this.intro.showAllContent = function() {
+					var node, i, span;
+
+					// show all spans
+					var spans = u.qsa("span", this);
+					for(i = 0; span = spans[i]; i++) {
+						u.ass(span, {
+							"opacity":1
+						});
+					}
+
+					var nodes = u.qsa("p,h2,h3", this);
+					var j = 0;
+					for(i = 0; node = nodes[i]; i++) {
+						node.transitioned = function() {
+							var i, a, as = u.qsa("a", node);
+							for(i = 0; a = as[i]; i++) {
+								a._active = true;
+								u.ac(a, "active");
+							}
+						}
+						if(node._opacity != 1) {
+							u.a.transition(node, "all 0.2s ease-in-out " + (j++)*50 + "ms");
+							u.a.setOpacity(node, 1);
+						}
+					}
+
+					// callback when all content is shown
+					u.t.setTimer(this, "allContentShown", (j*50)+300);
+
+				}
+
+
+				// event chain ended
+				this.intro.eventChainEnded = function() {
+//					u.bug("eventChainEnded")
+
+					// make it known
+					this.scene.intro_chain_ended = true;
+
+					// hide intro
+					this.scene.endIntro();
+				}
+
+				// start event chain playback
+				this.intro.play();
+				
+			}
+			else {
+				// hide intro
+				this.scene.endIntro();
+			}
+
+		}
+
+		// hide intro and continue to article
+		scene.endIntro = function() {
+//			u.bug("exit intro")
+
+			// could also be called if no intro is present
+			if(this.intro) {
+
+
+				this.intro.allContentShown = function() {
+
+					// make it known
+					this.scene.intro_done = true;
+
+					// arrived at new state, invoke renderControl
+					this.scene.renderControl();
+
+				}
+
+				// show full intro
+				this.intro.showAllContent();
+
+
+			}
+			// no intro 
+			else {
+
+				this.scene.intro_done = true;
+				this.scene.intro_chain_ended = true;
+
+				// arrived at new state, invoke renderControl
+				this.scene.renderControl();
+			}
+		}
+
+
+		// ARTICLE
+
+		// start article animation playback
+		scene.initArticle = function() {
+//			 u.bug("initArticle")
+
+			this.div_article_done = true;
+
+			// does article exist
+			if(this.div_article) {
+
+				this.div_article.scene = this;
+
+				u.ass(this.div_article, {
+					"opacity":0,
+					"display":"block"
+				});
+				var header = false;
+				// prepare childnodes for animation
+				var cn = u.cn(this.div_article);
+				this.div_article.nodes = [];
+				for(i = 0; node = cn[i]; i++) {
+					if(u.gcs(node, "display") != "none") {
+						u.ass(node, {
+							"opacity":0,
+						});
+
+						// find element header
+						if(!header && node.nodeName.match(/h1|h2|h3/i)) {
+							header = node;
+						}
+						else {
+							this.div_article.nodes.push(node);
+						}
+					}
+				}
+
+				// show article node
+				u.ass(this.div_article, {
+					"opacity":1,
+				});
+
+
+				// apply headline animation
+				u._stepA1.call(header);
+
+				// show remaining article elements
+				for(i = 0; node = cn[i]; i++) {
+					u.a.transition(node, "all 0.3s ease-in "+(100+(i*200))+"ms");
+					u.ass(node, {
+						"transform":"translate(0, 0)",
+						"opacity":1
+					});
+
+				}
+			}
+
+			// arrived at new state, invoke renderControl
+			this.renderControl();
+
+		}
+
+
+
+		// NEWS
+
+		// start news animation playback
+		scene.initNews = function() {
+//			u.bug("initNews")
+
+//			this._news = u.qs("div.news", this);
+			this.div_news_done = true;
+
+			if(this.div_news) {
+				this.div_news.scene = this;
+
+				u.ass(this.div_news, {
+					"opacity": 0,
+					"display":"block"
+				});
+
+				u.a.transition(this.div_news, "all 0.4s ease-in-out", "showPosts");
+				u.ass(this.div_news, {
+					"opacity":1
+				});
+
+				this.div_news.showPosts = function() {
+					this._posts = u.qsa("li.item", this.div_news);
+					if(this._posts) {
+						var i, node;
+						for(i = 0; node = this._posts[i]; i++) {
+
+							var header = u.qs("h2,h3", node);
+							header.current_readstate = node.getAttribute("data-readstate");
+							if(header.current_readstate) {
+								u.addCheckmark(header);
+//								u.as(node.checkmark, "top", (header.offsetTop + 3) + "px");
+							}
+
+
+							u.a.transition(node, "all 0.4s ease-in-out "+(100*i)+"ms", "done");
+							u.ass(node, {
+								"opacity": 1
+							});
+
+						}
+
+					}
+				} 
+			}
+
+			// arrived at new state, invoke renderControl
+			this.renderControl();
+			
+		}
+
 
 
 		// scene is ready

@@ -1,4 +1,4 @@
-Util.Objects["article"] = new function() {
+Util.Objects["article-old"] = new function() {
 	this.init = function(scene) {
 
 		scene.resized = function() {

@@ -13,7 +13,7 @@ $itemtype = "article";
 
 
 $page->bodyClass("articles");
-$page->pageTitle("Læs, for at blive inspireret");
+$page->pageTitle("Hvorfor, Fordi.");
 
 
 if(is_array($action) && count($action)) {
@@ -22,7 +22,7 @@ if(is_array($action) && count($action)) {
 	if(count($action) == 2 && $action[0] == "tag") {
 
 		$page->page(array(
-			"templates" => "articles/list_tag.php"
+			"templates" => "articles/articles_tag.php"
 		));
 		exit();
 	}
@@ -31,7 +31,7 @@ if(is_array($action) && count($action)) {
 	else if(count($action) == 1) {
 
 		$page->page(array(
-			"templates" => "articles/view.php"
+			"templates" => "articles/article.php"
 		));
 		exit();
 	}
@@ -40,7 +40,8 @@ if(is_array($action) && count($action)) {
 
 // show list
 $page->page(array(
-	"templates" => "articles/index.php"
+	"templates" => "articles/articles.php"
 ));
+exit();
 
 ?>

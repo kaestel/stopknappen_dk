@@ -1,71 +1,109 @@
 <div class="scene terms i:scene">
 
 	<div class="article" itemscope itemtype="http://schema.org/Article">
-		<h1 itemprop="name">Cookies, privacy and terms of use</h1>
+		<h1 itemprop="headline">Vilkår, cookies, privatliv og licenser</h1>
 
-		<dl class="info">
-			<dt class="published_at">Date published</dt>
-			<dd class="published_at" itemprop="datePublished" content="<?= date("Y-m-d", filemtime(__FILE__)) ?>"><?= date("Y-m-d, H:i", filemtime(__FILE__)) ?></dd>
-			<dt class="author">Author</dt>
-			<dd class="author" itemprop="author">Martin Kæstel Nielsen</dd>
-		</dl>
+		<ul class="info">
+			<li class="published_at" itemprop="datePublished" content="<?= date("Y-m-d", filemtime(__FILE__)) ?>"><?= date("Y-m-d, H:i", filemtime(__FILE__)) ?></li>
+			<li class="modified_at" itemprop="dateModified" content="<?= date("Y-m-d", filemtime(__FILE__)) ?>"><?= date("Y-m-d, H:i", filemtime(__FILE__)) ?></li>
+			<li class="author" itemprop="author">Martin Kæstel Nielsen</li>
+			<li class="main_entity" itemprop="mainEntityOfPage"><?= SITE_URL."/terms" ?></li>
+			<li class="publisher" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+				<ul class="publisher_info">
+					<li class="name" itemprop="name">stopknappen.dk</li>
+					<li class="logo" itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+						<span class="image_url" itemprop="url" content="<?= SITE_URL ?>/img/logo-large.png"></span>
+						<span class="image_width" itemprop="width" content="720"></span>
+						<span class="image_height" itemprop="height" content="405"></span>
+					</li>
+				</ul>
+			</li>
+			<li class="image_info" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+				<span class="image_url" itemprop="url" content="<?= SITE_URL ?>/img/logo-large.png"></span>
+				<span class="image_width" itemprop="width" content="720"></span>
+				<span class="image_height" itemprop="height" content="405"></span>
+			</li>
+		</ul>
 
 		<div class="articlebody" itemprop="articleBody">
 			<p>
-				By using this website you accept the terms as specified below. If you cannot accept
-				these terms, you cannot use the website.
+				Stopknappen.dk ejes og vedligeholdes af think.dk (i det følgende omtalt som "Vi", "Os", "Vores"),
+				der er et dansk registreret selskab, underlagt dansk lovgivning.
+			</p>
+
+			<h2>Vilkår</h2>
+			<p>
+				Ved at bruge vores hjemmeside, accepterer du automatisk nedenstående vilkår. Hvis du 
+				ikke kan acceptere disse vilkår, kan du ikke bruge hjemmesiden.
 			</p>
 			<p>
-				This website is owned  and maintained by Martin Kæstel Nielsen (in the 
-				following referred to as "Me", "I", "My", "Mine"), who is a Danish citizen, abiding Danish laws.
+				Vi kan ikke holdes ansvarlige for indhold oprettet af vores brugere, eller konsekvenser afledt, direkte
+				eller indirekte, af brugen af hjemmesiden eller ideer fremført herpå.
 			</p>
-	
+			<p>
+				Vi forbeholder os ret til at opdatere sidens vilkår uden varsel.
+			</p>
+				
 			<h2>Cookies</h2>
 			<p>
-				I love cookies and I only serve safe, quality cookies. No transfat or artificial sweetener. My cookies 
-				will do you no harm.
+				Vi elsker cookies og vi serverer kun sikre cookies af høj kvalitet. Ingen transfedt eller
+				kunstigt sødestof. Du tager ikke skade af vores cookies.
 			</p>
 			<p>
-				When you access my website I identify the type of browser you are using. I do this to serve the best
-				version of this website available. This information is saved on my server for the duration of your visit, 
-				and I need a cookie to link this information to your browser. That way I do not need to identify your 
-				browser every time you view a new page. When you leave the website, I delete the stored information.
+				Når du bruger vores hjemmeside, identificerer vi din browser. Det gør vi for at kunne
+				give dig den version af siden der passer bedst til dit apparat. 
+				Informationen gemmer vi på serveren, mens du besøger siden, og vi bruger en cookie til
+				at kæde denne information sammen med din browser. På den måde behøver vi ikke at 
+				identificere din browser hver gang du besøger en ny side. Når du forlader hjemmesiden
+				sletter vi både cookie og informationen på vores server.
 			</p>
 			<p>
-				Ironically the only long term cookie I save on your computer, is the one used to remember your cookie
-				and terms acceptance. This cookie is stored for 12 months and prevents the "Accept cookies" dialog from
-				reapearing on every page.
+				Ironisk nok er den eneste langtidsholdbare cookie, vi gemmer på din computer, den vi bruger
+				til at huske din accept af vilkårene. Denne cookie holder i 12 måneder og forhindre
+				"accepter cookies"-dialogen i at vises efter du har klikket "Accepter".
 			</p>
 			<p>
-				I use Google Analytics for statistics on my website. I like statistics because it tells me how many 
-				people visit my website and if any pages are more popular than others. This information is cruzial to provide
-				improvements where needed. 
-				<a href="https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage" target="_blank">Google Analytics use cookies</a>
-				to provide me with this information. I do not allow Google to share this information with third parties.
+				Vi bruger Google Analytics til statistik på hjemmesiden. Vi kan godt lide statistik, fordi
+				det viser os hvor mange der besøger siden og om nogle sider er mere populære end andre.
+				Denne information er nødvendig for at lave forbedringer der hvor der er mest brug for dem.
+				<a href="https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage" target="_blank">Google Analytics bruger cookies</a>
+				for at give os relevant statistik. Vi tillader ikke at Google deler denne information med
+				tredje part.
 			</p>
 
-			<h2>Privacy</h2>
+			<h2>Privatliv</h2>
 			<p>
-				I respect your privacy, because I want others to respect mine. I do not share any information with
-				third parties or sell any information related to you or your use of my website. Any data you submit
-				through this website will be stored securely on my server. Passwords and sensitive data will be stored
-				in encrypted form. I will delete your data upon request.
+				Vi respekterer dit privatliv, fordi vi ønsker at andre respekterer vores. Vi deler ikke information
+				med tredje part eller sælger information om dig eller din anvendelse af siden. Data du deler med os
+				via hjemmesiden gemmes sikkert på vores server. Passwords og sensitive data opbevares krypteret.
+				Vi sletter dine data på forlangende.
+			</p>
+			<p>
+				Vi inkluderer ikke Facebook deling eller andre eksterne plugins, der kan føre til kompromittering
+				af dit privatliv.
 			</p>
 
-			<h2>Terms of use</h2>
+			<h2>Licenser</h2>
 			<p>
-				This website is offered as is. I cannot be held responsible for
-				content submitted by my users, or consequences derived, directly or indirectly, from using this website
-				or any ideas posted on the website.
+				Indholdet på denne hjemmesiden er dækket af en 
+				<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution 4.0 International Licens</a>.
 			</p>
 			<p>
-				Everything you read on this website is protected
-				by copyright laws, but you can freely quote or reproduce any part of my content as long as you clearly state
-				its origin or provide a link to this website in direct conjonction with the reproduced text.
+				Det betyder at det du læser på vores side er beskyttet af copyright, men at du frit kan
+				citere eller reproducere teksterne i uændret form, til ikke-kommercielle formål, så længe du
+				tydeligt anfører kilde eller laver et link til stopknappen.dk i direkte forlængelse af den gengivne tekst.
 			</p>
 			<p>
-				I maintain the right to update or change these terms as needed.
+				Kildekoden til denne hjemmeside er dækket af en 
+				<a rel="license" href="https://github.com/kaestel/think_dk/blob/master/LICENSE-CPAL.md">CPAL-1.0 licens</a>.
 			</p>
+			<p>
+				Denne hjemmeside benytter endvidere design templates fra think.dk og parentnode.dk, i overensstemmelse
+				med gældende anvendelseslicens.
+				<a rel="license" href="https://github.com/kaestel/think_dk/blob/master/LICENSE-CPAL.md">think.dk, CPAL-1.0 licens</a> og 
+				<a rel="license" href="https://github.com/parentnode/parentnode_dk/blob/master/LICENSE-CPAL.md">parentnode.dk, CPAL-1.0 licens</a>.
+			</p>
+
 		</div>
 	</div>
 </div>

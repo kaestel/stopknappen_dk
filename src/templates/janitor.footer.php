@@ -5,7 +5,7 @@
 			<li class="content">
 				<h3>Content</h3>
 				<ul class="subjects">
-					<?= $HTML->link("Articles", "/janitor/article/list", array("wrapper" => "li.article")) ?>
+					<?= $HTML->link("Articles", "/janitor/admin/article/list", array("wrapper" => "li.article")) ?>
 					<?= $HTML->link("Topics", "/janitor/topic/list", array("wrapper" => "li.topic")) ?>
 
 					<?= $HTML->link("Posts", "/janitor/admin/post/list", array("wrapper" => "li.post")) ?>

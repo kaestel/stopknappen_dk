@@ -1,6 +1,15 @@
+#header a.logo {display: block; text-indent: -9999px; width: 50px; height: 50px; padding: 0; top: 30px;
+	background: transparent url(/img/logo.png) no-repeat center center; background-size: 100% auto;
+} 
+
+#content {}
+#content .scene {opacity: 0;}
+#content .scene ul.info {display: none;}
+
 
 /* FRONT */
-#content .scene.front {padding-bottom: 30px;
+#content .scene.front {padding: 0; opacity: 1;}
+#content .scene.front div.intro {padding-bottom: 60px;
 	-o-user-select: none;
 	-ms-user-select: none;
 	-moz-user-select: none;
@@ -8,58 +17,81 @@
 	user-select: none;
 }
 
-#content .scene.front a {cursor: default;}
-#content .scene.front span {display: inline-block; vertical-align: baseline;}
-#content .scene.front .active a {cursor: pointer;}
-
-#content .scene.front h1 {font-size: 100px;}
-#content .scene.front h2 {font-size: 60px;}
-#content .scene.front h3 {font-size: 30px;}
-#content .scene.front p {font-size: 22px;}
-
-#content .scene.front .long .s2,
-#content .scene.front .long .s2 a {font-size: 32px; color: #01939a;}
-#content .scene.front .wake .s2,
-#content .scene.front .wake .s2 a {font-size: 34px; color: #bf7230;}
-#content .scene.front .tyrant .s2,
-#content .scene.front .tyrant .s2 a {font-size: 30px; color: #01939a;}
-#content .scene.front .goal .s2,
-#content .scene.front .goal .s2 a {font-size: 34px; color: #bf7230;}
-#content .scene.front .idleness .s2,
-#content .scene.front .idleness .s2 {font-size: 34px; color: #01939a;}
-
-#content .scene.front .content,
-#content .scene.front .content a {font-size: 34px; color: #01939a;}
-#content .scene.front .sheep .s2,
-#content .scene.front .sheep .s2 a {font-size: 30px; color: #01939a; line-height: 24px;}
 
 
-#content .scene.front h1,
-#content .scene.front h2,
-#content .scene.front h3,
-#content .scene.front p {position: absolute; top: 0; left: 0; padding: 0 5px; opacity: 0; width: auto;}
-#content .scene.front h1 {padding: 0 10px;}
+
+#content .scene.front div.intro a {cursor: default;}
+#content .scene.front div.intro a.active {cursor: pointer;}
+#content .scene.front div.intro span {display: inline-block; vertical-align: baseline;}
+#content .scene.front div.intro .active a {cursor: pointer;}
+
+#content .scene.front div.intro h2.i_think {font-size: 100px;}
+#content .scene.front div.intro h2 {font-size: 60px;}
+#content .scene.front div.intro h3 {font-size: 30px;}
+#content .scene.front div.intro p {font-size: 22px;}
+
+#content .scene.front div.intro .long .s2,
+#content .scene.front div.intro .long .s2 a {font-size: 32px; color: #01939a;}
+#content .scene.front div.intro .wake .s2,
+#content .scene.front div.intro .wake .s2 a {font-size: 34px; color: #bf7230;}
+#content .scene.front div.intro .tyrant .s2,
+#content .scene.front div.intro .tyrant .s2 a {font-size: 30px; color: #01939a;
+	font-family: "PT Serif", Times, serif;
+}
+#content .scene.front div.intro .goal .s2,
+#content .scene.front div.intro .goal .s2 a {font-size: 34px; color: #bf7230;}
+#content .scene.front div.intro .idleness .s2,
+#content .scene.front div.intro .idleness .s2 {font-size: 34px; color: #01939a;}
+
+#content .scene.front div.intro .content,
+#content .scene.front div.intro .content a {font-size: 34px; color: #01939a;}
+#content .scene.front div.intro .sheep .s2,
+#content .scene.front div.intro .sheep .s2 a {font-size: 30px; color: #01939a; line-height: 24px;}
+
+
+#content .scene.front div.intro h1,
+#content .scene.front div.intro h2,
+#content .scene.front div.intro h3,
+#content .scene.front div.intro p {position: absolute; top: 0; left: 0; padding: 0 5px; opacity: 0; width: auto;}
+#content .scene.front div.intro h1 {padding: 0 10px;}
+
+
+
+/* FRONT - ARTICLE */
+#content .scene.front div.article {opacity: 0;}
+
+
+/* FRONT - NEWS */
+#content .scene.front div.news {opacity: 0; padding-bottom: 75px;}
+
+
+
+/* POST */
+#content .scene.post div.article ul.info {display: block;}
+
+/* ARTICLE */
+#content .scene.article div.article ul.info {display: block;}
 
 
 
 /* ARTICLES */
-#content .scene.articles ul.articles {padding: 20px 0 30px;}
+/*#content .scene.articles ul.articles {padding: 20px 0 30px;}
 #content .scene ul.articles li.article h3 {font-size: 24px;
 	font-family: "PT Serif", Times, serif;
 }
 #content .scene ul.articles li.article p {font-size: 16px;}
-
+*/
 
 
 /* ARTICLE */
-#content .scene.article div.intro {padding-bottom: 20px; border-bottom: 1px solid #dedede; margin-bottom: 40px;}
+/*#content .scene.article div.intro {padding-bottom: 20px; border-bottom: 1px solid #dedede; margin-bottom: 40px;}
 #content .scene.article div.intro p {font-size: 13px; color: #cccccc;}
 #content .scene.article div.article {padding-bottom: 30px;}
-
+*/
 
 
 /* RELATED */
-#content .scene.articles div.related {border: none;}
+/*#content .scene.articles div.related {border: none;}*/
 
 
 

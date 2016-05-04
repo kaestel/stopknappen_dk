@@ -5,15 +5,11 @@ $username = stringOr(getPost("username"));
 	
 ?>
 <div class="scene login i:login">
-	<h1>Login</h1>
+	<h1>Log ind</h1>
 
-	<h2>Et troværdigt alternativ <br />kræver forberelse ...</h2>
-	<p>
-		 - specielt hvis man tager det seriøst. Mens vi arbejder med at gøre materialet klar, 
-		har vi valgt at begrænse adgangen. Kontakt os på 
-		<a href="mailto:stopknappen@think.dk">stopknappen@think.dk</a> hvis du ønsker at deltage
-		i udvikling og planlægning.
-	</p>
+<?	if(defined("SITE_SIGNUP") && SITE_SIGNUP): ?>
+	<p>Ikke registreret endnu? <a href="/nysgerrig">Opret din konto nu</a>.</p>
+<?	endif; ?>
 
 	<?= $model->formStart("?login=true", array("class" => "labelstyle:inject")) ?>
 
@@ -37,10 +33,6 @@ $username = stringOr(getPost("username"));
 		</ul>
 	<?= $model->formEnd() ?>
 
-	<h3>Vil du holdes orienteret?</h3>
-	<p>
-		Det er ingen skam at være nysgerrig - Stopknappen ville ikke være her uden nysherrighed.
-		Faktisk så har vi en <a href="/nysgerrig" class="button primary">klub for nysgerrige</a>.
-	</p>
+	<p>Har du <a href="/login/glemt">glemt din kode</a>?</p>
 
 </div>
