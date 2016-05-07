@@ -31,12 +31,12 @@ if(is_array($action) && count($action)) {
 
 		if($model->confirmUser($action)) {
 			$page->page(array(
-				"templates" => "signup/signup_confirmed.php"
+				"templates" => "signup/confirmed.php"
 			));
 		}
 		else {
 			$page->page(array(
-				"templates" => "signup/signup_confirmation_failed.php"
+				"templates" => "signup/confirmation_failed.php"
 			));
 		}
 		exit();
