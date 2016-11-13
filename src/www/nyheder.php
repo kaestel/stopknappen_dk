@@ -13,7 +13,7 @@ $itemtype = "post";
 
 
 $page->bodyClass("posts");
-$page->pageTitle("Nyheder");
+$page->pageTitle("Aktuelt");
 
 
 

@@ -17,5 +17,5 @@ Dit password er: {PASSWORD}
 
 Med vilje og tro bliver vejen virkelig,
 
-Stopknappen / Startknappen
+Stopknappen
 {SITE_URL}

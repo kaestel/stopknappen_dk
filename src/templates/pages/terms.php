@@ -5,9 +5,9 @@
 
 		<ul class="info">
 			<li class="published_at" itemprop="datePublished" content="<?= date("Y-m-d", filemtime(__FILE__)) ?>"><?= date("Y-m-d, H:i", filemtime(__FILE__)) ?></li>
-			<li class="modified_at" itemprop="dateModified" content="<?= date("Y-m-d", filemtime(__FILE__)) ?>"><?= date("Y-m-d, H:i", filemtime(__FILE__)) ?></li>
+			<li class="modified_at" itemprop="dateModified" content="<?= date("Y-m-d", filemtime(__FILE__)) ?>"></li>
 			<li class="author" itemprop="author">Martin Kæstel Nielsen</li>
-			<li class="main_entity" itemprop="mainEntityOfPage"><?= SITE_URL."/terms" ?></li>
+			<li class="main_entity" itemprop="mainEntityOfPage" content="<?= SITE_URL."/terms" ?>"></li>
 			<li class="publisher" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
 				<ul class="publisher_info">
 					<li class="name" itemprop="name">stopknappen.dk</li>
@@ -92,6 +92,9 @@
 				Det betyder at det du læser på vores side er beskyttet af copyright, men at du frit kan
 				citere eller reproducere teksterne i uændret form, til ikke-kommercielle formål, så længe du
 				tydeligt anfører kilde eller laver et link til stopknappen.dk i direkte forlængelse af den gengivne tekst.
+			</p>
+			<p>
+				Indholdet er underlagt disse licensmæssige begrænsninger, fordi materialet stadig er under udvikling.
 			</p>
 			<p>
 				Kildekoden til denne hjemmeside er dækket af en 

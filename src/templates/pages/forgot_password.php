@@ -21,7 +21,7 @@ $this->pageTitle("Glemt kode?");
 <?	endif; ?>
 
 		<fieldset>
-			<?= $model->input("username", array("type" => "string", "label" => "Email eller mobilnummer", "required" => true, "pattern" => "[\w\.\-\_]+@[\w-\.]+\.\w{2,4}|([\+0-9\-\.\s\(\)]){5,18}", "hint_message" => "Dit brugernavn er enten dit mobilnummer eller din email-adresse.", "error_message" => "Det indtastede er ikke et gyldigt mobilnummer eller email-adresse.")); ?>
+			<?= $model->input("username", array("type" => "string", "label" => "Email", "required" => true, "pattern" => "[\w\.\-\_]+@[\w-\.]+\.\w{2,4}", "hint_message" => "Dit brugernavn er din email-adresse.", "error_message" => "Det indtastede er ikke en gyldig email-adresse.")); ?>
 		</fieldset>
 
 		<ul class="actions">

@@ -8,7 +8,7 @@ $username = stringOr(getPost("username"));
 	<h1>Log ind</h1>
 
 <?	if(defined("SITE_SIGNUP") && SITE_SIGNUP): ?>
-	<p>Ikke registreret endnu? <a href="/nysgerrig">Opret din konto nu</a>.</p>
+	<p>Ikke registreret endnu? <a href="<?= SITE_SIGNUP ?>">Opret din konto nu</a>.</p>
 <?	endif; ?>
 
 	<?= $model->formStart("?login=true", array("class" => "labelstyle:inject")) ?>
@@ -30,9 +30,8 @@ $username = stringOr(getPost("username"));
 
 		<ul class="actions">
 			<?= $model->submit("Log ind", array("class" => "primary", "wrapper" => "li.login")) ?>
+			<li class="forgot">Har du <a href="/login/glemt">glemt din kode</a>?</li>
 		</ul>
 	<?= $model->formEnd() ?>
-
-	<p>Har du <a href="/login/glemt">glemt din kode</a>?</p>
 
 </div>

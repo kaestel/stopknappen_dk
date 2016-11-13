@@ -11,7 +11,11 @@ $categories = $IC->getTags(array("context" => $itemtype, "order" => "value"));
 ?>
 
 <div class="scene posts tag i:scene">
+<? if($items): ?>
 	<h1>Nyheder <br />om <?= $selected_tag ?></h1>
+<? else: ?>
+	<h1>Nyheder</h1>
+<? endif; ?>
 
 <? if($categories): ?>
 	<div class="categories">
@@ -33,50 +37,21 @@ $categories = $IC->getTags(array("context" => $itemtype, "order" => "value"));
 			data-readstate="<?= $item["readstate"] ?>"
 			>
 
-			<ul class="tags">
-			<? if($item["tags"]):
-				$editing_tag = arrayKeyValue($item["tags"], "context", "editing");
-				if($editing_tag !== false): ?>
-				<li class="editing" title="Denne nyhed redigeres stadig"><?= $item["tags"][$editing_tag]["value"] == "true" ? "Redigeres" : $item["tags"][$editing_tag]["value"] ?></li>
-				<? endif; ?>
-				<li><a href="/nyheder">Alle</a></li>
-				<? foreach($item["tags"] as $item_tag): ?>
-					<? if($item_tag["context"] == $itemtype): ?>
-				<li itemprop="articleSection"><a href="/nyheder/tag/<?= urlencode($item_tag["value"]) ?>"><?= $item_tag["value"] ?></a></li>
-					<? endif; ?>
-				<? endforeach; ?>
-			<? endif; ?>
-			</ul>
+
+			<?= $HTML->articleTags($item, [
+				"context" => [$itemtype],
+				"url" => "/nyheder/tag",
+				"default" => ["/nyheder", "Alle"]
+			]) ?>
+
 
 			<h3 itemprop="headline"><a href="/nyheder/<?= $item["sindex"] ?>"><?= $item["name"] ?></a></h3>
 
-			<ul class="info">
-				<li class="published_at" itemprop="datePublished" content="<?= date("Y-m-d", strtotime($item["published_at"])) ?>"><?= date("Y-m-d, H:i", strtotime($item["published_at"])) ?></li>
-				<li class="modified_at" itemprop="dateModified" content="<?= date("Y-m-d", strtotime($item["modified_at"])) ?>"><?= date("Y-m-d, H:i", strtotime($item["published_at"])) ?></li>
-				<li class="author" itemprop="author"><?= $item["user_nickname"] ?></li>
-				<li class="main_entity" itemprop="mainEntityOfPage"><?= SITE_URL."/nyheder/".$item["sindex"] ?></li>
-				<li class="publisher" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-					<ul class="publisher_info">
-						<li class="name" itemprop="name">stopknappen.dk</li>
-						<li class="logo" itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-							<span class="image_url" itemprop="url" content="<?= SITE_URL ?>/img/logo-large.png"></span>
-							<span class="image_width" itemprop="width" content="720"></span>
-							<span class="image_height" itemprop="height" content="405"></span>
-						</li>
-					</ul>
-				</li>
-				<li class="image_info" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-				<? if($media): ?>
-					<span class="image_url" itemprop="url" content="<?= SITE_URL ?>/images/<?= $item["item_id"] ?>/<?= $media["variant"] ?>/720x.<?= $media["format"] ?>"></span>
-					<span class="image_width" itemprop="width" content="720"></span>
-					<span class="image_height" itemprop="height" content="<?= floor(720 / ($media["width"] / $media["height"])) ?>"></span>
-				<? else: ?>
-					<span class="image_url" itemprop="url" content="<?= SITE_URL ?>/img/logo-large.png"></span>
-					<span class="image_width" itemprop="width" content="720"></span>
-					<span class="image_height" itemprop="height" content="405"></span>
-				<? endif; ?>
-				</li>
-			</ul>
+
+			<?= $HTML->articleInfo($item, "/nyheder/".$item["sindex"], [
+				"media" => $media
+			]) ?>
+
 
 			<? if($item["description"]): ?>
 			<div class="description" itemprop="description">

@@ -30,23 +30,39 @@ if(is_array($action) && count($action)) {
 	else if($action[0] == "bekraeft" && count($action) == 4) {
 
 		if($model->confirmUser($action)) {
-			$page->page(array(
-				"templates" => "signup/confirmed.php"
-			));
+
+
+			// redirect to leave POST state
+			header("Location: /nysgerrig/bekraeft/kvittering");
+			exit();
+
 		}
 		else {
-			$page->page(array(
-				"templates" => "signup/confirmation_failed.php"
-			));
+
+			// redirect to leave POST state
+			header("Location: /nysgerrig/bekraeft/fejl");
+			exit();
+
 		}
+		exit();
+	}
+	else if($action[0] == "bekraeft" && $action[1] == "kvittering") {
+
+		$page->page(array(
+			"templates" => "signup/confirmed.php"
+		));
+		exit();
+	}
+	else if($action[0] == "bekraeft" && $action[1] == "fejl") {
+
+		$page->page(array(
+			"templates" => "signup/confirmation_failed.php"
+		));
 		exit();
 	}
 
 	// /nysgerrig/tilmelding
 	else if($action[0] == "tilmelding" && $page->validateCsrfToken()) {
-
-		// add to log
-		$page->addLog("Signup submitted");
 
 		// create new user
 		$user = $model->newUser(array("newUser"));

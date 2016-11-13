@@ -34,58 +34,30 @@ $related_items = $IC->getRelatedItems($related_pattern);
 	<div class="article i:article id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/BlogPosting"
 		data-csrf-token="<?= session()->value("csrf") ?>"
 		data-readstate="<?= $item["readstate"] ?>"
-		data-readstate-update="<?= $this->validPath("/janitor/admin/post/updateReadstate/".$item["item_id"]) ?>" 
-		data-readstate-delete="<?= $this->validPath("/janitor/admin/post/deleteReadstate/".$item["item_id"]) ?>" 
+		data-readstate-add="<?= $this->validPath("/janitor/admin/profile/addReadstate/".$item["item_id"]) ?>" 
+		data-readstate-delete="<?= $this->validPath("/janitor/admin/profile/deleteReadstate/".$item["item_id"]) ?>" 
 		>
 
 		<? if($media): ?>
 		<div class="image item_id:<?= $item["item_id"] ?> format:<?= $media["format"] ?> variant:<?= $media["variant"] ?>"></div>
 		<? endif; ?>
 
-		<ul class="tags">
-		<? if($item["tags"]):
-			$editing_tag = arrayKeyValue($item["tags"], "context", "editing");
-			if($editing_tag !== false): ?>
-			<li class="editing" title="Denne nyhed redigeres stadig"><?= $item["tags"][$editing_tag]["value"] == "true" ? "Redigeres" : $item["tags"][$editing_tag]["value"] ?></li>
-			<? endif; ?>
-			<li><a href="/nyheder">Alle</a></li>
-			<? foreach($item["tags"] as $item_tag): ?>
-				<? if($item_tag["context"] == $itemtype): ?>
-			<li itemprop="articleSection"><a href="/nyheder/tag/<?= urlencode($item_tag["value"]) ?>"><?= $item_tag["value"] ?></a></li>
-				<? endif; ?>
-			<? endforeach; ?>
-		<? endif; ?>
-		</ul>
+
+		<?= $HTML->articleTags($item, [
+			"context" => [$itemtype],
+			"url" => "/nyheder/tag",
+			"default" => ["/nyheder", "Alle"]
+		]) ?>
+
 
 		<h1 itemprop="headline"><?= $item["name"] ?></h1>
 
-		<ul class="info">
-			<li class="published_at" itemprop="datePublished" content="<?= date("Y-m-d", strtotime($item["published_at"])) ?>"><?= date("Y-m-d, H:i", strtotime($item["published_at"])) ?></li>
-			<li class="modified_at" itemprop="dateModified" content="<?= date("Y-m-d", strtotime($item["modified_at"])) ?>"><?= date("Y-m-d, H:i", strtotime($item["published_at"])) ?></li>
-			<li class="author" itemprop="author"><?= $item["user_nickname"] ?></li>
-			<li class="main_entity share" itemprop="mainEntityOfPage"><?= SITE_URL."/nyheder/".$item["sindex"] ?></li>
-			<li class="publisher" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-				<ul class="publisher_info">
-					<li class="name" itemprop="name">stopknappen.dk</li>
-					<li class="logo" itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-						<span class="image_url" itemprop="url" content="<?= SITE_URL ?>/img/logo-large.png"></span>
-						<span class="image_width" itemprop="width" content="720"></span>
-						<span class="image_height" itemprop="height" content="405"></span>
-					</li>
-				</ul>
-			</li>
-			<li class="image_info" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-			<? if($media): ?>
-				<span class="image_url" itemprop="url" content="<?= SITE_URL ?>/images/<?= $item["item_id"] ?>/<?= $media["variant"] ?>/720x.<?= $media["format"] ?>"></span>
-				<span class="image_width" itemprop="width" content="720"></span>
-				<span class="image_height" itemprop="height" content="<?= floor(720 / ($media["width"] / $media["height"])) ?>"></span>
-			<? else: ?>
-				<span class="image_url" itemprop="url" content="<?= SITE_URL ?>/img/logo-large.png"></span>
-				<span class="image_width" itemprop="width" content="720"></span>
-				<span class="image_height" itemprop="height" content="405"></span>
-			<? endif; ?>
-			</li>
-		</ul>
+
+		<?= $HTML->articleInfo($item, "/nyheder/".$item["sindex"],[
+			"media" => $media,
+			"sharing" => true
+		]) ?>
+
 
 		<div class="articlebody" itemprop="articleBody">
 			<?= $item["html"] ?>
@@ -100,27 +72,8 @@ $related_items = $IC->getRelatedItems($related_pattern);
 		<? endif; ?>
 
 
-		<div class="comments i:comments item_id:<?= $item["item_id"] ?>" 
-			data-comment-add="<?= $this->validPath("/janitor/admin/post/addComment") ?>" 
-			data-csrf-token="<?= session()->value("csrf") ?>"
-			>
-			<h2 class="comments">Kommentarer til &quot;<?= $item["name"] ?>&quot;</h2>
-			<? if($item["comments"]): ?>
-			<ul class="comments">
-				<? foreach($item["comments"] as $comment): ?>
-				<li class="comment comment_id:<?= $comment["id"] ?>" itemprop="comment" itemscope itemtype="https://schema.org/Comment">
-					<ul class="info">
-						<li class="published_at" itemprop="datePublished" content="<?= date("Y-m-d", strtotime($comment["created_at"])) ?>"><?= date("Y-m-d, H:i", strtotime($comment["created_at"])) ?></li>
-						<li class="author" itemprop="author"><?= $comment["nickname"] ?></li>
-					</ul>
-					<p class="comment" itemprop="text"><?= $comment["comment"] ?></p>
-				</li>
-				<? endforeach; ?>
-			</ul>
-			<? else: ?>
-			<p>Ingen kommentarer endnu</p>
-			<? endif; ?>
-		</div>
+		<?= $HTML->frontendComments($item, "/janitor/admin/article/addComment") ?>
+
 
 	</div>
 
@@ -136,7 +89,7 @@ $related_items = $IC->getRelatedItems($related_pattern);
 
 <? if($related_items): ?>
 	<div class="related">
-		<h2>Relaterede nyheder</h2>
+		<h2>Relaterede nyheder <a href="/nyheder">(Se alle)</a></h2>
 
 		<ul class="items articles i:articleMiniList">
 <?		foreach($related_items as $item): 
@@ -145,50 +98,21 @@ $related_items = $IC->getRelatedItems($related_pattern);
 				data-readstate="<?= $item["readstate"] ?>"
 				>
 
-				<ul class="tags">
-				<? if($item["tags"]):
-					$editing_tag = arrayKeyValue($item["tags"], "context", "editing");
-					if($editing_tag !== false): ?>
-					<li class="editing" title="Denne nyhed redigeres stadig"><?= $item["tags"][$editing_tag]["value"] == "true" ? "Redigeres" : $item["tags"][$editing_tag]["value"] ?></li>
-					<? endif; ?>
-					<li><a href="/nyheder">Alle</a></li>
-					<? foreach($item["tags"] as $item_tag): ?>
-						<? if($item_tag["context"] == $itemtype): ?>
-					<li itemprop="articleSection"><a href="/nyheder/tag/<?= urlencode($item_tag["value"]) ?>"><?= $item_tag["value"] ?></a></li>
-						<? endif; ?>
-					<? endforeach; ?>
-				<? endif; ?>
-				</ul>
+
+				<?= $HTML->articleTags($item, [
+					"context" => [$itemtype],
+					"url" => "/nyheder/tag",
+					"default" => ["/nyheder", "Alle"]
+				]) ?>
+
 
 				<h3 itemprop="headline"><a href="/nyheder/<?= $item["sindex"] ?>"><?= $item["name"] ?></a></h3>
 
-				<ul class="info">
-					<li class="published_at" itemprop="datePublished" content="<?= date("Y-m-d", strtotime($item["published_at"])) ?>"><?= date("Y-m-d, H:i", strtotime($item["published_at"])) ?></li>
-					<li class="modified_at" itemprop="dateModified" content="<?= date("Y-m-d", strtotime($item["modified_at"])) ?>"><?= date("Y-m-d, H:i", strtotime($item["published_at"])) ?></li>
-					<li class="author" itemprop="author"><?= $item["user_nickname"] ?></li>
-					<li class="main_entity" itemprop="mainEntityOfPage"><?= SITE_URL."/nyheder/".$item["sindex"] ?></li>
-					<li class="publisher" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-						<ul class="publisher_info">
-							<li class="name" itemprop="name">stopknappen.dk</li>
-							<li class="logo" itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-								<span class="image_url" itemprop="url" content="<?= SITE_URL ?>/img/logo-large.png"></span>
-								<span class="image_width" itemprop="width" content="720"></span>
-								<span class="image_height" itemprop="height" content="405"></span>
-							</li>
-						</ul>
-					</li>
-					<li class="image_info" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-					<? if($media): ?>
-						<span class="image_url" itemprop="url" content="<?= SITE_URL ?>/images/<?= $item["item_id"] ?>/<?= $media["variant"] ?>/720x.<?= $media["format"] ?>"></span>
-						<span class="image_width" itemprop="width" content="720"></span>
-						<span class="image_height" itemprop="height" content="<?= floor(720 / ($media["width"] / $media["height"])) ?>"></span>
-					<? else: ?>
-						<span class="image_url" itemprop="url" content="<?= SITE_URL ?>/img/logo-large.png"></span>
-						<span class="image_width" itemprop="width" content="720"></span>
-						<span class="image_height" itemprop="height" content="405"></span>
-					<? endif; ?>
-					</li>
-				</ul>
+
+				<?= $HTML->articleInfo($item, "/nyheder/".$item["sindex"],[
+					"media" => $media
+				]) ?>
+
 
 				<? if($item["description"]): ?>
 				<div class="description" itemprop="description">
