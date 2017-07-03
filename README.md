@@ -1,4 +1,4 @@
-This is the source code for http://stopknappen.dk.
+This is the source code for https://stopknappen.dk.
 The website is primarily built using Janitor and Manipulator. Visit http://parentnode.dk for more information.
 
 #About Stopknappen
@@ -9,7 +9,7 @@ stopknappen.dk is an initiative to provide a credible exit plan from the financi
 #About think.dk
 think.dk is a Copenhagen based think tank & center for acceleration of sustainable change. 
 
-Visit http://think.dk for more information.
+Visit https://think.dk for more information.
 
 
 # Licenses:
