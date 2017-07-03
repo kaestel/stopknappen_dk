@@ -6,7 +6,7 @@ if(isset($read_access) && $read_access) {
 
 include_once($_SERVER["FRAMEWORK_PATH"]."/config/init.php");
 $query = new Query();
-$IC = new Item();
+$IC = new Items();
 
 print '<?xml version="1.0" encoding="UTF-8"?>';
 
@@ -28,7 +28,7 @@ $item = $IC->getItem(array("tags" => "page:front"));
 $item = $IC->getItem(array("tags" => "page:posts"));
 ?>
 	<url>
-		<loc><?= SITE_URL ?>/nyheder</loc>
+		<loc><?= SITE_URL ?>/opslag</loc>
 		<lastmod><?= date("Y-m-d", strtotime($item["modified_at"])) ?></lastmod>
 		<changefreq>daily</changefreq>
 		<priority>1</priority>
@@ -39,7 +39,7 @@ $items = $IC->getItems(array("itemtype" => "post", "status" => 1));
 foreach($items as $item):
 ?>
 	<url>
-		<loc><?= SITE_URL ?>/nyheder/<?= $item["sindex"] ?></loc>
+		<loc><?= SITE_URL ?>/opslag/<?= $item["sindex"] ?></loc>
 		<lastmod><?= date("Y-m-d", strtotime($item["modified_at"])) ?></lastmod>
 		<changefreq>daily</changefreq>
 		<priority>1</priority>
@@ -69,12 +69,12 @@ foreach($items as $item):
 <? endforeach; ?>
 <?
 // WISHLIST PAGE
-$item = $IC->getItem(array("tags" => "page:wishlist"));
+$item = $IC->getItem(array("tags" => "page:about"));
 ?>
 	<url>
-		<loc><?= SITE_URL ?>/ønskeseddel</loc>
+		<loc><?= SITE_URL ?>/om-stopknappen</loc>
 		<lastmod><?= date("Y-m-d", strtotime($item["modified_at"])) ?></lastmod>
-		<changefreq>daily</changefreq>
+		<changefreq>weekly</changefreq>
 		<priority>1</priority>
 	</url>
 </urlset>
