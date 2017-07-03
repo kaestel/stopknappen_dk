@@ -35,6 +35,56 @@ class HTML extends HTMLCore {
 
 	}
 
+	function frontendQuestions($item, $qnas, $add_path) {
+		global $page;
+
+		$_ = '';
+
+		$_ .= '<div class="qnas i:qnas item_id:'.$item["item_id"].'"';
+		$_ .= '	data-csrf-token="'.session()->value("csrf").'"';
+		$_ .= '	data-question-add="'. $page->validPath("/janitor/admin/qna/save").'"';
+		$_ .= '	>';
+		$_ .= '	<h2 class="qnas">Spørgsmål og svar</h2>';
+
+		if($qnas):
+			$_ .= '<ul class="qnas">';
+			foreach($qnas as $qna):
+				$_ .= '<li class="qna qna_id:'.$qna["id"].'">';
+				$_ .= '	<ul class="info">';
+				$_ .= '		<li class="user">'.$qna["user_nickname"].'</li>';
+				$_ .= '		<li class="created_at">'. date("Y-m-d, H:i", strtotime($qna["created_at"])).'</li>';
+				$_ .= '	</ul>';
+				$_ .= '	<p class="question">'.nl2br($qna["question"]).'</p>';
+
+				if($qna["answer"]):
+
+					$_ .= '	<ul class="info answer">';
+					$_ .= '		<li class="user">Stopknappen</li>';
+					$_ .= '		<li class="created_at">'. date("Y-m-d, H:i", strtotime($qna["modified_at"])).'</li>';
+					$_ .= '	</ul>';
+					$_ .= '	<p class="answer">'.nl2br($qna["answer"]).'</p>';
+
+				else:
+
+					$_ .= '	<p class="answer">Ikke besvaret</p>';
+
+				endif;
+
+				$_ .= '</li>';
+			endforeach;
+			$_ .= '	</ul>';
+		else:
+
+		$_ .= '	<p>Ingen spørgsmål endnu</p>';
+
+		endif;
+		$_ .= '</div>';
+
+		return $_;
+
+	}
+
+
 
 	function articleInfo($item, $url, $_options) {
 
@@ -55,7 +105,7 @@ class HTML extends HTMLCore {
 		$_ .= '<ul class="info">';
 		$_ .= '	<li class="published_at" itemprop="datePublished" content="'. date("Y-m-d", strtotime($item["published_at"])) .'">'. date("Y-m-d, H:i", strtotime($item["published_at"])) .'</li>';
 		$_ .= '	<li class="modified_at" itemprop="dateModified" content="'. date("Y-m-d", strtotime($item["modified_at"])) .'"></li>';
-		$_ .= '	<li class="author" itemprop="author">'. $item["user_nickname"] .'</li>';
+		$_ .= '	<li class="author" itemprop="author">'. (isset($item["user_nickname"]) ? $item["user_nickname"] : SITE_NAME) .'</li>';
 		$_ .= '	<li class="main_entity'. ($sharing ? ' share' : '') .'" itemprop="mainEntityOfPage" content="'. SITE_URL.$url .'"></li>';
 		$_ .= '	<li class="publisher" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">';
 		$_ .= '		<ul class="publisher_info">';
@@ -168,6 +218,26 @@ class HTML extends HTMLCore {
 			$_ = '<ul class="tags">'.$_.'</ul>';
 		}
 
+
+		return $_;
+	}
+
+	function serverMessages($type = []) {
+
+		$_ = '';
+		
+		if(message()->hasMessages($type)) {
+			$_ .= '<div class="messages">';
+
+			$all_messages = message()->getMessages($type);
+			message()->resetMessages();
+			foreach($all_messages as $type => $messages) {
+				foreach($messages as $message) {
+					$_ .= '<p class="'.$type.'">'.$message.'</p>';
+				}
+			}
+			$_ .= '</div>';
+		}
 
 		return $_;
 	}

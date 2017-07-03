@@ -2,20 +2,20 @@ SUBJECT:Nysgerrigheden længe leve!
 
 Tak for din nysgerrighed.
 
-Bekræft din tilmelding på linket nedenfor:
+Bekræft din konto på linket nedenfor:
+{SITE_URL}/deltag/bekraeft/email/{EMAIL}/{VERIFICATION}
 
-{SITE_URL}/nysgerrig/bekraeft/email/{EMAIL}/{VERIFICATION}
 
-
-Hvis du vil ændre din tilmelding eller dit password, kan du gøre det ved at logge ind på sitet.
+Hvis du vil ændre din profil eller dit password, kan du gøre det ved at logge ind på:
+{SITE_URL}/janitor/admin/profile
 
 Login oplysninger: 
 Dit brugernavn er: {EMAIL}
 Dit password er: {PASSWORD}
 
 
-
-Med vilje og tro bliver vejen virkelig,
+Vi glæder os til at læse dine kommentarer og spørgsmål på sitet. 
+Du er også velkommen til at kontakte os direkte på start@stopknappen.dk eller ved at at besvare denne email.
 
 Stopknappen
 {SITE_URL}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="<?= $this->language() ?>">
 <head>
-	<!-- (c) & (p) think.dk 2002-2016 -->
+	<!-- (c) & (p) think.dk 2002-2017 -->
 	<!-- For detailed copyright license, see /terms -->
 	<!-- If you want to help build the ultimate frontend-centered platform, visit http://parentnode.dk -->
 	<title><?= $this->pageTitle() ?></title>
@@ -35,8 +35,9 @@
 	<div id="header">
 		<ul class="servicenavigation">
 			<li class="keynav navigation nofollow"><a href="#navigation">To navigation</a></li>
+			<li class="keynav language en"><a href="/english">English</a></li>
 <? if(session()->value("user_id") && session()->value("user_group_id") == 2): ?>
-			<li class="keynav admin nofollow"><a href="/janitor/admin/profile">Account</a></li>
+			<li class="keynav admin nofollow"><a href="/janitor/admin/profile">Konto</a></li>
 <? elseif(session()->value("user_id") && session()->value("user_group_id") > 2): ?>
 			<li class="keynav admin nofollow"><a href="/janitor">Janitor</a></li>
 <? endif; ?>

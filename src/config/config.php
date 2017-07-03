@@ -12,7 +12,7 @@ error_reporting(E_ALL);
 * Site name
 */
 define("SITE_UID", "stop");
-define("SITE_NAME", "stopknappen / startknappen");
+define("SITE_NAME", "Stopknappen");
 define("SITE_URL", (isset($_SERVER["HTTPS"]) ? "https" : "http")."://".$_SERVER["SERVER_NAME"]);
 define("SITE_EMAIL", "start@stopknappen.dk");
 
@@ -24,11 +24,12 @@ define("DEFAULT_PAGE_IMAGE", "/img/logo-large.png");
 
 define("DEFAULT_LANGUAGE_ISO", "EN"); // Reginal language English
 define("DEFAULT_COUNTRY_ISO", "DK"); // Regional country Denmark
+define("DEFAULT_CURRENCY_ISO", "DKK");
 
 
 // ENABLE ITEMS MODEL
 define("SITE_ITEMS", true);
-define("SITE_SIGNUP", "/nysgerrig");
+define("SITE_SIGNUP", "/deltag");
 
 
 // Enable notifications (send collection email after N notifications)

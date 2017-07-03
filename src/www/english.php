@@ -12,12 +12,12 @@ $IC = new Items();
 $itemtype = "page";
 
 
-$page->bodyClass("about");
-$page->pageTitle("Hvad, Hvem, Hvorfor, Hvordan");
+$page->bodyClass("language");
+$page->pageTitle("The Stopbutton");
 
 
 $page->page(array(
-	"templates" => "pages/hvad-er-stopknappen.php"
+	"templates" => "pages/english.php"
 ));
 exit();
 

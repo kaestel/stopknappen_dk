@@ -1,7 +1,6 @@
 <?php
 
 // local segmentation
-// setup default site runs only on desktop to minimize maintenance
 $segments_config["www"] = array(
 	
 	"desktop_edge"  => "desktop",

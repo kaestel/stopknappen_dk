@@ -1,6 +1,7 @@
 <?php
 $access_item["/"] = true;
-$access_item["/addComment"] = true;
+$access_item["/comments"] = true;
+$access_item["/addComment"] = "/comments";
 if(isset($read_access) && $read_access) {
 	return;
 }
@@ -37,7 +38,7 @@ if(is_array($action) && count($action)) {
 		if($model && method_exists($model, $action[0])) {
 
 			$output = new Output();
-			$output->screen($model->$action[0]($action));
+			$output->screen($model->{$action[0]}($action));
 			exit();
 		}
 	}

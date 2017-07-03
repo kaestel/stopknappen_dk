@@ -13,7 +13,6 @@
 
 					<?= $HTML->link("Questions", "/janitor/admin/qna/list", array("wrapper" => "li.qna")) ?>
 					<?= $HTML->link("TODOs", "/janitor/admin/todo/list", array("wrapper" => "li.todo")) ?>
-					<?= $HTML->link("Wishes", "/janitor/admin/wish/list", array("wrapper" => "li.wish")) ?>
 					<?= $HTML->link("Targets", "/janitor/target/list", array("wrapper" => "li.target")) ?>
 				</ul>
 			</li>
@@ -42,7 +41,7 @@
 			<li class="totop"><a href="#header">To top</a></li>
 		</ul>
 
-		<p class="copyright">Copyright 2016, parentNode.dk</p>
+		<p class="copyright">Copyright 2017, parentNode.dk</p>
 	</div>
 </div>
 

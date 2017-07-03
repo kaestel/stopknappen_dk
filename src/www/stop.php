@@ -9,20 +9,29 @@ include_once($_SERVER["FRAMEWORK_PATH"]."/config/init.php");
 
 $action = $page->actions();
 $IC = new Items();
-$itemtype = "topic";
+$itemtype = "stoptopic";
 
 
 $page->bodyClass("stop");
 $page->pageTitle("Tryk stop, før det er for sent");
 
 
-if(is_array($action) && count($action)) {
+if(session()->value("user_group_id") == 1) {
+	
+	$page->page(array(
+		"body_class" => "buttons",
+		"templates" => "stopknappen/login-or-signup.php"
+	));
+	exit();
+	
+}
+else if(is_array($action) && count($action)) {
 
 	# /stopknappen/tag/#tag# - list based on tags
 	if(count($action) == 2 && $action[0] == "tag") {
 
 		$page->page(array(
-			"templates" => "stopknappen/list_tag.php"
+			"templates" => "stopknappen/tag.php"
 		));
 		exit();
 	}
@@ -37,9 +46,12 @@ if(is_array($action) && count($action)) {
 	}
 
 }
+else {
 
-$page->page(array(
-	"templates" => "stopknappen/index.php"
-));
+	$page->page(array(
+		"templates" => "stopknappen/index.php"
+	));
+	
+}
 
 ?>

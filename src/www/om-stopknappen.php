@@ -8,14 +8,16 @@ include_once($_SERVER["FRAMEWORK_PATH"]."/config/init.php");
 
 
 $action = $page->actions();
+$IC = new Items();
+$itemtype = "page";
 
 
-$page->bodyClass("terms");
-$page->pageTitle("Vilkår");
+$page->bodyClass("about");
+$page->pageTitle("Hvad, Hvem, Hvorfor, Hvordan");
 
 
 $page->page(array(
-	"templates" => "pages/terms.php"
+	"templates" => "pages/om-stopknappen.php"
 ));
 exit();
 
