@@ -9,6 +9,7 @@ $item = $IC->getItem(array("id" => $item_id, "extend" => array("tags" => true, "
 ?>
 <div class="scene defaultEdit <?= $itemtype ?>Edit">
 	<h1>Edit topic</h1>
+	<h2><?= strip_tags($item["name"]) ?></h2>
 
 	<?= $JML->editGlobalActions($item) ?>
 
@@ -19,18 +20,7 @@ $item = $IC->getItem(array("id" => $item_id, "extend" => array("tags" => true, "
 			<fieldset>
 				<?= $model->input("name", array("value" => $item["name"])) ?>
 				<?= $model->input("description", array("class" => "autoexpand short", "value" => $item["description"])) ?>
-			</fieldset>
-
-			<fieldset>
-				<h3>Problem</h3>
-				<?= $model->input("problem_headline", array("value" => $item["problem_headline"])) ?>
-				<?= $model->inputHTML("problem", array("value" => $item["problem"])) ?>
-			</fieldset>
-
-			<fieldset>
-				<h3>Solution</h3>
-				<?= $model->inputHTML("solution", array("value" => $item["solution"])) ?>
-				<?= $model->inputHTML("details", array("value" => $item["details"])) ?>
+				<?= $model->inputHTML("html", array("value" => $item["html"])) ?>
 			</fieldset>
 
 			<?= $JML->editActions($item) ?>
@@ -42,8 +32,6 @@ $item = $IC->getItem(array("id" => $item_id, "extend" => array("tags" => true, "
 	<?= $JML->editTags($item) ?>
 
 	<?= $JML->editComments($item) ?>
-
-	<?= $JML->listTodos($item) ?>
 
 	<?= $JML->listQnas($item) ?>
 

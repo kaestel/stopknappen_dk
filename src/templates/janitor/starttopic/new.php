@@ -14,7 +14,6 @@ global $itemtype;
 	<?= $model->formStart("save", array("class" => "i:defaultNew labelstyle:inject")) ?>
 		<fieldset>
 			<?= $model->input("name") ?>
-			<?= $model->input("description", array("class" => "autoexpand short")) ?>
 		</fieldset>
 
 		<?= $JML->newActions() ?>
