@@ -1,20 +1,18 @@
 <?php
-global $action;
-global $model;
-
 $IC = new Items();
-$page_item = $IC->getItem(array("tags" => "page:signup-confirm-failed", "extend" => array("user" => true, "mediae" => true)));
+
+$page_item = $IC->getItem(array("tags" => "page:stopstart", "extend" => array("user" => true, "tags" => true, "mediae" => true)));
+
 if($page_item) {
 	$this->sharingMetaData($page_item);
 }
-
-$type = session()->value("signup_type");
-$username = session()->value("signup_username");
-
-session()->reset("signup_type");
-session()->reset("signup_username");
+// overwrite article title
+$this->pageTitle("STOP / START");
 ?>
-<div class="scene signup i:scene">
+<div class="scene buttons i:buttons">
+
+	<div class="intro"></div>
+
 
 <? if($page_item && $page_item["status"]): 
 	$media = $IC->sliceMedia($page_item); ?>
@@ -37,20 +35,19 @@ session()->reset("signup_username");
 		<? endif; ?>
 
 
-		<?= $HTML->articleInfo($item, "/deltag/bekraeft/fejl", [
-			"media" => $media
+		<?= $HTML->articleInfo($page_item, "/knapperne", [
+			"media" => $media,
+			"sharing" => false
 		]) ?>
 
 
 		<? if($page_item["html"]): ?>
 		<div class="articlebody" itemprop="articleBody">
-			<?= preg_replace("/{type}/", $type, preg_replace("/{username}/", $username, $page_item["html"])) ?>
+			<?= $page_item["html"] ?>
 		</div>
 		<? endif; ?>
+
 	</div>
-<? else:?>
-	<h1>Hvad??</h1>
-	<p>Din konto kunne IKKE verificeres. Måske har du allerede aktiveret din konto?</p>
 <? endif; ?>
 
 </div>

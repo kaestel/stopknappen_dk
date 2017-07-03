@@ -82,7 +82,7 @@ $related_items = $IC->getRelatedItems($related_pattern);
 
 	<h1>Teknologi er tydeligvis ikke svaret på alting</h1>
 	<p>
-		Vi kunne ikke finde den angivne artikel
+		Vi kunne ikke finde den angivne side - måske er den flygtet for at undgå verdens undergang :)
 	</p>
 
 <? endif; ?>
@@ -108,6 +108,7 @@ $related_items = $IC->getRelatedItems($related_pattern);
 
 
 				<h3 itemprop="headline"><a href="/artikler/<?= $item["sindex"] ?>"><?= strip_tags($item["name"]) ?></a></h3>
+				<h4 itemprop="alternateHeadline"><?= strip_tags($item["subheader"]) ?></h4>
 
 
 				<?= $HTML->articleInfo($item, "/artikler/".$item["sindex"],[

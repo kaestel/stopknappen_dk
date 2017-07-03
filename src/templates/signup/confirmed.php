@@ -15,8 +15,7 @@ session()->reset("signup_type");
 session()->reset("signup_username");
 
 ?>
-<div class="scene newsletter i:scene">
-
+<div class="scene signup i:scene">
 
 <? if($page_item && $page_item["status"]): 
 	$media = $IC->sliceMedia($page_item); ?>
@@ -39,7 +38,7 @@ session()->reset("signup_username");
 		<? endif; ?>
 
 
-		<?= $HTML->articleInfo($page_item, "/nysgerrig/bekraeft/kvittering", [
+		<?= $HTML->articleInfo($page_item, "/deltag/bekraeft/kvittering", [
 			"media" => $media
 		]) ?>
 
@@ -52,7 +51,8 @@ session()->reset("signup_username");
 	</div>
 <? else:?>
 	<h1>Tak!</h1>
-	<p>Din <?= $type ?>: <?= $username ?>, er hermed bekræftet.</p>
+	<p>Din konto er hermed bekræftet.</p>
+	<p><a href="/janitor/admin/profile">Log ind</a>.</p>
 <? endif; ?>
 
 </div>

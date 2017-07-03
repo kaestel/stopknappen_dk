@@ -2,7 +2,7 @@
 global $itemtype;
 global $IC;
 
-$page_item = $IC->getItem(array("tags" => "page:stopknappen", "extend" => array("tags" => true, "comments" => true, "user" => true)));
+$page_item = $IC->getItem(array("tags" => "page:startknappen", "extend" => array("tags" => true, "comments" => true, "user" => true)));
 
 if($page_item) {
 	$this->sharingMetaData($page_item);
@@ -21,7 +21,7 @@ foreach($items as $i => $item) {
 }
 
 ?>
-<div class="scene stop i:stop">
+<div class="scene start i:start">
 
 <? if($page_item && $page_item["status"]): 
 	$media = $IC->sliceMedia($page_item); ?>
@@ -44,7 +44,7 @@ foreach($items as $i => $item) {
 		<? endif; ?>
 
 
-		<?= $HTML->articleInfo($page_item, "/stop", [
+		<?= $HTML->articleInfo($page_item, "/start", [
 			"media" => $media
 		]) ?>
 
@@ -59,7 +59,7 @@ foreach($items as $i => $item) {
 
 <? else: ?>
 
-	<h1>Stopknappen</h1>
+	<h1>Startknappen</h1>
 
 <? endif; ?>
 
@@ -74,14 +74,14 @@ foreach($items as $i => $item) {
 
 			<?= $HTML->articleTags($item, [
 				"context" => ["about"],
-				"url" => "/stop/tag"
+				"url" => "/start/tag"
 			]) ?>
 
 
-			<h3 class="headline"><a href="/stop/<?= $item["sindex"] ?>"><?= strip_tags($item["name"]) ?></a></h3>
+			<h3 class="headline"><a href="/start/<?= $item["sindex"] ?>"><?= strip_tags($item["name"]) ?></a></h3>
 
 
-			<?= $HTML->articleInfo($item, "/stop/".$item["sindex"], [
+			<?= $HTML->articleInfo($item, "/start/".$item["sindex"], [
 				"media" => $media
 			]) ?>
 
@@ -107,13 +107,13 @@ foreach($items as $i => $item) {
 
 			<?= $HTML->articleTags($item, [
 				"context" => ["about"],
-				"url" => "/stop/tag",
+				"url" => "/start/tag",
 			]) ?>
 
 
-			<h3 class="headline"><a href="/stop/<?= $item["sindex"] ?>"><?= $item["name"] ?></a></h3>
+			<h3 class="headline"><a href="/start/<?= $item["sindex"] ?>"><?= $item["name"] ?></a></h3>
 
-			<?= $HTML->articleInfo($item, "/stop/".$item["sindex"], [
+			<?= $HTML->articleInfo($item, "/start/".$item["sindex"], [
 				"media" => $media
 			]) ?>
 

@@ -37,7 +37,7 @@ $items = $IC->getItems(array("itemtype" => $itemtype, "status" => 1, "extend" =>
 		<? endif; ?>
 
 
-		<?= $HTML->articleInfo($page_item, "/nyheder", [
+		<?= $HTML->articleInfo($page_item, "/opslag", [
 			"media" => $media,
 			"sharing" => true
 		]) ?>
@@ -50,16 +50,16 @@ $items = $IC->getItems(array("itemtype" => $itemtype, "status" => 1, "extend" =>
 		<? endif; ?>
 	</div>
 <? else:?>
-	<h1>Nyheder</h1>
+	<h1>Opslag</h1>
 <? endif; ?>
 
 
 <? if($categories): ?>
 	<div class="categories">
 		<ul class="tags">
-			<li class="selected"><a href="/nyheder">Alle nyheder</a></li>
+			<li class="selected"><a href="/opslag">Alle opslag</a></li>
 			<? foreach($categories as $tag): ?>
-			<li><a href="/nyheder/tag/<?= urlencode($tag["value"]) ?>"><?= $tag["value"] ?></a></li>
+			<li><a href="/opslag/tag/<?= urlencode($tag["value"]) ?>"><?= $tag["value"] ?></a></li>
 			<? endforeach; ?>
 		</ul>
 	</div>
@@ -77,15 +77,15 @@ $items = $IC->getItems(array("itemtype" => $itemtype, "status" => 1, "extend" =>
 
 			<?= $HTML->articleTags($item, [
 				"context" => [$itemtype],
-				"url" => "/nyheder/tag",
-				"default" => ["/nyheder", "Alle"]
+				"url" => "/opslag/tag",
+				"default" => ["/opslag", "Alle"]
 			]) ?>
 
 
-			<h3 itemprop="headline"><a href="/nyheder/<?= $item["sindex"] ?>"><?= $item["name"] ?></a></h3>
+			<h3 itemprop="headline"><a href="/opslag/<?= $item["sindex"] ?>"><?= $item["name"] ?></a></h3>
 
 
-			<?= $HTML->articleInfo($item, "/nyheder/".$item["sindex"], [
+			<?= $HTML->articleInfo($item, "/opslag/".$item["sindex"], [
 				"media" => $media
 			]) ?>
 

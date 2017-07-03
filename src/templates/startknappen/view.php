@@ -49,9 +49,9 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 <div class="scene topic i:topic">
 
 <? if($item):
-	$media = $IC->sliceMedia($page_item); ?>
+	$media = $IC->sliceMedia($item); ?>
 
-	<div class="i:article topic article id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
+	<div class="i:article topic id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
 		data-csrf-token="<?= session()->value("csrf") ?>"
 		data-readstate="<?= $item["readstate"] ?>"
 		data-readstate-add="<?= $this->validPath("/janitor/admin/profile/addReadstate/".$item["item_id"]) ?>" 
@@ -61,14 +61,14 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 
 		<?= $HTML->articleTags($item, [
 			"context" => ["about"],
-			"url" => "/stop/tag",
-			"default" => ["/stop", "Stopknappen"]
+			"url" => "/start/tag",
+			"default" => ["/start", "Startknappen"]
 		]) ?>
 
 
 		<h1 itemprop="headline"><?= $item["name"] ?></h1>
 
-		<?= $HTML->articleInfo($item, "/stop/".$item["sindex"], [
+		<?= $HTML->articleInfo($item, "/start/".$item["sindex"], [
 			"media" => $media
 		]) ?>
 
@@ -88,13 +88,13 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 
 
 	<? if($next || $prev): ?>
-	<div class="pagination i:pagination">
+	<div class="pagination">
 		<ul>
 		<? if($prev): ?>
-			<li class="previous"><a href="/stop/<?= $prev[0]["sindex"] ?>"><?= strip_tags($prev[0]["name"]) ?></a></li>
+			<li class="previous"><a href="/start/<?= $prev[0]["sindex"] ?>"><?= strip_tags($prev[0]["name"]) ?></a></li>
 		<? endif; ?>
 		<? if($next): ?>
-			<li class="next"><a href="/stop/<?= $next[0]["sindex"] ?>"><?= strip_tags($next[0]["name"]) ?></a></li>
+			<li class="next"><a href="/start/<?= $next[0]["sindex"] ?>"><?= strip_tags($next[0]["name"]) ?></a></li>
 		<? endif; ?>
 		</ul>
 	</div>
@@ -108,7 +108,7 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 	<p>
 		Vi kunne ikke finde det angivne emne - måske er det flygtet for at undgå verdens undergang :)
 	</p>
-	<p>Tryk på <a href="/stop">Stopknappen</a>.</p>
+	<p>Tryk på <a href="/start">Startknappen</a>.</p>
 
 
 <? endif; ?>
@@ -116,10 +116,10 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 
 <? 	if($related_topics): ?>
 	<div class="related">
-		<h2>Relateret <a href="/stop">(Se alle)</a></h2>
+		<h2>Relaterede emner <a href="/start">(Se alle)</a></h2>
 		<ul class="topics i:articleMiniList">
-		<? foreach($related_topics as $item):
-			$media = $IC->sliceMedia($page_item); ?>
+	<?	foreach($related_topics as $item):
+			$media = $IC->sliceMedia($item); ?>
 			<li class="article topic item_id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
 				data-readstate="<?= $item["readstate"] ?>"
 				>
@@ -127,14 +127,14 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 
 				<?= $HTML->articleTags($item, [
 					"context" => ["about"],
-					"url" => "/stop/tag"
+					"url" => "/start/tag"
 				]) ?>
 
 
-				<h3 class="headline"><a href="/stop/<?= $item["sindex"] ?>"><?= strip_tags($item["name"]) ?></a></h3>
+				<h3 class="headline"><a href="/start/<?= $item["sindex"] ?>"><?= strip_tags($item["name"]) ?></a></h3>
 
 
-				<?= $HTML->articleInfo($item, "/stop/".$item["sindex"], [
+				<?= $HTML->articleInfo($item, "/start/".$item["sindex"], [
 					"media" => $media
 				]) ?>
 
@@ -146,7 +146,7 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 				<? endif; ?>
 
 			</li>
-		<? endforeach; ?>
+	<?		endforeach; ?>
 		</ul>
 	</div>
 <? 	endif; ?>

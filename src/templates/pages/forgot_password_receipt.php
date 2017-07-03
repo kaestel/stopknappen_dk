@@ -1,6 +1,4 @@
 <?php
-	
-$model = new Model();
 
 $this->pageTitle("Hjælpen er på vej");
 ?>

@@ -1,6 +1,11 @@
 <?php
 $IC = new Items();
 
+$intros = $IC->getItems(array("itemtype" => "page", "tags" => "page:intro", "status" => 1, "extend" => true));
+if($intros) {
+	$intro = $intros[rand(0, count($intros)-1)];
+}
+
 $page_item = $IC->getItem(array("tags" => "page:front", "extend" => array("user" => true, "mediae" => true, "tags" => true)));
 if($page_item) {
 	$this->sharingMetaData($page_item);
@@ -11,58 +16,15 @@ $post_items = $IC->getItems(array("itemtype" => "post", "tags" => "on:frontpage"
 ?>
 <div class="scene front i:front">
 
-	<div class="intro">
-		<!--
-		// ny dansk tekst
+	<div class="intro" itemscope itemtype="http://schema.org/CreativeWork">
 
-		jeg tror
-		vi har sovet længe nok
-		nu 
-		er det på tide
-		at vågne og indse
+		<h2 class="stop"><span>STOP</span></h2>
+		<? if(isset($intro) && isset($intro["html"]) && $intro["html"]): ?>
+		<div class="quote" itemprop="text">
+			<?= $intro["html"] ?>
+		</div>
+		<? endif; ?>
 
-		at midlet 
-		er blevet en tyran
-		og målet er glemt
-		i stakken af regninger
-
-		vi har så travlt
-		at stilstand er tryghed
-		og tryghed er en luksus
-		som koster os alt
-
-		tilfredse
-		som mættede får
-		men intet er vores
-		bortset fra evnen til at tænke selv
-		-->
-
-		<h2 class="i_think"><a href="/artikler/jeg-tror-paa">jeg tror</a></h2>
-		<p class="long"><span class="s1">vi har</span> <span class="s2">sovet</span> <span class="s3">længe nok</span></p>
-		<h3 class="now">nu</h3> 
-		<p class="time"><span class="s1">er det</span> <span class="s2"><a href="/artikler/det-er-paa-tide">på tide</a></span></a></p>
-		<p class="wake"><span class="s1">at</span> <span class="s2">vågne</span> <span class="s3">og</span></p>
-		<p class="realize">indse</p>
-
-		<h2 class="means">at midlet</h2>
-		<p class="tyrant"><span class="s1">er blevet</span> <span class="s2">en tyran</span></p>
-		<p class="goal"><span class="s1">og</span> <span class="s2">målet</span> <span class="s3">er</span></p>
-		<h3 class="forgotten">glemt</h3>
-		<p class="bills"><span class="s1">i stakken</span> <span class="s1">af</span> <span class="s2">regninger</span></p>
-
-		<p class="busy"><span class="s1">vi har så</span> <span class="s2">travlt</span></p>
-		<p class="idleness"><span class="s1">at</span> <span class="s2">stilstand</span></p>
-		<h2 class="safety"><span class="s1">er</span> <span class="s2">tryghed</span></h2>
-		<p class="luxery"><span class="s1">og</span> <span class="s2">tryghed</span> <span class="s1">er en</span> <span class="s2">luksus</span></p>
-		<p class="cost"><span class="s1">som</span> <span class="s2">koster</span> <span class="s3">os</span></p> 
-		<h3 class="everything">alt</h3>
-
-		<p class="content">tilfredse</p>
-		<p class="sheep"><span class="s1">som mættede</span> <span class="s2">får</span></p>
-		<p class="nothing"><span class="s1">men</span> <span class="s2"><a href="/artikler/intet-er-vores">intet er vores</a></span></p>
-		<p class="except">bortset fra</p>
-		<h3 class="ability">evnen</h3>
-		<p class="to_think"><span class="s1">til at</span> <span class="s2">tænke</span> <span class="s1">selv</span></p>
 	</div>
 
 
@@ -104,8 +66,8 @@ $post_items = $IC->getItems(array("itemtype" => "post", "tags" => "on:frontpage"
 
 
 <? if($post_items): ?>
-	<div class="news">
-		<h2>Aktuelt <a href="/nyheder">(se alle)</a></h2>
+	<div class="posts">
+		<h2>Aktuelle opslag <a href="/opslag">(se alle)</a></h2>
 		<ul class="items articles">
 		<? foreach($post_items as $item): 
 			$media = $IC->sliceMedia($item); ?>
@@ -116,15 +78,15 @@ $post_items = $IC->getItems(array("itemtype" => "post", "tags" => "on:frontpage"
 
 				<?= $HTML->articleTags($item, [
 					"context" => ["post"],
-					"url" => "/nyheder/tag",
-					"default" => ["/nyheder", "All"]
+					"url" => "/opslag/tag",
+					"default" => ["/opslag", "Alle"]
 				]) ?>
 
 
 				<h3 itemprop="headline"><?= $item["name"] ?></h3>
 
 
-				<?= $HTML->articleInfo($page_item, "/nyheder/".$item["sindex"], [
+				<?= $HTML->articleInfo($page_item, "/opslag/".$item["sindex"], [
 					"media" => $media
 				]) ?>
 

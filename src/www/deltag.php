@@ -17,7 +17,7 @@ $page->pageTitle("Nysgerrig?");
 
 if(is_array($action) && count($action)) {
 
-	// /nysgerrig/kvittering (user just signed up)
+	// /deltag/kvittering (user just signed up)
 	if($action[0] == "kvittering") {
 
 		$page->page(array(
@@ -26,21 +26,23 @@ if(is_array($action) && count($action)) {
 		exit();
 	}
 
-	// /nysgerrig/bekraeft/email|mobile/#email|mobile#/#verification_code#
+	// /deltag/bekraeft/email|mobile/#email|mobile#/#verification_code#
 	else if($action[0] == "bekraeft" && count($action) == 4) {
+
+		session()->value("signup_type", $action[1]);
+		session()->value("signup_username", $action[2]);
 
 		if($model->confirmUser($action)) {
 
-
 			// redirect to leave POST state
-			header("Location: /nysgerrig/bekraeft/kvittering");
+			header("Location: /deltag/bekraeft/kvittering");
 			exit();
 
 		}
 		else {
 
 			// redirect to leave POST state
-			header("Location: /nysgerrig/bekraeft/fejl");
+			header("Location: /deltag/bekraeft/fejl");
 			exit();
 
 		}
@@ -61,7 +63,7 @@ if(is_array($action) && count($action)) {
 		exit();
 	}
 
-	// /nysgerrig/tilmelding
+	// /deltag/tilmelding
 	else if($action[0] == "tilmelding" && $page->validateCsrfToken()) {
 
 		// create new user
@@ -78,16 +80,16 @@ if(is_array($action) && count($action)) {
 
 		// user exists
 		else if(isset($user["status"]) && $user["status"] == "USER_EXISTS") {
-			message()->addMessage("Beklager, serveren siger du enten har dårlig samvittighed eller dårlig hukommelse!", array("type" => "error"));
+			message()->addMessage("Beklager, serveren siger at du husker dårligt! <br />(Ja, den er lidt grov, men den har nok ret)", array("type" => "error"));
 		}
 		// something went wrong
 		else {
-			message()->addMessage("Beklager, serveren siger NEJ!", array("type" => "error"));
+			message()->addMessage("Beklager, serveren siger NEJ! <br />(Den siger ikke noget om hvorfor)", array("type" => "error"));
 		}
 
 	}
 
-	// /nysgerrig/afmeld
+	// /deltag/afmeld
 	// post email + newsletter
 	else if($action[0] == "afmeld" && $page->validateCsrfToken()) {
 
@@ -98,7 +100,7 @@ if(is_array($action) && count($action)) {
 }
 
 // plain signup directly
-// /curious
+// /deltag
 $page->page(array(
 	"templates" => "signup/signup.php"
 ));

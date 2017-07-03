@@ -13,12 +13,12 @@ $itemtype = "post";
 
 
 $page->bodyClass("posts");
-$page->pageTitle("Aktuelt");
+$page->pageTitle("Opslag");
 
 
 
-// news list for tags
-// /nyheder/#sindex#
+// post list for tags
+// /opslag/#sindex#
 if(count($action) == 1) {
 
 	$page->page(array(
@@ -27,8 +27,8 @@ if(count($action) == 1) {
 	exit();
 
 }
-// /nyheder/tag/#tag#
-// /nyheder/tag/#tag#/#sindex#/prev|next
+// /opslag/tag/#tag#
+// /opslag/tag/#tag#/#sindex#/prev|next
 else if(count($action) >= 2 && $action[0] == "tag") {
 
 	$page->page(array(

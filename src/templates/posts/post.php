@@ -45,15 +45,15 @@ $related_items = $IC->getRelatedItems($related_pattern);
 
 		<?= $HTML->articleTags($item, [
 			"context" => [$itemtype],
-			"url" => "/nyheder/tag",
-			"default" => ["/nyheder", "Alle"]
+			"url" => "/opslag/tag",
+			"default" => ["/opslag", "Alle"]
 		]) ?>
 
 
 		<h1 itemprop="headline"><?= $item["name"] ?></h1>
 
 
-		<?= $HTML->articleInfo($item, "/nyheder/".$item["sindex"],[
+		<?= $HTML->articleInfo($item, "/opslag/".$item["sindex"],[
 			"media" => $media,
 			"sharing" => true
 		]) ?>
@@ -81,7 +81,7 @@ $related_items = $IC->getRelatedItems($related_pattern);
 
 	<h1>Teknologi er tydeligvis ikke svaret på alting</h1>
 	<p>
-		Vi kunne ikke finde den angivne nyhed.
+		Vi kunne ikke finde den angivne side - måske er den flygtet for at undgå verdens undergang :)
 	</p>
 
 <? endif; ?>
@@ -89,7 +89,7 @@ $related_items = $IC->getRelatedItems($related_pattern);
 
 <? if($related_items): ?>
 	<div class="related">
-		<h2>Relaterede nyheder <a href="/nyheder">(Se alle)</a></h2>
+		<h2>Relaterede opslag <a href="/opslag">(Se alle)</a></h2>
 
 		<ul class="items articles i:articleMiniList">
 <?		foreach($related_items as $item): 
@@ -101,15 +101,15 @@ $related_items = $IC->getRelatedItems($related_pattern);
 
 				<?= $HTML->articleTags($item, [
 					"context" => [$itemtype],
-					"url" => "/nyheder/tag",
-					"default" => ["/nyheder", "Alle"]
+					"url" => "/opslag/tag",
+					"default" => ["/opslag", "Alle"]
 				]) ?>
 
 
-				<h3 itemprop="headline"><a href="/nyheder/<?= $item["sindex"] ?>"><?= $item["name"] ?></a></h3>
+				<h3 itemprop="headline"><a href="/opslag/<?= $item["sindex"] ?>"><?= $item["name"] ?></a></h3>
 
 
-				<?= $HTML->articleInfo($item, "/nyheder/".$item["sindex"],[
+				<?= $HTML->articleInfo($item, "/opslag/".$item["sindex"],[
 					"media" => $media
 				]) ?>
 

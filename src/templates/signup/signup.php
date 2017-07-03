@@ -2,6 +2,11 @@
 global $action;
 global $model;
 
+$forward_url = getVar("forward_url");
+if($forward_url) {
+	session()->value("login_forward", $forward_url);
+}
+
 $IC = new Items();
 $page_item = $IC->getItem(array("tags" => "page:signup", "extend" => array("user" => true, "tags" => true, "mediae" => true)));
 if($page_item) {
@@ -35,9 +40,9 @@ $model->setProperty("password", "value", "");
 		<? endif; ?>
 
 
-		<?= $HTML->articleInfo($page_item, "/nysgerrig", [
+		<?= $HTML->articleInfo($page_item, "/deltag", [
 			"media" => $media,
-			"sharing" => true
+			"sharing" => false
 		]) ?>
 
 
@@ -48,29 +53,22 @@ $model->setProperty("password", "value", "");
 		<? endif; ?>
 	</div>
 <? else:?>
-	<h1>Nysgerrig?</h1>
+	<h1>Opret en konto og deltag i udviklingen af Stopknappen</h1>
 <? endif; ?>
 
 	<?= $model->formStart("tilmelding", array("class" => "signup labelstyle:inject")) ?>
 
-<?	if(message()->hasMessages(array("type" => "error"))): ?>
-		<p class="errormessage">
-<?		$messages = message()->getMessages(array("type" => "error"));
-		message()->resetMessages();
-		foreach($messages as $message): ?>
-			<?= $message ?><br>
-<?		endforeach;?>
-		</p>
-<?	endif; ?>
+		<?= $HTML->serverMessages() ?>
 
 		<fieldset>
 			<?= $model->input("newsletter", array("type" => "hidden", "value" => "Nysgerrig")); ?>
+			<?= $model->input("nickname", array("label" => "Dit offentlige brugernavn", "value" => "Anonym", "required" => true, "hint_message" => "Indtast dit offentlige brugernavn. Der er ikke noget galt med at være anonym.", "error_message" => "Det indtastede er ikke en gyldigt.")); ?>
 			<?= $model->input("email", array("label" => "Din email", "required" => true, "hint_message" => "Indtast din email-adresse.", "error_message" => "Det indtastede er ikke en gyldig email-adresse.")); ?>
-			<?= $model->input("password", array("required" => true, "hint_message" => "Indtast dit nye password.", "error_message" => "Dit password skal være mellem 8 og 20 tegn.")); ?>
+			<?= $model->input("password", array("hint_message" => "Indtast dit nye kodeord - eller lad feltet være tomt, så genererer vi et til dig.", "error_message" => "Dit password skal være mellem 8 og 20 tegn.")); ?>
 		</fieldset>
 
 		<ul class="actions">
-			<?= $model->submit("Tilmeld dig", array("class" => "primary", "wrapper" => "li.signup")) ?>
+			<?= $model->submit("Opret konto", array("class" => "primary", "wrapper" => "li.signup")) ?>
 		</ul>
 	<?= $model->formEnd() ?>
 

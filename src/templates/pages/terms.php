@@ -34,7 +34,7 @@
 			<h2>Vilkår</h2>
 			<p>
 				Ved at bruge vores hjemmeside, accepterer du automatisk nedenstående vilkår. Hvis du 
-				ikke kan acceptere disse vilkår, kan du ikke bruge hjemmesiden.
+				ikke kan acceptere disse vilkår, kan du ikke bruge hjemmesiden. Desværre.
 			</p>
 			<p>
 				Vi kan ikke holdes ansvarlige for indhold oprettet af vores brugere, eller konsekvenser afledt, direkte
@@ -46,8 +46,13 @@
 				
 			<h2>Cookies</h2>
 			<p>
-				Vi elsker cookies og vi serverer kun sikre cookies af høj kvalitet. Ingen transfedt eller
-				kunstigt sødestof. Du tager ikke skade af vores cookies.
+				Vi elsker cookies og vi serverer kun sikre cookies af høj kvalitet. Ingen transfedt, palmeolie eller
+				kunstigt sødestof. Du tager ikke skade af vores cookies. 
+			</p>
+			<p>
+				Af hensyn til miljøet
+				har vi valgt ikke at lave en cookie-fri version af hjemmesiden, da dette ville medføre 
+				større belastning af både din computer, netværket og vores servere – og dermed et højere energiforbrug.
 			</p>
 			<p>
 				Når du bruger vores hjemmeside, identificerer vi din browser. Det gør vi for at kunne
@@ -58,9 +63,9 @@
 				sletter vi både cookie og informationen på vores server.
 			</p>
 			<p>
-				Ironisk nok er den eneste langtidsholdbare cookie, vi gemmer på din computer, den vi bruger
-				til at huske din accept af vilkårene. Denne cookie holder i 12 måneder og forhindre
-				"accepter cookies"-dialogen i at vises efter du har klikket "Accepter".
+				Ironisk nok er en af de eneste langtidsholdbare cookies, vi gemmer på din computer, den vi bruger
+				til at huske din accept af vilkårene. Denne cookie holder i mindst 12 måneder og forhindrer
+				"accepter cookies"-dialogen i at vises efter du har klikket "OK".
 			</p>
 			<p>
 				Vi bruger Google Analytics til statistik på hjemmesiden. Vi kan godt lide statistik, fordi
@@ -85,7 +90,7 @@
 
 			<h2>Licenser</h2>
 			<p>
-				Indholdet på denne hjemmesiden er dækket af en 
+				Det offentligt tilgængelige indhold på denne hjemmesiden er dækket af en 
 				<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution 4.0 International Licens</a>.
 			</p>
 			<p>
@@ -94,11 +99,19 @@
 				tydeligt anfører kilde eller laver et link til stopknappen.dk i direkte forlængelse af den gengivne tekst.
 			</p>
 			<p>
+				Den del af indholdet du kun kan se når du er logget ind, er dækket af en standard copyright licens,
+				og må ikke gengives, helt eller delvist i nogen form (bortset fra mundligt) uden forgående aftale.
+			</p>
+			<p>
+				Hvis du gerne vil dele ideerne, kan du kontakte os på <a href="mailto:start@stopknappen.dk">start@stopknappen.dk</a>.
+			</p>
+
+			<p>
 				Indholdet er underlagt disse licensmæssige begrænsninger, fordi materialet stadig er under udvikling.
 			</p>
 			<p>
 				Kildekoden til denne hjemmeside er dækket af en 
-				<a rel="license" href="https://github.com/kaestel/think_dk/blob/master/LICENSE-CPAL.md">CPAL-1.0 licens</a>.
+				<a rel="license" href="https://github.com/kaestel/stopknappen_dk/blob/master/LICENSE-CPAL.md">CPAL-1.0 licens</a>.
 			</p>
 			<p>
 				Denne hjemmeside benytter endvidere design templates fra think.dk og parentnode.dk, i overensstemmelse

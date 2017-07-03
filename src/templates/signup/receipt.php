@@ -12,7 +12,7 @@ $email = session()->value("signup_email");
 session()->reset("signup_email");
 ?>
 <div class="scene signup i:scene">
-<? if($page_item && $page_item["status"]): 
+<? if($page_item && $page_item["status"] && $email): 
 	$media = $IC->sliceMedia($page_item); ?>
 	<div class="article i:article id:<?= $page_item["item_id"] ?>" itemscope itemtype="http://schema.org/Article">
 
@@ -33,7 +33,7 @@ session()->reset("signup_email");
 		<? endif; ?>
 
 
-		<?= $HTML->articleInfo($page_item, "/nysgerrig/kvittering", [
+		<?= $HTML->articleInfo($page_item, "/deltag/kvittering", [
 			"media" => $media
 		]) ?>
 

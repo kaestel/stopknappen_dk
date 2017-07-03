@@ -8,29 +8,28 @@ $items = $IC->getItems(array("itemtype" => $itemtype, "status" => 1, "tags" => "
 
 ?>
 
-<div class="scene articles tag i:scene">
-	<h1>Artikler <br />om <?= $selected_tag ?></h1>
+<div class="scene start tag i:start">
+	<h1>Startknappen <br />om <?= $selected_tag ?></h1>
 
 <? if($items): ?>
-	<ul class="items articles i:articleMiniList">
-		<? foreach($items as $item):
-			$media = $IC->sliceMedia($item); ?>
-		<li class="item article id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
+	<ul class="topics i:articleMiniList">
+<?	foreach($items as $item):
+	 	$media = $IC->sliceMedia($item); ?>
+		<li class="article topic item_id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
 			data-readstate="<?= $item["readstate"] ?>"
 			>
 
 
 			<?= $HTML->articleTags($item, [
 				"context" => ["about"],
-				"url" => "/artikler/tag",
-				"default" => ["/artikler", "Alle artikler"]
+				"url" => "/start/tag"
 			]) ?>
 
 
-			<h3 itemprop="headline"><a href="/artikler/<?= $item["sindex"] ?>"><?= strip_tags($item["name"]) ?></a></h3>
+			<h3 class="headline"><a href="/start/<?= $item["sindex"] ?>"><?= strip_tags($item["name"]) ?></a></h3>
 
 
-			<?= $HTML->articleInfo($item, "/artikler/".$item["sindex"], [
+			<?= $HTML->articleInfo($item, "/start/".$item["sindex"], [
 				"media" => $media
 			]) ?>
 
@@ -42,8 +41,9 @@ $items = $IC->getItems(array("itemtype" => $itemtype, "status" => 1, "tags" => "
 			<? endif; ?>
 
 		</li>
-		<? endforeach; ?>
+<?	endforeach; ?>
 	</ul>
+
 
 <? else: ?>
 
@@ -51,6 +51,7 @@ $items = $IC->getItems(array("itemtype" => $itemtype, "status" => 1, "tags" => "
 	<p>
 		Vi kunne ikke finde den angivne side - måske er den flygtet for at undgå verdens undergang :)
 	</p>
+	<p>Tryk på <a href="/start">Startknappen</a>.</p>
 
 <? endif; ?>
 
