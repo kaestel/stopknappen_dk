@@ -1,14 +1,9 @@
-Util.Objects["topic"] = new function() {
+Util.Objects["start"] = new function() {
 	this.init = function(scene) {
 //		u.bug("scene init:" + u.nodeId(scene))
-		
 
 		scene.resized = function() {
 //			u.bug("scene.resized:" + u.nodeId(this));
-
-
-			// refresh dom
-			//this.offsetHeight;
 		}
 
 		scene.scrolled = function() {
@@ -21,14 +16,11 @@ Util.Objects["topic"] = new function() {
 			page.cN.scene = this;
 
 
-
-
 			u.showScene(this);
 
 
 			page.resized();
 		}
-
 
 
 		// scene is ready
@@ -37,4 +29,3 @@ Util.Objects["topic"] = new function() {
 	}
 
 }
-

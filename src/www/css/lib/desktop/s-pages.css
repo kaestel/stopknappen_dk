@@ -1,14 +1,31 @@
-#header a.logo {display: block; text-indent: -9999px; width: 50px; height: 50px; padding: 0; top: 30px;
-	background: transparent url(/img/logo.png) no-repeat center center; background-size: 100% auto;
+/* PAGE LOGO */
+#header a.logo {display: block;
+	font-family: "OpenSans", Verdana, Arial, sans-serif; font-weight: bold; width: 50px; height: 34px; padding: 0; top: 30px; border-radius: 25px; background-color: #26962d; color: #ffffff; font-size: 1em; text-align: center; line-height: 15px; padding-top: 16px;
 } 
+@media all and (-webkit-min-device-pixel-ratio:0) {
+	#header a.logo {
+		-webkit-font-smoothing: subpixel-antialiased;
+		padding-top: 17px; height: 33px;
+	}
+}
+
 
 #content {}
 #content .scene {opacity: 0;}
+#content .scene h1 span {display: inline-block;}
 #content .scene ul.info {display: none;}
+
+
+/* HIDE HEADER AND FOOTER FOR INTRO SEQUENCE */
+body.front #header {/*display: none;*/ opacity: 0;}
+body.front #footer {display: none;}
 
 
 /* FRONT */
 #content .scene.front {padding: 0; opacity: 1;}
+
+
+/* FRONT INTRO */
 #content .scene.front div.intro {padding-bottom: 60px;
 	-o-user-select: none;
 	-ms-user-select: none;
@@ -17,54 +34,114 @@
 	user-select: none;
 }
 
-
-
-
-#content .scene.front div.intro a {cursor: default;}
-#content .scene.front div.intro a.active {cursor: pointer;}
-#content .scene.front div.intro span {display: inline-block; vertical-align: baseline;}
-#content .scene.front div.intro .active a {cursor: pointer;}
-
-#content .scene.front div.intro h2.i_think {font-size: 100px;}
-#content .scene.front div.intro h2 {font-size: 60px;}
-#content .scene.front div.intro h3 {font-size: 30px;}
-#content .scene.front div.intro p {font-size: 22px;}
-
-#content .scene.front div.intro .long .s2,
-#content .scene.front div.intro .long .s2 a {font-size: 32px; color: #01939a;}
-#content .scene.front div.intro .wake .s2,
-#content .scene.front div.intro .wake .s2 a {font-size: 34px; color: #bf7230;}
-#content .scene.front div.intro .tyrant .s2,
-#content .scene.front div.intro .tyrant .s2 a {font-size: 30px; color: #01939a;
-	font-family: "PT Serif", Times, serif;
+/* STOP LOGO */
+#content .scene.front div.intro h2.stop {font-size: 50px; padding: 20px 5px; width: auto; text-align: center; line-height: 1em; color: #ffffff;
+	font-family: "OpenSans", Verdana, Arial, sans-serif; font-weight: 700;
 }
-#content .scene.front div.intro .goal .s2,
-#content .scene.front div.intro .goal .s2 a {font-size: 34px; color: #bf7230;}
-#content .scene.front div.intro .idleness .s2,
-#content .scene.front div.intro .idleness .s2 {font-size: 34px; color: #01939a;}
+#content .scene.front div.intro h2.stop span {display: inline-block; vertical-align: baseline;}
 
-#content .scene.front div.intro .content,
-#content .scene.front div.intro .content a {font-size: 34px; color: #01939a;}
-#content .scene.front div.intro .sheep .s2,
-#content .scene.front div.intro .sheep .s2 a {font-size: 30px; color: #01939a; line-height: 24px;}
-
-
-#content .scene.front div.intro h1,
-#content .scene.front div.intro h2,
-#content .scene.front div.intro h3,
-#content .scene.front div.intro p {position: absolute; top: 0; left: 0; padding: 0 5px; opacity: 0; width: auto;}
-#content .scene.front div.intro h1 {padding: 0 10px;}
+/* INTRO QUOTE */
+#content .scene.front div.intro div.quote {display: none; text-align: center; font-size: 30px; font-style: italic;}
+#content .scene.front div.intro div.quote h2,
+#content .scene.front div.intro div.quote h3,
+#content .scene.front div.intro div.quote h4,
+#content .scene.front div.intro div.quote p {padding: 0; width: auto; line-height: 1.25em; text-align: center;}
+#content .scene.front div.intro div.quote span {display: inline-block; white-space: pre; opacity: 0;}
+#content .scene.front div.intro div.quote span.green {color: #26962d;}
+#content .scene.front div.intro div.quote span.red {color: #bf7230;}
+#content .scene.front div.intro div.quote span.blue {color: #01939a;}
 
 
 
 /* FRONT - ARTICLE */
-#content .scene.front div.article {opacity: 0;}
+#content .scene.front div.article {opacity: 0;
+	padding-top: 50px;
+	display: none;
+}
 
 
-/* FRONT - NEWS */
-#content .scene.front div.news {opacity: 0; padding-bottom: 75px;}
+
+/* FRONT - POSTS */
+#content .scene.front div.posts {opacity: 0; padding-bottom: 75px;
+
+	display: none;
+}
+#content .scene.front div.posts h2 {padding-bottom: 15px;}
+#content .scene.front div.posts h2 a {font-size: 12px; display: inline-block; vertical-align: middle;
+	font-family: "OpenSans";
+}
+#content .scene.front div.posts ul.articles li.article h3 {padding-bottom: 20px; color: #26962d;}
 
 
+
+/* BUTTONS */
+#content .scene.buttons {padding: 0; opacity: 1;}
+
+body.buttons #footer {display: none;}
+
+/* BUTTONS INTRO */
+#content .scene.buttons div.intro {/*padding-bottom: 60px;*/position: relative;
+	-o-user-select: none;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+#content .scene.buttons div.intro div.wrapper {position: absolute; top: 0; left: 0;}
+#content .scene.buttons div.intro span {opacity: 0; position: absolute; top: 0; padding: 20px; display: inline-block; vertical-align: top; line-height: 1em; text-transform: uppercase;
+	font-weight: bold;
+}
+/*#content .scene.buttons div.intro span.active {cursor: pointer;}*/
+#content .scene.buttons div.intro span.stop {z-index: 9; color: #26962d; left: 0;}
+#content .scene.buttons div.intro span.start {z-index: 6; color: #df0000; right: 0;}
+
+
+#content .scene.buttons div.intro svg.mask {z-index: 8; opacity: 0; position: absolute; top: 0; right: 0;}
+#content .scene.buttons div.intro svg.mask polygon {fill: #ffffff;}
+
+#content .scene.buttons div.intro svg.slash {z-index: 7; opacity: 0; position: absolute; top: 0; right: 0;}
+#content .scene.buttons div.intro svg.slash polygon {fill: #777777;}
+
+#content .scene.buttons div.intro svg.stop {z-index: 5; opacity: 0; position: absolute; top: 0; left: 0;}
+#content .scene.buttons div.intro svg.stop circle {fill: #26962d;}
+
+#content .scene.buttons div.intro svg.start {z-index: 5; opacity: 0; position: absolute; top: 0; left: 0;}
+#content .scene.buttons div.intro svg.start rect {fill: #df0000;}
+
+
+
+/*
+#content .scene.buttons div.enter {text-align: center; padding-bottom: 50px;}
+#content .scene.buttons div.enter span,
+#content .scene.buttons div.enter a {display: inline-block; vertical-align: top; text-transform: uppercase;}
+#content .scene.buttons div.enter a {text-decoration: none; padding-top: 20px;
+	font-weight: bold;
+}
+#content .scene.buttons div.enter span {color: #777777;
+	font-family: verdana;
+}
+#content .scene.buttons div.enter a.stop {color: #26962d;}
+#content .scene.buttons div.enter a.start {color: #df0000;}
+#content .scene.buttons div.enter span.stopspace {width: 12px;}
+#content .scene.buttons div.enter span.startspace {width: 8px;}
+*/
+
+
+/* BUTTONS - ARTICLE */
+#content .scene.buttons div.article {opacity: 0;
+	padding-top: 50px;
+	display: none;
+}
+
+/*
+#content .scene.buttons div.article .articlebody div.stop a.stop,
+#content .scene.buttons div.article .articlebody div.start a.start {display: inline-block; vertical-align: top; padding: 0 70px 20px; text-transform: uppercase; font-size: 16px;
+	font-weight: bold;
+}
+#content .scene.buttons div.article .articlebody div.stop a.stop {color: #26962d;}
+#content .scene.buttons div.article .articlebody div.start a.start {color: #df0000;}
+
+*/
 
 /* POST */
 #content .scene.post div.article ul.info {display: block;}
@@ -73,25 +150,6 @@
 #content .scene.article div.article ul.info {display: block;}
 
 
-
-/* ARTICLES */
-/*#content .scene.articles ul.articles {padding: 20px 0 30px;}
-#content .scene ul.articles li.article h3 {font-size: 24px;
-	font-family: "PT Serif", Times, serif;
-}
-#content .scene ul.articles li.article p {font-size: 16px;}
-*/
-
-
-/* ARTICLE */
-/*#content .scene.article div.intro {padding-bottom: 20px; border-bottom: 1px solid #dedede; margin-bottom: 40px;}
-#content .scene.article div.intro p {font-size: 13px; color: #cccccc;}
-#content .scene.article div.article {padding-bottom: 30px;}
-*/
-
-
-/* RELATED */
-/*#content .scene.articles div.related {border: none;}*/
 
 
 
@@ -120,64 +178,55 @@
 #content .scene div.todos .field {padding-bottom: 10px;}
 
 
-/* QnAs */
-#content .scene div.qnas {padding-bottom: 15px; position: relative; z-index: 1;}
-#content .scene div.qnas h2 {font-size: 16px; padding-bottom: 25px; position: relative; color: #dedede; cursor: pointer;}
-#content .scene div.qnas h2:hover {color: #00c90d;}
-#content .scene div.qnas h2 svg.arrow {position: absolute; top: 6px; right: 55px;}
-#content .scene div.qnas h2 svg.arrow line {stroke: #dedede; stroke-width: 3px;}
-#content .scene div.qnas h2:hover svg.arrow line {stroke: #00c90d;}
-
-#content .scene div.qnas > p,
-#content .scene div.qnas ul.qnas,
-#content .scene div.qnas ul.actions {display: none;}
-
-#content .scene div.qnas.open h2 {color: #00c90d;}
-#content .scene div.qnas.open > p,
-#content .scene div.qnas.open ul.qnas,
-#content .scene div.qnas.open ul.actions {display: block;}
-
-#content .scene div.qnas > p {color: #999999; font-size: 13px; padding-bottom: 25px;}
-#content .scene div.qnas ul.qnas {padding: 0; margin: 0;}
-#content .scene div.qnas ul.qnas > li {padding-bottom: 10px; padding-left: 0;}
-#content .scene div.qnas ul.qnas > li ul.info {padding-bottom: 0; margin: 0; list-style: none;}
-#content .scene div.qnas ul.qnas > li ul.info li {display: inline-block; vertical-align: top; color: #999999; font-size: 12px; padding-bottom: 0; padding-left: 0;}
-#content .scene div.qnas ul.qnas > li ul.info li.user:after {content: ",\00a0";}
-#content .scene div.qnas ul.qnas > li p.question {padding-bottom: 15px; font-size: 13px;}
-#content .scene div.qnas .field {padding-bottom: 10px;}
 
 
 
 
 /* ABOUT */
-#content .scene.about div.comments {margin-top: 20px;}
+/*#content .scene.about div.comments {margin-top: 20px;}*/
 
 
 
 /* STOP */
 #content .scene.stop {}
+#content .scene.stop div.article {text-align: center; /*width: 640px; margin: 0 auto;*/}
+#content .scene.stop div.article h1,
+#content .scene.stop div.article h2 {display: inline-block; vertical-align: top; min-width: 500px; max-width: 640px; width: auto;}
 
-#content .scene.stop ul.topics {padding: 10px 0 0; border-bottom: 1px solid #dedede; margin-bottom: 40px;}
-
-#content .scene.stop li.topic {border-top: 1px solid #dedede; padding-top: 10px; position: relative;}
-#content .scene.stop li.topic:first-child {border: none;}
-#content .scene.stop li.topic h1 {display: none;}
-
-#content .scene.stop li.topic > svg.checkmark {position: absolute; top: 14px; left: 25px;}
-#content .scene.stop li.topic > svg.checkmark line {stroke: #666666; stroke-width: 3px;}
-
-#content .scene.stop li.topic > h3 {position: relative;}
-#content .scene.stop li.topic > h3 svg.arrow {position: absolute; top: 7px; right: 55px;}
-#content .scene.stop li.topic > h3 svg.arrow line {stroke: #dedede; stroke-width: 3px;}
-#content .scene.stop li.topic > h3:hover svg.arrow line {stroke: #00c90d;}
+#content .scene.stop div.article h3,
+#content .scene.stop div.article p {display: inline-block; vertical-align: top;}
 
 
-#content .scene.stop li.topic > h3 a {display: block;}
+#content .scene ul.topics {padding: 10px 60px 0; margin-bottom: 30px; text-align: center;}
 
-#content .scene.stop li.topic div.topic {display: none;}
+#content .scene li.topic {display: inline-block; vertical-align: top; margin: 10px; border-radius: 5px; border: 1px solid #26962d;}
+/*#content .scene.stop li.topic {border-top: 1px solid #dedede; padding-top: 10px; position: relative;}*/
+/*#content .scene.stop li.topic h1 {display: none;}
+*/
+#content .scene li.topic > h3 a {display: block; padding: 9px 15px 11px; text-decoration: none;}
+#content .scene ul.topics li.topic > h3.read a {padding-left: 35px;}
+#content .scene li.topic:hover h3 a {background-color: #26962d; color: #ffffff;}
+#content .scene li.topic:hover h3 svg.checkmark line {stroke: #ffffff;}
+
+#content .scene li.topic > h3 svg.checkmark {position: absolute; top: 13px; left: 12px;}
+#content .scene li.topic > h3 svg.checkmark line {stroke: #666666; stroke-width: 3px;}
+
+#content .scene li.topic h3 {position: relative; width: auto; padding: 0;}
+#content .scene li.topic ul.tags,
+#content .scene li.topic div.description {display: none;}
+
+
+
+
+
+
+
+
+/*#content .scene.stop li.topic div.topic {display: none;}
 #content .scene.stop li.topic.open div.topic {display: block;}
+*/
 
-
+/*
 #content .scene.stop .topic div.problem {padding-top: 20px;}
 #content .scene.stop .topic div.solution {padding-top: 20px;}
 #content .scene.stop .topic div.details {}
@@ -199,7 +248,7 @@
 #content .scene.stop .topic div.details.open div.description,
 #content .scene.stop .topic div.details.open div.todos,
 #content .scene.stop .topic div.details.open div.comments {display: block;}
-
+*/
 
 #content .scene.stop .topic div.related {border: none; padding-top: 20px; padding-bottom: 15px; position: relative; z-index: 1;}
 #content .scene.stop .topic div.related h2 {font-size: 16px; padding-bottom: 25px;}

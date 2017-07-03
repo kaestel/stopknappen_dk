@@ -1,5 +1,16 @@
-/* LOGIN */
-#content .terms_notification {display: none;}
+#header a.logo {display: block; width: 40px; height: 27px; padding: 0; top: 10px; left: 10px; border-radius: 20px; background-color: #26962d; color: #ffffff; font-size: 13px; text-align: center; line-height: 15px; padding-top: 13px;
+	font-family: "OpenSans", Verdana, Arial, sans-serif; font-weight: bold;
+} 
+@media all and (-webkit-min-device-pixel-ratio:0) {
+	#header a.logo {
+		-webkit-font-smoothing: subpixel-antialiased;
+		padding-top: 14px; height: 26px;
+	}
+}
+
+
+
+
 
 
 /* FRONT */
@@ -11,61 +22,88 @@
 	user-select: none;
 }
 
-#content .scene.front a {cursor: default;}
-#content .scene.front span {display: inline-block; vertical-align: baseline;}
-#content .scene.front .active a {cursor: pointer;}
-
-#content .scene.front h1 {font-size: 65px; padding: 0 5px 10px;}
-#content .scene.front h2 {font-size: 50px; padding: 10px 5px 10px;}
-#content .scene.front h3 {font-size: 26px; padding: 0 5px 5px;}
-#content .scene.front p {font-size: 20px; padding: 0 5px 0px;}
-
-#content .scene.front .long .s2,
-#content .scene.front .long .s2 a {font-size: 28px; color: #01939a;}
-#content .scene.front .now {font-size: 38px;}
-#content .scene.front .wake .s2,
-#content .scene.front .wake .s2 a {font-size: 28px; color: #bf7230;}
-#content .scene.front .tyrant .s2,
-#content .scene.front .tyrant .s2 a {font-size: 30px; color: #01939a;}
-#content .scene.front .goal .s2,
-#content .scene.front .goal .s2 a {font-size: 28px; color: #bf7230;}
-#content .scene.front .idleness .s2,
-#content .scene.front .idleness .s2 {font-size: 28px; color: #01939a;}
-
-#content .scene.front .content,
-#content .scene.front .content a {font-size: 28px; color: #01939a;}
-#content .scene.front .sheep .s2,
-#content .scene.front .sheep .s2 a {font-size: 26px; color: #bf7230;}
-
-#content .scene.front .everything {font-size: 38px;}
 
 
-#content .scene.front h1,
-#content .scene.front h2,
-#content .scene.front h3,
-#content .scene.front p {opacity: 0; text-align: center;}
-#content .scene.front h1 {}
+#content .scene.front div.intro a {cursor: default;}
+#content .scene.front div.intro span {display: inline-block; vertical-align: baseline;}
+#content .scene.front div.intro .active a {cursor: pointer;}
+
+#content .scene.front div.intro h1 {font-size: 65px; padding: 0 5px 10px;}
+#content .scene.front div.intro h2 {font-size: 50px; padding: 10px 5px 10px;}
+#content .scene.front div.intro h3 {font-size: 26px; padding: 0 5px 5px;}
+#content .scene.front div.intro p {font-size: 20px; padding: 0 5px 0px;}
+#content .scene.front div.intro h2.means {font-size: 44px;}
+#content .scene.front div.intro h2.safety {font-size: 44px;}
+
+#content .scene.front div.intro .now {text-transform: uppercase;}
+#content .scene.front div.intro .long .s2,
+#content .scene.front div.intro .long .s2 a {font-size: 28px; color: #01939a;}
+#content .scene.front div.intro .now {font-size: 38px;}
+#content .scene.front div.intro .wake .s2,
+#content .scene.front div.intro .wake .s2 a {font-size: 28px; color: #bf7230;}
+#content .scene.front div.intro .tyrant .s2,
+#content .scene.front div.intro .tyrant .s2 a {font-size: 30px; color: #01939a;}
+#content .scene.front div.intro .goal .s2,
+#content .scene.front div.intro .goal .s2 a {font-size: 28px; color: #bf7230;}
+#content .scene.front div.intro .idleness .s2,
+#content .scene.front div.intro .idleness .s2 {font-size: 28px; color: #01939a;}
+#content .scene.front div.intro .bills .s2,
+#content .scene.front div.intro .bills .s2 a,
+#content .scene.front div.intro .busy .s2,
+#content .scene.front div.intro .busy .s2 a,
+#content .scene.front div.intro .luxery .s2,
+#content .scene.front div.intro .luxery .s2 a,
+#content .scene.front div.intro .cost .s2,
+#content .scene.front div.intro .cost .s2 a,
+#content .scene.front div.intro .to_think .s2,
+#content .scene.front div.intro .to_think .s2 a {font-size: 26px;}
+
+#content .scene.front div.intro .content,
+#content .scene.front div.intro .content a {font-size: 28px; color: #01939a;}
+#content .scene.front div.intro .sheep .s2,
+#content .scene.front div.intro .sheep .s2 a {font-size: 26px; color: #01939a;}
+
+#content .scene.front div.intro .everything {font-size: 38px; color: #bf7230;}
+
+
+#content .scene.front div.intro h1,
+#content .scene.front div.intro h2,
+#content .scene.front div.intro h3,
+#content .scene.front div.intro p {opacity: 0; text-align: center;}
+
+
+/* FRONT - ARTICLE */
+#content .scene.front div.article {opacity: 0;}
+
+
+/* FRONT - POSTS */
+#content .scene.front div.posts {opacity: 0; padding-bottom: 75px;}
+#content .scene.front div.posts h2 {padding-bottom: 15px;}
+#content .scene.front div.posts h2 a {font-size: 12px; display: inline-block; vertical-align: middle;
+	font-family: "OpenSans";
+}
+#content .scene.front div.posts ul.articles li.article h3 {padding-bottom: 20px; color: #26962d;}
 
 
 /* ARTICLES */
-#content .scene ul.articles li.article {border-color: #ccdbcd;}
+/*#content .scene ul.articles li.article {border-color: #ccdbcd;}
 #content .scene ul.articles li.article h3 {font-size: 24px;
 	font-family: "PT Serif", Times, serif;
 }
 #content .scene ul.articles li.article p {font-size: 16px;}
-
+*/
 
 /* ARTICLE */
-#content .scene.article div.intro {padding-bottom: 10px; border-bottom: 1px solid #dedede; margin-bottom: 30px; margin-top: -20px;}
+/*#content .scene.article div.intro {padding-bottom: 10px; border-bottom: 1px solid #dedede; margin-bottom: 30px; margin-top: -20px;}
 #content .scene.article div.intro p {font-size: 13px; color: #cccccc;}
 #content .scene .article ul.tags a:active {color: #00c90d;}
-
+*/
 
 
 /* FEEDBACK ELEMENTS */
-#content .scene div.todos {display: none;}
+/*#content .scene div.todos {display: none;}
 #content .scene div.qnas {display: none;}
-
+*/
 
 
 

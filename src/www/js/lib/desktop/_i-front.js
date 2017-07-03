@@ -5,15 +5,48 @@ Util.Objects["front"] = new function() {
 		scene.resized = function(event) {
 //			u.bug("scene.resized:" + u.nodeId(this));
 
-			if(this.intro && this.intro._i_think && !this.intro_done) {
+			if(this.intro) {
 
-				// adjust scene padding for nice centered animation
 				u.ass(this.intro, {
-					"paddingTop": (((u.browserH() - this.intro._i_think.offsetHeight)/2) - page.hN.offsetHeight) + "px"
-				});
-				u.ass(this.intro, {
-					"paddingBottom": ((u.browserH() - this.intro._to_think.offsetHeight)/2) - 0 + "px"
-				});
+					"height":page.available_height+"px"
+				}, false);
+
+				if(this.intro.is_ready) {
+					
+
+		//			var counter = 0;
+					var center_x = this.intro.offsetWidth/2;
+					var center_y = this.intro.offsetHeight/2;
+
+
+//					u.bug("this.intro._i_think:" + ((page.cN.offsetHeight/2)-this.intro._i_think.offsetHeight) + ", " + this.intro._i_think.offsetHeight)
+
+					// Position all content relatively to this._h1
+					u.a.translate(this.intro._i_think, (center_x)-(this.intro._i_think.offsetWidth/2), (center_y)-(this.intro._i_think.offsetHeight))
+					u.a.translate(this.intro._means, this.intro._i_think._x - this.intro._means.offsetWidth/3, this.intro._i_think._y+this.intro._i_think.offsetHeight*1.05);
+					u.a.translate(this.intro._tyrant, this.intro._i_think._x + this.intro._i_think.offsetWidth/2, this.intro._i_think._y+this.intro._i_think.offsetHeight/1.1);
+					u.a.translate(this.intro._safety, this.intro._tyrant._x - this.intro._tyrant.offsetHeight*0.85, this.intro._tyrant._y + this.intro._tyrant.offsetHeight/1.1);
+					u.a.translate(this.intro._luxery, center_x - this.intro._luxery.offsetWidth/2, this.intro._safety._y + this.intro._safety.offsetHeight*1.2);
+					u.a.translate(this.intro._bills, center_x - this.intro._bills.offsetWidth/2, this.intro._luxery._y + this.intro._bills.offsetHeight*1.1);
+					u.a.translate(this.intro._to_think, center_x - this.intro._to_think.offsetWidth/2, this.intro._bills._y+this.intro._bills.offsetHeight);
+					u.a.translate(this.intro._everything, center_x - this.intro._everything.offsetWidth/2, this.intro._to_think._y + this.intro._everything.offsetHeight/0.9);
+					u.a.translate(this.intro._time, this.intro._means._x+this.intro._means.offsetWidth/9.9, this.intro._means._y+this.intro._means.offsetHeight);
+					u.a.translate(this.intro._except, this.intro._i_think._x + this.intro._i_think.offsetWidth*0.97, this.intro._i_think._y + this.intro._except.offsetHeight*1.7);
+					u.a.translate(this.intro._ability, this.intro._i_think._x + this.intro._i_think.offsetWidth*1.018, this.intro._i_think._y + this.intro._ability.offsetHeight*0.5);
+					u.a.translate(this.intro._forgotten, this.intro._i_think._x - this.intro._forgotten.offsetWidth*0.9, this.intro._i_think._y + this.intro._forgotten.offsetHeight*1.9);
+					u.a.translate(this.intro._content, this.intro._i_think._x - this.intro._content.offsetWidth*0.9, this.intro._i_think._y + this.intro._content.offsetHeight*0.7);
+					u.a.translate(this.intro._idleness, this.intro._i_think._x - this.intro._idleness.offsetWidth/2, this.intro._i_think._y - this.intro._idleness.offsetHeight/1.5);
+					u.a.translate(this.intro._long, this.intro._i_think._x + this.intro._long.offsetWidth/1.8, this.intro._i_think._y-this.intro._long.offsetHeight/1.5);
+					u.a.translate(this.intro._realize, this.intro._i_think._x + this.intro._realize.offsetWidth*1.15, this.intro._i_think._y-this.intro._long.offsetHeight/2.3	);
+					u.a.translate(this.intro._now, this.intro._realize._x + this.intro._realize.offsetWidth/2.4, this.intro._realize._y - this.intro._now.offsetHeight*1.3);
+					u.a.translate(this.intro._nothing, this.intro._long._x*1.01, this.intro._long._y-this.intro._nothing.offsetHeight);
+					u.a.translate(this.intro._busy, this.intro._idleness._x + this.intro._idleness.offsetWidth*0.05, this.intro._long._y-this.intro._busy.offsetHeight*1.1);
+					u.a.translate(this.intro._sheep, this.intro._busy._x + this.intro._busy.offsetWidth*0.16, this.intro._busy._y-this.intro._sheep.offsetHeight*1.1);
+					u.a.translate(this.intro._cost, this.intro._sheep._x + this.intro._sheep.offsetWidth*1.10, this.intro._nothing._y-this.intro._cost.offsetHeight*1.05);
+					u.a.translate(this.intro._goal, this.intro._sheep._x + this.intro._goal.offsetWidth*0.2, this.intro._sheep._y - this.intro._goal.offsetHeight*1.1);
+					u.a.translate(this.intro._wake, this.intro._goal._x + this.intro._goal.offsetWidth*1.35, this.intro._goal._y);
+
+				}
 
 			}
 			
@@ -22,8 +55,8 @@ Util.Objects["front"] = new function() {
 				this.div_article_y = u.absY(this.div_article);
 			}
 
-			if(this.div_posts) {
-				this.div_posts_y = u.absY(this.div_posts);
+			if(this.div_news) {
+				this.div_news_y = u.absY(this.div_news);
 			}
 
 		}
@@ -31,22 +64,17 @@ Util.Objects["front"] = new function() {
 		scene.scrolled = function(event) {
 //			u.bug("scrolled:" + u.nodeId(this))
 
-			if(this.intro_done) {
-				this.renderControl();
-			}
+			this.renderControl();
 		}
 
 		scene.renderControl = function() {
 //			u.bug("renderControl:" + u.nodeId(this));
 
-u.bug((page.scrolled_y - 100) +">"+ (this.div_posts_y) + " - " + (page.browser_h));
-
-			if(this.intro_done && !this.div_article_done) {
-				page.resized();
+			if(this.intro_done && !this.div_article_done && page.scrolled_y - 100 > this.div_article_y - page.browser_h) {
 				this.initArticle();
 			}
-			else if(this.intro_done && this.div_article_done && !this.div_posts_done && page.scrolled_y - (page.browser_h / 2) > this.div_posts_y - page.browser_h) {
-				this.initPosts();
+			else if(this.intro_done && this.div_article_done && !this.div_news_done && page.scrolled_y - 100 > this.div_news_y - page.browser_h) {
+				this.initNews();
 			}
 
 			// show terms
@@ -55,10 +83,10 @@ u.bug((page.scrolled_y - 100) +">"+ (this.div_posts_y) + " - " + (page.browser_h
 				// accept cookies?
 				page.acceptCookies();
 			}
-			// // end intro if still running
-			// else if(!this.intro_done && page.scrolled_y > 40) {
-			// 	this.intro.clicked();
-			// }
+			// end intro if still running
+			else if(!this.intro_done && page.scrolled_y > 40) {
+				this.intro.clicked();
+			}
 
 		}
 
@@ -71,7 +99,7 @@ u.bug((page.scrolled_y - 100) +">"+ (this.div_posts_y) + " - " + (page.browser_h
 			// get main elements
 			this.intro = u.qs(".intro", this);
 			this.div_article = u.qs("div.article", this);
-			this.div_posts = u.qs("div.posts", this);
+			this.div_news = u.qs("div.news", this);
 
 
 			// required fonts loaded
@@ -111,54 +139,51 @@ u.bug((page.scrolled_y - 100) +">"+ (this.div_posts_y) + " - " + (page.browser_h
 				this.intro.clicked = function() {
 //					u.bug("intro clicked")
 
+					// stop event chain
 					if(typeof(this.stopTimeline) == "function") {
 						// stop any playback
 						this.stopTimeline();
 					}
-
-				}
-
-				window.scrolledToCancelled = function() {
-
-					if(typeof(page.cN.scene.intro.stopTimeline) == "function") {
-						// stop any playback
-						page.cN.scene.intro.stopTimeline();
+					// or just hide intro
+					else {
+						// hide intro
+						this.scene.endIntro();
 					}
 				}
 
 
-				// // apply text-scaling
-				// u.textscaler(this.intro, {
-				// 	"min_height":300,
-				// 	"max_height":1000,
-				// 	"min_width":600,
-				// 	"max_width":1300,
-				// 	"unit":"rem",
-				// 	"h2.i_think":{
-				// 		"min_size":4,
-				// 		"max_size":8
-				// 	},
-				// 	"h2":{
-				// 		"min_size":2,
-				// 		"max_size":4
-				// 	},
-				// 	"h2 span.s2":{
-				// 		"min_size":2.2,
-				// 		"max_size":4.4
-				// 	},
-				// 	"h3":{
-				// 		"min_size":1.4,
-				// 		"max_size":2.8
-				// 	},
-				// 	"p":{
-				// 		"min_size":1,
-				// 		"max_size":2
-				// 	},
-				// 	"p span.s2":{
-				// 		"min_size":1.4,
-				// 		"max_size":2.8
-				// 	}
-				// });
+				// apply text-scaling
+				u.textscaler(this.intro, {
+					"min_height":400,
+					"max_height":1000,
+					"min_width":600,
+					"max_width":1300,
+					"unit":"rem",
+					"h2.i_think":{
+						"min_size":4,
+						"max_size":8
+					},
+					"h2":{
+						"min_size":2,
+						"max_size":4
+					},
+					"h2 span.s2":{
+						"min_size":2.2,
+						"max_size":4.4
+					},
+					"h3":{
+						"min_size":1.4,
+						"max_size":2.8
+					},
+					"p":{
+						"min_size":1,
+						"max_size":2
+					},
+					"p span.s2":{
+						"min_size":1.4,
+						"max_size":2.8
+					}
+				});
 
 
 				// reference intro content
@@ -208,9 +233,6 @@ u.bug((page.scrolled_y - 100) +">"+ (this.div_posts_y) + " - " + (page.browser_h
 				this.intro._ability = u.qs(".ability", this.intro);
 				this.intro._to_think = u.qs(".to_think", this.intro);
 				this.intro._to_think._spans = u.qsa("span", this.intro._to_think);
-
-
-
 
 				// apply correct link handling
 				var links = u.qsa("a", this.intro);
@@ -515,8 +537,6 @@ u.bug((page.scrolled_y - 100) +">"+ (this.div_posts_y) + " - " + (page.browser_h
 					}
 					u.a.transition(node, "all 0.3s ease-in");
 					u.a.setOpacity(node, 1);
-
-					u.scrollTo(window, {"node":node, "offset_y":(u.browserH() - node.offsetHeight)/2});
 				}
 
 				// hide node
@@ -547,15 +567,47 @@ u.bug((page.scrolled_y - 100) +">"+ (this.div_posts_y) + " - " + (page.browser_h
 					}
 				}
 
+				// show all content - makes for a nice final splash
+				this.intro.showAllContent = function() {
+					var node, i, span;
 
+					// show all spans
+					var spans = u.qsa("span", this);
+					for(i = 0; span = spans[i]; i++) {
+						u.ass(span, {
+							"opacity":1
+						});
+					}
+
+					var nodes = u.qsa("p,h2,h3", this);
+					var j = 0;
+					for(i = 0; node = nodes[i]; i++) {
+						node.transitioned = function() {
+							var i, a, as = u.qsa("a", node);
+							for(i = 0; a = as[i]; i++) {
+								a._active = true;
+								u.ac(a, "active");
+							}
+						}
+						if(node._opacity != 1) {
+							u.a.transition(node, "all 0.2s ease-in-out " + (j++)*50 + "ms");
+							u.a.setOpacity(node, 1);
+						}
+					}
+
+					// callback when all content is shown
+					u.t.setTimer(this, "allContentShown", (j*50)+300);
+
+				}
 
 				// timeline ended
 				this.intro.timelineEnded = this.intro.timelineStopped = function() {
 //					u.bug("timeline ended")
 
 					// hide intro
-					this.scene.endIntro();
+//					this.scene.endIntro();
 
+					u.t.setTimer(this.scene, "endIntro", 500);
 				}
 
 				// start playback
@@ -579,22 +631,20 @@ u.bug((page.scrolled_y - 100) +">"+ (this.div_posts_y) + " - " + (page.browser_h
 			// could also be called if no intro is present
 			if(this.intro) {
 
-				this.intro.transitioned = function() {
 
-					this.scene.removeChild(this);
-
-					window.scrollTo(0, 0);
+				this.intro.allContentShown = function() {
 
 					// make it known
 					this.scene.intro_done = true;
+
 					// arrived at new state, invoke renderControl
 					this.scene.renderControl();
 
 				}
-				u.a.transition(this.intro, "all 0.3s linear")
-				u.ass(this.intro, {
-					"opacity":0
-				});
+
+				// show full intro
+				this.intro.showAllContent();
+
 
 			}
 			// no intro 
@@ -672,29 +722,30 @@ u.bug((page.scrolled_y - 100) +">"+ (this.div_posts_y) + " - " + (page.browser_h
 
 
 
-		// POSTS
+		// NEWS
 
-		// start posts animation playback
-		scene.initPosts = function() {
-			u.bug("initPosts")
+		// start news animation playback
+		scene.initNews = function() {
+//			u.bug("initNews")
 
-			this.div_posts_done = true;
+//			this._news = u.qs("div.news", this);
+			this.div_news_done = true;
 
-			if(this.div_posts) {
-				this.div_posts.scene = this;
+			if(this.div_news) {
+				this.div_news.scene = this;
 
-				u.ass(this.div_posts, {
+				u.ass(this.div_news, {
 					"opacity": 0,
 					"display":"block"
 				});
 
-				u.a.transition(this.div_posts, "all 0.4s ease-in-out", "showPosts");
-				u.ass(this.div_posts, {
+				u.a.transition(this.div_news, "all 0.4s ease-in-out", "showPosts");
+				u.ass(this.div_news, {
 					"opacity":1
 				});
 
-				this.div_posts.showPosts = function() {
-					this._posts = u.qsa("li.item", this.div_posts);
+				this.div_news.showPosts = function() {
+					this._posts = u.qsa("li.item", this.div_news);
 					if(this._posts) {
 						var i, node;
 						for(i = 0; node = this._posts[i]; i++) {
