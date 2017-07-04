@@ -1,9 +1,9 @@
 
-/*seg_desktop_include.js*/
+/*seg_smartphone_include.js*/
 
-/*seg_desktop_include.js*/
+/*seg_smartphone_include.js*/
 
-/*seg_desktop.js*/
+/*seg_smartphone.js*/
 if(!u || !Util) {
 	var u, Util = u = new function() {};
 	u.version = "0.9.2";
@@ -4416,60 +4416,6 @@ Util.getVar = function(param, url) {
 		return "";
 	}
 }
-if(false && document.documentMode <= 10) {
-	Util.appendElement = u.ae = function(_parent, node_type, attributes) {
-		try {
-			var node = (typeof(node_type) == "object") ? node_type : document.createElement(node_type);
-			if(attributes) {
-				var attribute;
-				for(attribute in attributes) {
-					if(!attribute.match(/^(value|html)$/)) {
-						node.setAttribute(attribute, attributes[attribute]);
-					}
-				}
-			}
-			node = _parent.appendChild(node);
-			if(attributes) {
-				if(attributes["value"]) {
-					node.value = attributes["value"];
-				}
-				if(attributes["html"]) {
-					node.innerHTML = attributes["html"];
-				}
-			}
-			return node;
-		}
-		catch(exception) {
-			u.exception("u.ae (desktop_ie10)", arguments, exception);
-		}
-	}
-	Util.insertElement = u.ie = function(_parent, node_type, attributes) {
-		try {
-			var node = (typeof(node_type) == "object") ? node_type : document.createElement(node_type);
-			if(attributes) {
-				var attribute;
-				for(attribute in attributes) {
-					if(!attribute.match(/^(value|html)$/)) {
-						node.setAttribute(attribute, attributes[attribute]);
-					}
-				}
-			}
-			node = _parent.insertBefore(node, _parent.firstChild);
-			if(attributes) {
-				if(attributes["value"]) {
-					node.value = attributes["value"];
-				}
-				if(attributes["html"]) {
-					node.innerHTML = attributes["html"];
-				}
-			}
-			return node;
-		}
-		catch(exception) {
-			u.exception("u.ie (desktop_ie10)", arguments, exception);
-		}
-	}
-}
 
 
 /*u-basics.js*/
@@ -4850,988 +4796,619 @@ u.svgIcons = function(icon, node) {
 }
 
 
-/*u-events.js*/
-Util.Events = u.e = new function() {
-	this.event_pref = typeof(document.ontouchmove) == "undefined" || (navigator.maxTouchPoints > 1 && navigator.userAgent.match(/Windows/i)) ? "mouse" : "touch";
-	if(navigator.maxTouchPoints > 1) {
-		if((typeof(document.ontouchmove) == "undefined" && typeof(document.onmousemove) == "undefined") || (document.ontouchmove === null && document.onmousemove === null)) {
-			this.event_support = "multi";
-		}
-	}
-	if(!this.event_support) {
-		if(typeof(document.ontouchmove) == "undefined") {
-			this.event_support = "mouse";
-		}
-		else {
-			this.event_support = "touch";
-		}
-	}
-	this.events = {
-		"mouse": {
-			"start":"mousedown",
-			"move":"mousemove",
-			"end":"mouseup",
-			"over":"mouseover",
-			"out":"mouseout"
-		},
-		"touch": {
-			"start":"touchstart",
-			"move":"touchmove",
-			"end":"touchend",
-			"over":"touchstart",
-			"out":"touchend"
-		}
-	}
-	this.kill = function(event) {
-		if(event) {
-			event.preventDefault();
-			event.stopPropagation();
-		}
-	}
-	this.addEvent = function(node, type, action) {
-		try {
-			node.addEventListener(type, action, false);
-		}
-		catch(exception) {
-			alert("exception in addEvent:" + node + "," + type + ":" + exception);
-		}
-	}
-	this.removeEvent = function(node, type, action) {
-		try {
-			node.removeEventListener(type, action, false);
-		}
-		catch(exception) {
-			u.bug("exception in removeEvent:" + node + "," + type + ":" + exception);
-		}
-	}
-	this.addStartEvent = this.addDownEvent = function(node, action) {
-		if(this.event_support == "multi") {
-			u.e.addEvent(node, this.events.mouse.start, action);
-			u.e.addEvent(node, this.events.touch.start, action);
-		}
-		else {
-			u.e.addEvent(node, this.events[this.event_support].start, action);
-		}
-	}
-	this.removeStartEvent = this.removeDownEvent = function(node, action) {
-		if(this.event_support == "multi") {
-			u.e.removeEvent(node, this.events.mouse.start, action);
-			u.e.removeEvent(node, this.events.touch.start, action);
-		}
-		else {
-			u.e.removeEvent(node, this.events[this.event_support].start, action);
-		}
-	}
-	this.addMoveEvent = function(node, action) {
-		if(this.event_support == "multi") {
-			u.e.addEvent(node, this.events.mouse.move, action);
-			u.e.addEvent(node, this.events.touch.move, action);
-		}
-		else {
-			u.e.addEvent(node, this.events[this.event_support].move, action);
-		}
-	}
-	this.removeMoveEvent = function(node, action) {
-		if(this.event_support == "multi") {
-			u.e.removeEvent(node, this.events.mouse.move, action);
-			u.e.removeEvent(node, this.events.touch.move, action);
-		}
-		else {
-			u.e.removeEvent(node, this.events[this.event_support].move, action);
-		}
-	}
-	this.addEndEvent = this.addUpEvent = function(node, action) {
-		if(this.event_support == "multi") {
-			u.e.addEvent(node, this.events.mouse.end, action);
-			u.e.addEvent(node, this.events.touch.end, action);
-		}
-		else {
-			u.e.addEvent(node, this.events[this.event_support].end, action);
-		}
-	}
-	this.removeEndEvent = this.removeUpEvent = function(node, action) {
-		if(this.event_support == "multi") {
-			u.e.removeEvent(node, this.events.mouse.end, action);
-			u.e.removeEvent(node, this.events.touch.end, action);
-		}
-		else {
-			u.e.removeEvent(node, this.events[this.event_support].end, action);
-		}
-	}
-	this.addOverEvent = function(node, action) {
-		if(this.event_support == "multi") {
-			u.e.addEvent(node, this.events.mouse.over, action);
-			u.e.addEvent(node, this.events.touch.over, action);
-		}
-		else {
-			u.e.addEvent(node, this.events[this.event_support].over, action);
-		}
-	}
-	this.removeOverEvent = function(node, action) {
-		if(this.event_support == "multi") {
-			u.e.removeEvent(node, this.events.mouse.over, action);
-			u.e.removeEvent(node, this.events.touch.over, action);
-		}
-		else {
-			u.e.removeEvent(node, this.events[this.event_support].over, action);
-		}
-	}
-	this.addOutEvent = function(node, action) {
-		if(this.event_support == "multi") {
-			u.e.addEvent(node, this.events.mouse.out, action);
-			u.e.addEvent(node, this.events.touch.out, action);
-		}
-		else {
-			u.e.addEvent(node, this.events[this.event_support].out, action);
-		}
-	}
-	this.removeOutEvent = function(node, action) {
-		if(this.event_support == "multi") {
-			u.e.removeEvent(node, this.events.mouse.out, action);
-			u.e.removeEvent(node, this.events.touch.out, action);
-		}
-		else {
-			u.e.removeEvent(node, this.events[this.event_support].out, action);
-		}
-	}
-	this.resetClickEvents = function(node) {
-		u.t.resetTimer(node.t_held);
-		u.t.resetTimer(node.t_clicked);
-		this.removeEvent(node, "mouseup", this._dblclicked);
-		this.removeEvent(node, "touchend", this._dblclicked);
-		this.removeEvent(node, "mousemove", this._cancelClick);
-		this.removeEvent(node, "touchmove", this._cancelClick);
-		this.removeEvent(node, "mouseout", this._cancelClick);
-		this.removeEvent(node, "mousemove", this._move);
-		this.removeEvent(node, "touchmove", this._move);
-	}
-	this.resetEvents = function(node) {
-		this.resetClickEvents(node);
-		if(typeof(this.resetDragEvents) == "function") {
-			this.resetDragEvents(node);
-		}
-	}
-	this.resetNestedEvents = function(node) {
-		while(node && node.nodeName != "HTML") {
-			this.resetEvents(node);
-			node = node.parentNode;
-		}
-	}
-	this._inputStart = function(event) {
-		this.event_var = event;
-		this.input_timestamp = event.timeStamp;
-		this.start_event_x = u.eventX(event);
-		this.start_event_y = u.eventY(event);
-		this.current_xps = 0;
-		this.current_yps = 0;
-		this.move_timestamp = event.timeStamp;
-		this.move_last_x = 0;
-		this.move_last_y = 0;
-		this._moves_cancel = 0;
-		this.swiped = false;
-		if(this.e_click || this.e_dblclick || this.e_hold) {
-			if(event.type.match(/mouse/)) {
-				var node = this;
-				while(node) {
-					if(node.e_drag || node.e_swipe) {
-						u.e.addMoveEvent(this, u.e._cancelClick);
-						break;
-					}
-					else {
-						node = node.parentNode;
-					}
-				}
-				u.e.addEvent(this, "mouseout", u.e._cancelClick);
-			}
-			else {
-				u.e.addMoveEvent(this, u.e._cancelClick);
-			}
-			u.e.addMoveEvent(this, u.e._move);
-			u.e.addEndEvent(this, u.e._dblclicked);
-		}
-		if(this.e_hold) {
-			this.t_held = u.t.setTimer(this, u.e._held, 750);
-		}
-		if(this.e_drag || this.e_swipe) {
-			u.e.addMoveEvent(this, u.e._pick);
-			u.e.addEndEvent(this, u.e._drop);
-		}
-		if(this.e_scroll) {
-			u.e.addMoveEvent(this, u.e._scrollStart);
-			u.e.addEndEvent(this, u.e._scrollEnd);
-		}
-		if(typeof(this.inputStarted) == "function") {
-			this.inputStarted(event);
-		}
-	}
-	this._cancelClick = function(event) {
-		var offset_x = u.eventX(event) - this.start_event_x;
-		var offset_y = u.eventY(event) - this.start_event_y;
-		if(event.type.match(/mouseout/) || this._moves_cancel > 1 || (event.type.match(/move/) && (Math.abs(offset_x) > 15 || Math.abs(offset_y) > 15))) {
-			u.e.resetClickEvents(this);
-			if(typeof(this.clickCancelled) == "function") {
-				this.clickCancelled(event);
-			}
-		}
-		else if(event.type.match(/move/)) {
-			this._moves_cancel++;
-		}
-	}
-	this._move = function(event) {
-		if(typeof(this.moved) == "function") {
-			this.current_x = u.eventX(event) - this.start_event_x;
-			this.current_y = u.eventY(event) - this.start_event_y;
-			this.current_xps = Math.round(((this.current_x - this.move_last_x) / (event.timeStamp - this.move_timestamp)) * 1000);
-			this.current_yps = Math.round(((this.current_y - this.move_last_y) / (event.timeStamp - this.move_timestamp)) * 1000);
-			this.move_timestamp = event.timeStamp;
-			this.move_last_x = this.current_x;
-			this.move_last_y = this.current_y;
-			this.moved(event);
-		}
-	}
-	this.hold = function(node, _options) {
-		node.e_hold_options = _options ? _options : {};
-		node.e_hold_options.eventAction = u.stringOr(node.e_hold_options.eventAction, "Held");
-		node.e_hold = true;
-		u.e.addStartEvent(node, this._inputStart);
-	}
-	this._held = function(event) {
-		this.e_hold_options.event = event;
-		u.stats.event(this, this.e_hold_options);
-		u.e.resetNestedEvents(this);
-		if(typeof(this.held) == "function") {
-			this.held(event);
-		}
-	}
-	this.click = this.tap = function(node, _options) {
-		node.e_click_options = _options ? _options : {};
-		node.e_click_options.eventAction = u.stringOr(node.e_click_options.eventAction, "Clicked");
-		node.e_click = true;
-		u.e.addStartEvent(node, this._inputStart);
-	}
-	this._clicked = function(event) {
-		if(this.e_click_options) {
-			this.e_click_options.event = event;
-			u.stats.event(this, this.e_click_options);
-		}
-		u.e.resetNestedEvents(this);
-		if(typeof(this.clicked) == "function") {
-			this.clicked(event);
-		}
-	}
-	this.dblclick = this.doubletap = function(node, _options) {
-		node.e_dblclick_options = _options ? _options : {};
-		node.e_dblclick_options.eventAction = u.stringOr(node.e_dblclick_options.eventAction, "DblClicked");
-		node.e_dblclick = true;
-		u.e.addStartEvent(node, this._inputStart);
-	}
-	this._dblclicked = function(event) {
-		if(u.t.valid(this.t_clicked) && event) {
-			this.e_dblclick_options.event = event;
-			u.stats.event(this, this.e_dblclick_options);
-			u.e.resetNestedEvents(this);
-			if(typeof(this.dblclicked) == "function") {
-				this.dblclicked(event);
-			}
-			return;
-		}
-		else if(!this.e_dblclick) {
-			this._clicked = u.e._clicked;
-			this._clicked(event);
-		}
-		else if(event.type == "timeout") {
-			this._clicked = u.e._clicked;
-			this._clicked(this.event_var);
-		}
-		else {
-			u.e.resetNestedEvents(this);
-			this.t_clicked = u.t.setTimer(this, u.e._dblclicked, 400);
-		}
-	}
-	this.hover = function(node, _options) {
-		node._hover_out_delay = 100;
-		node._hover_over_delay = 0;
-		node._callback_out = "out";
-		node._callback_over = "over";
-		if(typeof(_options) == "object") {
-			var argument;
-			for(argument in _options) {
-				switch(argument) {
-					case "over"				: node._callback_over		= _options[argument]; break;
-					case "out"				: node._callback_out		= _options[argument]; break;
-					case "delay_over"		: node._hover_over_delay	= _options[argument]; break;
-					case "delay"			: node._hover_out_delay		= _options[argument]; break;
-				}
-			}
-		}
-		node.e_hover = true;
-		u.e.addOverEvent(node, this._over);
-		u.e.addOutEvent(node, this._out);
-	}
-	this._over = function(event) {
-		u.t.resetTimer(this.t_out);
-		if(!this._hover_over_delay) {
-			u.e.__over.call(this, event);
-		}
-		else if(!u.t.valid(this.t_over)) {
-			this.t_over = u.t.setTimer(this, u.e.__over, this._hover_over_delay, event);
-		}
-	}
-	this.__over = function(event) {
-		u.t.resetTimer(this.t_out);
-		if(!this.is_hovered) {
-			this.is_hovered = true;
-			u.e.removeOverEvent(this, u.e._over);
-			u.e.addOverEvent(this, u.e.__over);
-			if(typeof(this[this._callback_over]) == "function") {
-				this[this._callback_over](event);
-			}
-		}
-	}
-	this._out = function(event) {
-		u.t.resetTimer(this.t_over);
-		u.t.resetTimer(this.t_out);
-		this.t_out = u.t.setTimer(this, u.e.__out, this._hover_out_delay, event);
-	}
-	this.__out = function(event) {
-		this.is_hovered = false;
-		u.e.removeOverEvent(this, u.e.__over);
-		u.e.addOverEvent(this, u.e._over);
-		if(typeof(this[this._callback_out]) == "function") {
-			this[this._callback_out](event);
-		}
-	}
-}
-
-
-/*u-events-browser.js*/
-u.e.addDOMReadyEvent = function(action) {
-	if(document.readyState && document.addEventListener) {
-		if((document.readyState == "interactive" && !u.browser("ie")) || document.readyState == "complete" || document.readyState == "loaded") {
-			action();
-		}
-		else {
-			var id = u.randomString();
-			window["DOMReady_" + id] = action;
-			eval('window["_DOMReady_' + id + '"] = function() {window["DOMReady_'+id+'"](); u.e.removeEvent(document, "DOMContentLoaded", window["_DOMReady_' + id + '"])}');
-			u.e.addEvent(document, "DOMContentLoaded", window["_DOMReady_" + id]);
-		}
-	}
-	else {
-		u.e.addOnloadEvent(action);
-	}
-}
-u.e.addOnloadEvent = function(action) {
-	if(document.readyState && (document.readyState == "complete" || document.readyState == "loaded")) {
-		action();
-	}
-	else {
-		var id = u.randomString();
-		window["Onload_" + id] = action;
-		eval('window["_Onload_' + id + '"] = function() {window["Onload_'+id+'"](); u.e.removeEvent(window, "load", window["_Onload_' + id + '"])}');
-		u.e.addEvent(window, "load", window["_Onload_" + id]);
-	}
-}
-u.e.addWindowEvent = function(node, type, action) {
-	var id = u.randomString();
-	window["_OnWindowEvent_node_"+ id] = node;
-	if(typeof(action) == "function") {
-		eval('window["_OnWindowEvent_callback_' + id + '"] = function(event) {window["_OnWindowEvent_node_'+ id + '"]._OnWindowEvent_callback_'+id+' = '+action+'; window["_OnWindowEvent_node_'+ id + '"]._OnWindowEvent_callback_'+id+'(event);};');
-	} 
-	else {
-		eval('window["_OnWindowEvent_callback_' + id + '"] = function(event) {if(typeof(window["_OnWindowEvent_node_'+ id + '"]["'+action+'"]) == "function") {window["_OnWindowEvent_node_'+id+'"]["'+action+'"](event);}};');
-	}
-	u.e.addEvent(window, type, window["_OnWindowEvent_callback_" + id]);
-	return id;
-}
-u.e.removeWindowEvent = function(node, type, id) {
-	u.e.removeEvent(window, type, window["_OnWindowEvent_callback_"+id]);
-	window["_OnWindowEvent_node_"+id] = null;
-	window["_OnWindowEvent_callback_"+id] = null;
-}
-u.e.addWindowStartEvent = function(node, action) {
-	var id = u.randomString();
-	window["_Onstart_node_"+ id] = node;
-	if(typeof(action) == "function") {
-		eval('window["_Onstart_callback_' + id + '"] = function(event) {window["_Onstart_node_'+ id + '"]._Onstart_callback_'+id+' = '+action+'; window["_Onstart_node_'+ id + '"]._Onstart_callback_'+id+'(event);};');
-	} 
-	else {
-		eval('window["_Onstart_callback_' + id + '"] = function(event) {if(typeof(window["_Onstart_node_'+ id + '"]["'+action+'"]) == "function") {window["_Onstart_node_'+id+'"]["'+action+'"](event);}};');
-	}
-	u.e.addStartEvent(window, window["_Onstart_callback_" + id]);
-	return id;
-}
-u.e.removeWindowStartEvent = function(node, id) {
-	u.e.removeStartEvent(window, window["_Onstart_callback_"+id]);
-	window["_Onstart_node_"+id]["_Onstart_callback_"+id] = null;
-	window["_Onstart_node_"+id] = null;
-	window["_Onstart_callback_"+id] = null;
-}
-u.e.addWindowMoveEvent = function(node, action) {
-	var id = u.randomString();
-	window["_Onmove_node_"+ id] = node;
-	if(typeof(action) == "function") {
-		eval('window["_Onmove_callback_' + id + '"] = function(event) {window["_Onmove_node_'+ id + '"]._Onmove_callback_'+id+' = '+action+'; window["_Onmove_node_'+ id + '"]._Onmove_callback_'+id+'(event);};');
-	} 
-	else {
-		eval('window["_Onmove_callback_' + id + '"] = function(event) {if(typeof(window["_Onmove_node_'+ id + '"]["'+action+'"]) == "function") {window["_Onmove_node_'+id+'"]["'+action+'"](event);}};');
-	}
-	u.e.addMoveEvent(window, window["_Onmove_callback_" + id]);
-	return id;
-}
-u.e.removeWindowMoveEvent = function(node, id) {
-	u.e.removeMoveEvent(window, window["_Onmove_callback_" + id]);
-	window["_Onmove_node_"+ id]["_Onmove_callback_"+id] = null;
-	window["_Onmove_node_"+ id] = null;
-	window["_Onmove_callback_"+ id] = null;
-}
-u.e.addWindowEndEvent = function(node, action) {
-	var id = u.randomString();
-	window["_Onend_node_"+ id] = node;
-	if(typeof(action) == "function") {
-		eval('window["_Onend_callback_' + id + '"] = function(event) {window["_Onend_node_'+ id + '"]._Onend_callback_'+id+' = '+action+'; window["_Onend_node_'+ id + '"]._Onend_callback_'+id+'(event);};');
-	} 
-	else {
-		eval('window["_Onend_callback_' + id + '"] = function(event) {if(typeof(window["_Onend_node_'+ id + '"]["'+action+'"]) == "function") {window["_Onend_node_'+id+'"]["'+action+'"](event);}};');
-	}
-	u.e.addEndEvent(window, window["_Onend_callback_" + id]);
-	return id;
-}
-u.e.removeWindowEndEvent = function(node, id) {
-	u.e.removeEndEvent(window, window["_Onend_callback_" + id]);
-	window["_Onend_node_"+ id]["_Onend_callback_"+id] = null;
-	window["_Onend_node_"+ id] = null;
-	window["_Onend_callback_"+ id] = null;
-}
-u.e.addWindowResizeEvent = function(node, action) {
-	var id = u.randomString();
-	window["_Onresize_node_"+ id] = node;
-	if(typeof(action) == "function") {
-		eval('window["_Onresize_callback_' + id + '"] = function(event) {window["_Onresize_node_'+ id + '"]._Onresize_callback_'+id+' = '+action+'; window["_Onresize_node_'+ id + '"]._Onresize_callback_'+id+'(event);};');
-	} 
-	else {
-		eval('window["_Onresize_callback_' + id + '"] = function(event) {if(typeof(window["_Onresize_node_'+ id + '"]["'+action+'"]) == "function") {window["_Onresize_node_'+id+'"]["'+action+'"](event);}};');
-	}
-	u.e.addEvent(window, "resize", window["_Onresize_callback_" + id]);
-	return id;
-}
-u.e.removeWindowResizeEvent = function(node, id) {
-	u.e.removeEvent(window, "resize", window["_Onresize_callback_"+id]);
-	window["_Onresize_node_"+id]["_Onresize_callback_"+id] = null;
-	window["_Onresize_node_"+id] = null;
-	window["_Onresize_callback_"+id] = null;
-}
-u.e.addWindowScrollEvent = function(node, action) {
-	var id = u.randomString();
-	window["_Onscroll_node_"+ id] = node;
-	if(typeof(action) == "function") {
-		eval('window["_Onscroll_callback_' + id + '"] = function(event) {window["_Onscroll_node_'+ id + '"]._Onscroll_callback_'+id+' = '+action+'; window["_Onscroll_node_'+ id + '"]._Onscroll_callback_'+id+'(event);};');
-	} 
-	else {
-		eval('window["_Onscroll_callback_' + id + '"] = function(event) {if(typeof(window["_Onscroll_node_'+ id + '"]["'+action+'"]) == "function") {window["_Onscroll_node_'+id+'"]["'+action+'"](event);}};');
-	}
-	u.e.addEvent(window, "scroll", window["_Onscroll_callback_" + id]);
-	return id;
-}
-u.e.removeWindowScrollEvent = function(node, id) {
-	u.e.removeEvent(window, "scroll", window["_Onscroll_callback_"+id]);
-	window["_Onscroll_node_"+id]["_Onscroll_callback_"+id] = null;
-	window["_Onscroll_node_"+id] = null;
-	window["_Onscroll_callback_"+id] = null;
-}
-
-
-/*u-events-movements.js*/
-u.e.resetDragEvents = function(node) {
-	node._moves_pick = 0;
-	this.removeEvent(node, "mousemove", this._pick);
-	this.removeEvent(node, "touchmove", this._pick);
-	this.removeEvent(node, "mousemove", this._drag);
-	this.removeEvent(node, "touchmove", this._drag);
-	this.removeEvent(node, "mouseup", this._drop);
-	this.removeEvent(node, "touchend", this._drop);
-	this.removeEvent(node, "mouseout", this._drop_out);
-	this.removeEvent(node, "mouseover", this._drop_over);
-	this.removeEvent(node, "mousemove", this._scrollStart);
-	this.removeEvent(node, "touchmove", this._scrollStart);
-	this.removeEvent(node, "mousemove", this._scrolling);
-	this.removeEvent(node, "touchmove", this._scrolling);
-	this.removeEvent(node, "mouseup", this._scrollEnd);
-	this.removeEvent(node, "touchend", this._scrollEnd);
-}
-u.e.overlap = function(node, boundaries, strict) {
-	if(boundaries.constructor.toString().match("Array")) {
-		var boundaries_start_x = Number(boundaries[0]);
-		var boundaries_start_y = Number(boundaries[1]);
-		var boundaries_end_x = Number(boundaries[2]);
-		var boundaries_end_y = Number(boundaries[3]);
-	}
-	else if(boundaries.constructor.toString().match("HTML")) {
-		var boundaries_start_x = u.absX(boundaries) - u.absX(node);
-		var boundaries_start_y =  u.absY(boundaries) - u.absY(node);
-		var boundaries_end_x = Number(boundaries_start_x + boundaries.offsetWidth);
-		var boundaries_end_y = Number(boundaries_start_y + boundaries.offsetHeight);
-	}
-	var node_start_x = Number(node._x);
-	var node_start_y = Number(node._y);
-	var node_end_x = Number(node_start_x + node.offsetWidth);
-	var node_end_y = Number(node_start_y + node.offsetHeight);
-	if(strict) {
-		if(node_start_x >= boundaries_start_x && node_start_y >= boundaries_start_y && node_end_x <= boundaries_end_x && node_end_y <= boundaries_end_y) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	} 
-	else if(node_end_x < boundaries_start_x || node_start_x > boundaries_end_x || node_end_y < boundaries_start_y || node_start_y > boundaries_end_y) {
-		return false;
-	}
-	return true;
-}
-u.e.drag = function(node, boundaries, _options) {
-	node.e_drag_options = _options ? _options : {};
-	node.e_drag = true;
-	node._moves_counted = 0;
-	node._moves_required = (u.system("android, winphone")) ? 2 : 0;
-	if(node.childNodes.length < 2 && node.innerHTML.trim() == "") {
-		node.innerHTML = "&nbsp;";
-	}
-	node.drag_strict = true;
-	node.drag_elastica = 0;
-	node.drag_dropout = true;
-	node.show_bounds = false;
-	node.callback_picked = "picked";
-	node.callback_moved = "moved";
-	node.callback_dropped = "dropped";
+/*u-audio.js*/
+Util.audioPlayer = function(_options) {
+	var player = document.createElement("div");
+	u.ac(player, "audioplayer");
+	player._autoplay = false;
+	player._controls = false;
+	player._controls_playpause = false;
+	player._controls_volume = false;
+	player._controls_search = false;
+	player._ff_skip = 2;
+	player._rw_skip = 2;
 	if(typeof(_options) == "object") {
 		var _argument;
 		for(_argument in _options) {
 			switch(_argument) {
-				case "strict"			: node.drag_strict			= _options[_argument]; break;
-				case "elastica"			: node.drag_elastica		= Number(_options[_argument]); break;
-				case "dropout"			: node.drag_dropout			= _options[_argument]; break;
-				case "show_bounds"		: node.show_bounds			= _options[_argument]; break; 
-				case "vertical_lock"	: node.vertical_lock		= _options[_argument]; break;
-				case "horizontal_lock"	: node.horizontal_lock		= _options[_argument]; break;
-				case "callback_picked"	: node.callback_picked		= _options[_argument]; break;
-				case "callback_moved"	: node.callback_moved		= _options[_argument]; break;
-				case "callback_dropped"	: node.callback_dropped		= _options[_argument]; break;
+				case "autoplay"     : player._autoplay               = _options[_argument]; break;
+				case "controls"     : player._controls               = _options[_argument]; break;
+				case "playpause"    : player._controls_playpause     = _options[_argument]; break;
+				case "volume"       : player._controls_volume        = _options[_argument]; break;
+				case "search"       : player._controls_search        = _options[_argument]; break;
+				case "ff_skip"      : player._ff_skip                = _options[_argument]; break;
+				case "rw_skip"      : player._rw_skip                = _options[_argument]; break;
 			}
 		}
 	}
-	if((boundaries.constructor && boundaries.constructor.toString().match("Array")) || (boundaries.scopeName && boundaries.scopeName != "HTML")) {
-		node.start_drag_x = Number(boundaries[0]);
-		node.start_drag_y = Number(boundaries[1]);
-		node.end_drag_x = Number(boundaries[2]);
-		node.end_drag_y = Number(boundaries[3]);
-	}
-	else if((boundaries.constructor && boundaries.constructor.toString().match("HTML")) || (boundaries.scopeName && boundaries.scopeName == "HTML")) {
-		node.start_drag_x = u.absX(boundaries) - u.absX(node);
-		node.start_drag_y = u.absY(boundaries) - u.absY(node);
-		node.end_drag_x = node.start_drag_x + boundaries.offsetWidth;
-		node.end_drag_y = node.start_drag_y + boundaries.offsetHeight;
-		// 	
-		// 	
-		// 	
-		// 	
-		// 	
-		// 	
-		// 	
-	}
-	if(node.show_bounds) {
-		var debug_bounds = u.ae(document.body, "div", {"class":"debug_bounds"})
-		debug_bounds.style.position = "absolute";
-		debug_bounds.style.background = "red"
-		debug_bounds.style.left = (u.absX(node) + node.start_drag_x - 1) + "px";
-		debug_bounds.style.top = (u.absY(node) + node.start_drag_y - 1) + "px";
-		debug_bounds.style.width = (node.end_drag_x - node.start_drag_x) + "px";
-		debug_bounds.style.height = (node.end_drag_y - node.start_drag_y) + "px";
-		debug_bounds.style.border = "1px solid white";
-		debug_bounds.style.zIndex = 9999;
-		debug_bounds.style.opacity = .5;
-		if(document.readyState && document.readyState == "interactive") {
-			debug_bounds.innerHTML = "WARNING - injected on DOMLoaded"; 
+	player.audio = u.ae(player, "audio");
+	if(typeof(player.audio.play) == "function") {
+		player.load = function(src, _options) {
+			if(typeof(_options) == "object") {
+				var _argument;
+				for(_argument in _options) {
+					switch(_argument) {
+						case "autoplay"     : this._autoplay               = _options[_argument]; break;
+						case "controls"     : this._controls               = _options[_argument]; break;
+						case "playpause"    : this._controls_playpause     = _options[_argument]; break;
+						case "volume"       : this._controls_volume        = _options[_argument]; break;
+						case "search"       : this._controls_search        = _options[_argument]; break;
+						case "ff_skip"      : this._ff_skip                = _options[_argument]; break;
+						case "rw_skip"      : this._rw_skip                = _options[_argument]; break;
+					}
+				}
+			}
+			if(u.hc(this, "playing")) {
+				this.stop();
+			}
+			this.setup();
+			if(src) {
+				this.audio.src = this.correctSource(src);
+				this.audio.load();
+				this.audio.controls = player._controls;
+				this.audio.autoplay = player._autoplay;
+			}
 		}
-		u.bug("node: "+u.nodeId(node)+" in (" + u.absX(node) + "," + u.absY(node) + "), (" + (u.absX(node)+node.offsetWidth) + "," + (u.absY(node)+node.offsetHeight) +")");
-		u.bug("boundaries: (" + node.start_drag_x + "," + node.start_drag_y + "), (" + node.end_drag_x + ", " + node.end_drag_y + ")");
-	}
-	node._x = node._x ? node._x : 0;
-	node._y = node._y ? node._y : 0;
-	node.locked = ((node.end_drag_x - node.start_drag_x == node.offsetWidth) && (node.end_drag_y - node.start_drag_y == node.offsetHeight));
-	node.only_vertical = (node.vertical_lock || (!node.locked && node.end_drag_x - node.start_drag_x == node.offsetWidth));
-	node.only_horizontal = (node.horizontal_lock || (!node.locked && node.end_drag_y - node.start_drag_y == node.offsetHeight));
-	u.e.addStartEvent(node, this._inputStart);
-}
-u.e._pick = function(event) {
-	var init_speed_x = Math.abs(this.start_event_x - u.eventX(event));
-	var init_speed_y = Math.abs(this.start_event_y - u.eventY(event));
-	if(
-		(init_speed_x > init_speed_y && this.only_horizontal) || 
-		(init_speed_x < init_speed_y && this.only_vertical) ||
-		(!this.only_vertical && !this.only_horizontal)) {
-		if(this._moves_counted >= this._moves_required) {
-			this._moves_counted = 0;
-			u.e.resetNestedEvents(this);
-			u.e.kill(event);
-			if(u.hasFixedParent(this)) {
-				this.has_fixed_parent = true;
+		player.play = function(position) {
+			if(this.audio.currentTime && position !== undefined) {
+				this.audio.currentTime = position;
+			}
+			if(this.audio.src) {
+				this.audio.play();
+			}
+		}
+		player.loadAndPlay = function(src, _options) {
+			var position = 0;
+			if(typeof(_options) == "object") {
+				var _argument;
+				for(_argument in _options) {
+					switch(_argument) {
+						case "position"		: position		= _options[_argument]; break;
+					}
+				}
+			}
+			this.load(src, _options);
+			this.play(position);
+		}
+		player.pause = function() {
+			this.audio.pause();
+		}
+		player.stop = function() {
+			this.audio.pause();
+			if(this.audio.currentTime) {
+				this.audio.currentTime = 0;
+			}
+		}
+		player.ff = function() {
+			if(this.audio.src && this.audio.currentTime && this.audioLoaded) {
+				this.audio.currentTime = (this.audio.duration - this.audio.currentTime >= this._ff_skip) ? (this.audio.currentTime + this._ff_skip) : this.audio.duration;
+				this.audio._timeupdate();
+			}
+		}
+		player.rw = function() {
+			if(this.audio.src && this.audio.currentTime && this.audioLoaded) {
+				this.audio.currentTime = (this.audio.currentTime >= this._rw_skip) ? (this.audio.currentTime - this._rw_skip) : 0;
+				this.audio._timeupdate();
+			}
+		}
+		player.togglePlay = function() {
+			if(u.hc(this, "playing")) {
+				this.pause();
 			}
 			else {
-				this.has_fixed_parent = false;
-			}
-			this.move_timestamp = event.timeStamp;
-			this.move_last_x = this._x;
-			this.move_last_y = this._y;
-			if(u.hasFixedParent(this)) {
-				this.start_input_x = u.eventX(event) - this._x - u.scrollX(); 
-				this.start_input_y = u.eventY(event) - this._y - u.scrollY();
-			}
-			else {
-				this.start_input_x = u.eventX(event) - this._x; 
-				this.start_input_y = u.eventY(event) - this._y;
-			}
-			this.current_xps = 0;
-			this.current_yps = 0;
-			u.a.transition(this, "none");
-			u.e.addMoveEvent(this, u.e._drag);
-			u.e.addEndEvent(this, u.e._drop);
-			if(typeof(this[this.callback_picked]) == "function") {
-				this[this.callback_picked](event);
-			}
-			if(this.drag_dropout && event.type.match(/mouse/)) {
-				// 	
-				// 	
-				// 	
-				// 	
-				// 	
-				// 
-				// 
-				// 	
-				this._dropOutDrag = u.e._drag;
-				this._dropOutDrop = u.e._drop;
-				u.e.addOutEvent(this, u.e._drop_out);
+				this.play();
 			}
 		}
-		else {
-			this._moves_counted++;
+		player.setup = function() {
+			if(this.audio) {
+				var audio = this.removeChild(this.audio);
+				delete audio;
+			}
+			this.audio = u.ie(this, "audio");
+			this.audio.player = this;
+			this.setControls();
+			this.currentTime = 0;
+			this.duration = 0;
+			this.audioLoaded = false;
+			this.metaLoaded = false;
+			this.audio._loadstart = function(event) {
+				u.ac(this.player, "loading");
+				if(typeof(this.player.loading) == "function") {
+					this.player.loading(event);
+				}
+			}
+			u.e.addEvent(this.audio, "loadstart", this.audio._loadstart);
+			this.audio._canplaythrough = function(event) {
+				u.rc(this.player, "loading");
+				if(typeof(this.player.canplaythrough) == "function") {
+					this.player.canplaythrough(event);
+				}
+			}
+			u.e.addEvent(this.audio, "canplaythrough", this.audio._canplaythrough);
+			this.audio._playing = function(event) {
+				u.rc(this.player, "loading|paused");
+				u.ac(this.player, "playing");
+				if(typeof(this.player.playing) == "function") {
+					this.player.playing(event);
+				}
+			}
+			u.e.addEvent(this.audio, "playing", this.audio._playing);
+			this.audio._paused = function(event) {
+				u.rc(this.player, "playing|loading");
+				u.ac(this.player, "paused");
+				if(typeof(this.player.paused) == "function") {
+					this.player.paused(event);
+				}
+			}
+			u.e.addEvent(this.audio, "pause", this.audio._paused);
+			this.audio._stalled = function(event) {
+				u.rc(this.player, "playing|paused");
+				u.ac(this.player, "loading");
+				if(typeof(this.player.stalled) == "function") {
+					this.player.stalled(event);
+				}
+			}
+			u.e.addEvent(this.audio, "stalled", this.audio._paused);
+			this.audio._ended = function(event) {
+				u.rc(this.player, "playing|paused");
+				if(typeof(this.player.ended) == "function") {
+					this.player.ended(event);
+				}
+			}
+			u.e.addEvent(this.audio, "ended", this.audio._ended);
+			this.audio._loadedmetadata = function(event) {
+				this.player.duration = this.duration;
+				this.player.currentTime = this.currentTime;
+				this.player.metaLoaded = true;
+				if(typeof(this.player.loadedmetadata) == "function") {
+					this.player.loadedmetadata(event);
+				}
+			}
+			u.e.addEvent(this.audio, "loadedmetadata", this.audio._loadedmetadata);
+			this.audio._loadeddata = function(event) {
+				this.player.audioLoaded = true;
+				if(typeof(this.player.loadeddata) == "function") {
+					this.player.loadeddata(event);
+				}
+			}
+			u.e.addEvent(this.audio, "loadeddata", this.audio._loadeddata);
+			this.audio._timeupdate = function(event) {
+				this.player.currentTime = this.currentTime;
+				if(typeof(this.player.timeupdate) == "function") {
+					this.player.timeupdate(event);
+				}
+			}
+			u.e.addEvent(this.audio, "timeupdate", this.audio._timeupdate);
 		}
 	}
-}
-u.e._drag = function(event) {
-	if(this.has_fixed_parent) {
-		this.current_x = u.eventX(event) - this.start_input_x - u.scrollX();
-		this.current_y = u.eventY(event) - this.start_input_y - u.scrollY();
+	else if(typeof(u.audioPlayerFallback) == "function") {
+		player.removeChild(player.video);
+		player = u.audioPlayerFallback(player);
 	}
 	else {
-		this.current_x = u.eventX(event) - this.start_input_x;
-		this.current_y = u.eventY(event) - this.start_input_y;
+		player.load = function() {}
+		player.play = function() {}
+		player.loadAndPlay = function() {}
+		player.pause = function() {}
+		player.stop = function() {}
+		player.ff = function() {}
+		player.rw = function() {}
+		player.togglePlay = function() {}
 	}
-	this.current_xps = Math.round(((this.current_x - this.move_last_x) / (event.timeStamp - this.move_timestamp)) * 1000);
-	this.current_yps = Math.round(((this.current_y - this.move_last_y) / (event.timeStamp - this.move_timestamp)) * 1000);
-	this.move_timestamp = event.timeStamp;
-	this.move_last_x = this.current_x;
-	this.move_last_y = this.current_y;
-	if(!this.locked && this.only_vertical) {
-		this._y = this.current_y;
-	}
-	else if(!this.locked && this.only_horizontal) {
-		this._x = this.current_x;
-	}
-	else if(!this.locked) {
-		this._x = this.current_x;
-		this._y = this.current_y;
-	}
-	u.bug("locked:" + this.locked);
-	if(this.e_swipe) {
-		if(this.only_horizontal) {
-			if(this.current_xps < 0) {
-				this.swiped = "left";
-			}
-			else {
-				this.swiped = "right";
-			}
+	player.correctSource = function(src) {
+		var param = src.match(/\?[^$]+/) ? src.match(/(\?[^$]+)/)[1] : "";
+		src = src.replace(/\?[^$]+/, "");
+		src = src.replace(/.mp3|.ogg|.wav/, "");
+		if(this.flash) {
+			return src+".mp3"+param;
 		}
-		else if(this.only_vertical) {
-			if(this.current_yps < 0) {
-				this.swiped = "up";
-			}
-			else {
-				this.swiped = "down";
-			}
+		if(this.audio.canPlayType("audio/mpeg")) {
+			return src+".mp3"+param;
+		}
+		else if(this.audio.canPlayType("audio/ogg")) {
+			return src+".ogg"+param;
 		}
 		else {
-			if(Math.abs(this.current_xps) > Math.abs(this.current_yps)) {
-				if(this.current_xps < 0) {
-					this.swiped = "left";
-				}
-				else {
-					this.swiped = "right";
-				}
-			}
-			else if(Math.abs(this.current_xps) < Math.abs(this.current_yps)) {
-				if(this.current_yps < 0) {
-					this.swiped = "up";
-				}
-				else {
-					this.swiped = "down";
-				}
-			}
+			return src+".wav"+param;
 		}
 	}
-	if(!this.locked) {
-		if(u.e.overlap(this, [this.start_drag_x, this.start_drag_y, this.end_drag_x, this.end_drag_y], true)) {
-			u.a.translate(this, this._x, this._y);
-		}
-		else if(this.drag_elastica) {
-			this.swiped = false;
-			this.current_xps = 0;
-			this.current_yps = 0;
-			var offset = false;
-			if(!this.only_vertical && this._x < this.start_drag_x) {
-				offset = this._x < this.start_drag_x - this.drag_elastica ? - this.drag_elastica : this._x - this.start_drag_x;
-				this._x = this.start_drag_x;
-				this.current_x = this._x + offset + (Math.round(Math.pow(offset, 2)/this.drag_elastica));
-			}
-			else if(!this.only_vertical && this._x + this.offsetWidth > this.end_drag_x) {
-				offset = this._x + this.offsetWidth > this.end_drag_x + this.drag_elastica ? this.drag_elastica : this._x + this.offsetWidth - this.end_drag_x;
-				this._x = this.end_drag_x - this.offsetWidth;
-				this.current_x = this._x + offset - (Math.round(Math.pow(offset, 2)/this.drag_elastica));
+	player.setControls = function() {
+		if(this.showControls) {
+			if(u.e.event_pref == "mouse") {
+				u.e.removeEvent(this, "mousemove", this.showControls);
+				u.e.removeEvent(this.controls, "mouseenter", this._keepControls);
+				u.e.removeEvent(this.controls, "mouseleave", this._unkeepControls);
 			}
 			else {
-				this.current_x = this._x;
-			}
-			if(!this.only_horizontal && this._y < this.start_drag_y) {
-				offset = this._y < this.start_drag_y - this.drag_elastica ? - this.drag_elastica : this._y - this.start_drag_y;
-				this._y = this.start_drag_y;
-				this.current_y = this._y + offset + (Math.round(Math.pow(offset, 2)/this.drag_elastica));
-			}
-			else if(!this.horizontal && this._y + this.offsetHeight > this.end_drag_y) {
-				offset = (this._y + this.offsetHeight > this.end_drag_y + this.drag_elastica) ? this.drag_elastica : (this._y + this.offsetHeight - this.end_drag_y);
-				this._y = this.end_drag_y - this.offsetHeight;
-				this.current_y = this._y + offset - (Math.round(Math.pow(offset, 2)/this.drag_elastica));
-			}
-			else {
-				this.current_y = this._y;
-			}
-			if(offset) {
-				u.a.translate(this, this.current_x, this.current_y);
+				u.e.removeEvent(this, "touchstart", this.showControls);
 			}
 		}
-		else {
-			this.swiped = false;
-			this.current_xps = 0;
-			this.current_yps = 0;
-			if(this._x < this.start_drag_x) {
-				this._x = this.start_drag_x;
-			}
-			else if(this._x + this.offsetWidth > this.end_drag_x) {
-				this._x = this.end_drag_x - this.offsetWidth;
-			}
-			if(this._y < this.start_drag_y) {
-				this._y = this.start_drag_y;
-			}
-			else if(this._y + this.offsetHeight > this.end_drag_y) { 
-				this._y = this.end_drag_y - this.offsetHeight;
-			}
-			u.a.translate(this, this._x, this._y);
-		}
-	}
-	if(typeof(this[this.callback_moved]) == "function") {
-		this[this.callback_moved](event);
-	}
-}
-u.e._drop = function(event) {
-	u.e.resetEvents(this);
-	if(this.e_swipe && this.swiped) {
-		this.e_swipe_options.eventAction = "Swiped "+ this.swiped;
-		u.stats.event(this, this.e_swipe_options);
-		if(this.swiped == "left" && typeof(this.swipedLeft) == "function") {
-			this.swipedLeft(event);
-		}
-		else if(this.swiped == "right" && typeof(this.swipedRight) == "function") {
-			this.swipedRight(event);
-		}
-		else if(this.swiped == "down" && typeof(this.swipedDown) == "function") {
-			this.swipedDown(event);
-		}
-		else if(this.swiped == "up" && typeof(this.swipedUp) == "function") {
-			this.swipedUp(event);
-		}
-	}
-	else if(!this.drag_strict && !this.locked) {
-		this.current_x = Math.round(this._x + (this.current_xps/2));
-		this.current_y = Math.round(this._y + (this.current_yps/2));
-		if(this.only_vertical || this.current_x < this.start_drag_x) {
-			this.current_x = this.start_drag_x;
-		}
-		else if(this.current_x + this.offsetWidth > this.end_drag_x) {
-			this.current_x = this.end_drag_x - this.offsetWidth;
-		}
-		if(this.only_horizontal || this.current_y < this.start_drag_y) {
-			this.current_y = this.start_drag_y;
-		}
-		else if(this.current_y + this.offsetHeight > this.end_drag_y) {
-			this.current_y = this.end_drag_y - this.offsetHeight;
-		}
-		this.transitioned = function() {
-			this.transitioned = null;
-			u.a.transition(this, "none");
-			if(typeof(this.projected) == "function") {
-				this.projected(event);
-			}
-		}
-		if(this.current_xps || this.current_yps) {
-			u.a.transition(this, "all 1s cubic-bezier(0,0,0.25,1)");
-		}
-		else {
-			u.a.transition(this, "all 0.2s cubic-bezier(0,0,0.25,1)");
-		}
-		u.a.translate(this, this.current_x, this.current_y);
-	}
-	if(this.e_drag && !this.e_swipe) {
-		this.e_drag_options.eventAction = u.stringOr(this.e_drag_options.eventAction, "Dropped");
-		u.stats.event(this, this.e_drag_options);
-	}
-	if(typeof(this[this.callback_dropped]) == "function") {
-		this[this.callback_dropped](event);
-	}
-}
-u.e._drop_out = function(event) {
-	this._drop_out_id = u.randomString();
-	document["_DroppedOutNode" + this._drop_out_id] = this;
-	eval('document["_DroppedOutMove' + this._drop_out_id + '"] = function(event) {document["_DroppedOutNode' + this._drop_out_id + '"]._dropOutDrag(event);}');
-	eval('document["_DroppedOutOver' + this._drop_out_id + '"] = function(event) {u.e.removeEvent(document, "mousemove", document["_DroppedOutMove' + this._drop_out_id + '"]);u.e.removeEvent(document, "mouseup", document["_DroppedOutEnd' + this._drop_out_id + '"]);u.e.removeEvent(document["_DroppedOutNode' + this._drop_out_id + '"], "mouseover", document["_DroppedOutOver' + this._drop_out_id + '"]);}');
-	eval('document["_DroppedOutEnd' + this._drop_out_id + '"] = function(event) {u.e.removeEvent(document, "mousemove", document["_DroppedOutMove' + this._drop_out_id + '"]);u.e.removeEvent(document, "mouseup", document["_DroppedOutEnd' + this._drop_out_id + '"]);u.e.removeEvent(document["_DroppedOutNode' + this._drop_out_id + '"], "mouseover", document["_DroppedOutOver' + this._drop_out_id + '"]);document["_DroppedOutNode' + this._drop_out_id + '"]._dropOutDrop(event);}');
-	u.e.addEvent(document, "mousemove", document["_DroppedOutMove" + this._drop_out_id]);
-	u.e.addEvent(this, "mouseover", document["_DroppedOutOver" + this._drop_out_id]);
-	u.e.addEvent(document, "mouseup", document["_DroppedOutEnd" + this._drop_out_id]);
-}
-u.e.swipe = function(node, boundaries, _options) {
-	node.e_swipe_options = _options ? _options : {};
-	node.e_swipe = true;
-	u.e.drag(node, boundaries, _options);
-}
-
-
-/*beta-u-notifier.js*/
-u.notifier = function(node) {
-	var notifications = u.qs("div.notifications", node);
-	if(!notifications) {
-		node.notifications = u.ae(node, "div", {"id":"notifications"});
-	}
-	node.notifications.hide_delay = 4500;
-	node.notifications.hide = function() {
-		u.a.transition(this, "all 0.5s ease-in-out");
-		u.a.translate(this, 0, -this.offsetHeight);
-	}
-	node.notify = function(response, _options) {
-		var class_name = "message";
-		if(typeof(_options) == "object") {
-			var argument;
-			for(argument in _options) {
-				switch(argument) {
-					case "class"	: class_name	= _options[argument]; break;
-				}
-			}
-		}
-		var output;
-		if(typeof(response) == "object" && response.isJSON) {
-			var message = response.cms_message;
-			var cms_status = response.cms_status;
-			if(typeof(message) == "object") {
-				for(type in message) {
-					if(typeof(message[type]) == "string") {
-						output = u.ae(this.notifications, "div", {"class":class_name+" "+cms_status, "html":message[type]});
-					}
-					else if(typeof(message[type]) == "object" && message[type].length) {
-						var node, i;
-						for(i = 0; _message = message[type][i]; i++) {
-							output = u.ae(this.notifications, "div", {"class":class_name+" "+cms_status, "html":_message});
-						}
+		if(this._controls_playpause || this._controls_zoom || this._controls_volume || this._controls_search) {
+			if(!this.controls) {
+				this.controls = u.ae(this, "div", {"class":"controls"});
+				this.controls.player = this;
+				this.controls._default_display = u.gcs(this.controls, "display");
+				this.hideControls = function() {
+					if(!this._keep) {
+						this.t_controls = u.t.resetTimer(this.t_controls);
+						u.a.transition(this.controls, "all 0.3s ease-out");
+						u.a.setOpacity(this.controls, 0);
 					}
 				}
+				this.showControls = function() {
+					if(this.t_controls) {
+						this.t_controls = u.t.resetTimer(this.t_controls);
+					}
+					else {
+						u.a.transition(this.controls, "all 0.5s ease-out");
+						u.a.setOpacity(this.controls, 1);
+					}
+					this.t_controls = u.t.setTimer(this, this.hideControls, 1500);
+				}
+				this._keepControls = function() {
+					this.player._keep = true;
+				}
+				this._unkeepControls = function() {
+					this.player._keep = false;
+				}
 			}
-			else if(typeof(message) == "string") {
-				output = u.ae(this.notifications, "div", {"class":class_name+" "+cms_status, "html":message});
+			else {
+				u.as(this.controls, "display", this.controls._default_display);
 			}
-			if(typeof(this.notifications.show) == "function") {
-				this.notifications.show();
+			if(this._controls_playpause) {
+				if(!this.controls.playpause) {
+					this.controls.playpause = u.ae(this.controls, "a", {"class":"playpause"});
+					this.controls.playpause._default_display = u.gcs(this.controls.playpause, "display");
+					this.controls.playpause.player = this;
+					u.e.click(this.controls.playpause);
+					this.controls.playpause.clicked = function(event) {
+						this.player.togglePlay();
+					}
+				}
+				else {
+					u.as(this.controls.playpause, "display", this.controls.playpause._default_display);
+				}
+			}
+			else if(this.controls.playpause) {
+				u.as(this.controls.playpause, "display", "none");
+			}
+			if(this._controls_search) {
+				if(!this.controls.search) {
+					this.controls.search_ff = u.ae(this.controls, "a", {"class":"ff"});
+					this.controls.search_ff._default_display = u.gcs(this.controls.search_ff, "display");
+					this.controls.search_ff.player = this;
+					this.controls.search_rw = u.ae(this.controls, "a", {"class":"rw"});
+					this.controls.search_rw._default_display = u.gcs(this.controls.search_rw, "display");
+					this.controls.search_rw.player = this;
+					u.e.click(this.controls.search_ff);
+					this.controls.search_ff.ffing = function() {
+						this.t_ffing = u.t.setTimer(this, this.ffing, 100);
+						this.player.ff();
+					}
+					this.controls.search_ff.inputStarted = function(event) {
+						this.ffing();
+					}
+					this.controls.search_ff.clicked = function(event) {
+						u.t.resetTimer(this.t_ffing);
+					}
+					u.e.click(this.controls.search_rw);
+					this.controls.search_rw.rwing = function() {
+						this.t_rwing = u.t.setTimer(this, this.rwing, 100);
+						this.player.rw();
+					}
+					this.controls.search_rw.inputStarted = function(event) {
+						this.rwing();
+					}
+					this.controls.search_rw.clicked = function(event) {
+						u.t.resetTimer(this.t_rwing);
+						this.player.rw();
+					}
+					this.controls.search = true;
+				}
+				else {
+					u.as(this.controls.search_ff, "display", this.controls.search_ff._default_display);
+					u.as(this.controls.search_rw, "display", this.controls.search_rw._default_display);
+				}
+			}
+			else if(this.controls.search) {
+				u.as(this.controls.search_ff, "display", "none");
+				u.as(this.controls.search_rw, "display", "none");
+			}
+			if(this._controls_zoom && !this.controls.zoom) {}
+			else if(this.controls.zoom) {}
+			if(this._controls_volume && !this.controls.volume) {}
+			else if(this.controls.volume) {}
+			if(u.e.event_pref == "mouse") {
+				u.e.addEvent(this.controls, "mouseenter", this._keepControls);
+				u.e.addEvent(this.controls, "mouseleave", this._unkeepControls);
+				u.e.addEvent(this, "mousemove", this.showControls);
+			}
+			else {
+				u.e.addEvent(this, "touchstart", this.showControls);
 			}
 		}
-		else if(typeof(response) == "object" && response.isHTML) {
-			var login = u.qs(".scene.login form", response);
-			var messages = u.qsa(".scene div.messages p", response);
-			if(login && !u.qs("#login_overlay")) {
-				// 
-				// 
-				this.autosave_disabled = true;
-				if(page.t_autosave) {
-					u.t.resetTimer(page.t_autosave);
+		else if(this.controls) {
+			u.as(this.controls, "display", "none");
+		}
+	}
+	return player;
+}
+
+/*u-sortable.js*/
+u.sortable = function(scope, _options) {
+	scope.callback_picked = "picked";
+	scope.callback_moved = "moved";
+	scope.callback_dropped = "dropped";
+	scope.draggables;	
+	scope.targets;	
+	scope.layout;
+	scope.allow_nesting = false;
+	if(typeof(_options) == "object") {
+		var _argument;
+		for(_argument in _options) {
+			switch(_argument) {
+				case "picked"				: scope.callback_picked		= _options[_argument]; break;
+				case "moved"				: scope.callback_moved		= _options[_argument]; break;
+				case "dropped"				: scope.callback_dropped	= _options[_argument]; break;
+				case "draggables"			: scope.draggables			= _options[_argument]; break;
+				case "targets"				: scope.targets				= _options[_argument]; break;
+				case "layout"				: scope.layout				= _options[_argument]; break;
+				case "allow_nesting"		: scope.allow_nesting		= _options[_argument]; break;
+			}
+		}
+	}
+	scope._sortablepick = function(event) {
+		if(!this.d_node.scope._sorting_disabled) {
+			u.e.kill(event);
+			if(!this.d_node.scope._dragged) {
+				var d_node = this.d_node.scope._dragged = this.d_node;
+				d_node.start_opacity = u.gcs(d_node, "opacity");
+				d_node.start_position = u.gcs(d_node, "position");
+				d_node.start_width = u.gcs(d_node, "width");
+				d_node.start_height = u.gcs(d_node, "height");
+				if(!d_node.scope.tN) {
+					d_node.scope.tN = document.createElement(d_node.nodeName);
 				}
-				var overlay = u.ae(document.body, "div", {"id":"login_overlay"});
-				overlay.node = this;
-				u.ae(overlay, login);
-				u.as(document.body, "overflow", "hidden");
-				var relogin = u.ie(login, "h1", {"class":"relogin", "html":(u.txt["relogin"] ? u.txt["relogin"] : "Your session expired")});
-				login.overlay = overlay;
-				u.ae(login, "input", {"type":"hidden", "name":"ajaxlogin", "value":"true"})
-				u.f.init(login);
-				login.fields["username"].focus();
-				login.submitted = function() {
-					this.response = function(response) {
-						if(response.isJSON && response.cms_status == "success") {
-							var csrf_token = response.cms_object["csrf-token"];
-							var data_vars = u.qsa("[data-csrf-token]", page);
-							var input_vars = u.qsa("[name=csrf-token]", page);
-							var dom_vars = u.qsa("*", page);
-							var i, node;
-							for(i = 0; node = data_vars[i]; i++) {
-								node.setAttribute("data-csrf-token", csrf_token);
+				u.sc(d_node.scope.tN, "target " + d_node.className);
+				u.as(d_node.scope.tN, "height", u.actualHeight(d_node)+"px");
+				u.as(d_node.scope.tN, "width", u.actualWidth(d_node)+"px");
+				u.as(d_node.scope.tN, "opacity", d_node.start_opacity - 0.5);
+				d_node.scope.tN.innerHTML = d_node.innerHTML;
+				u.as(d_node, "width", u.actualWidth(d_node) + "px");
+				u.as(d_node, "opacity", d_node.start_opacity - 0.3);
+				d_node.mouse_ox = u.eventX(event) - u.absX(d_node);
+				d_node.mouse_oy = u.eventY(event) - u.absY(d_node);
+				u.as(d_node, "position", "absolute");
+				u.as(d_node, "left", (u.eventX(event) - d_node.rel_ox) - d_node.mouse_ox+"px");
+				u.as(d_node, "top", (u.eventY(event) - d_node.rel_oy) - d_node.mouse_oy+"px");
+				u.ac(d_node, "dragged");
+				d_node._event_move_id = u.e.addWindowMoveEvent(d_node, d_node.scope._sortabledrag);
+				d_node._event_end_id = u.e.addWindowEndEvent(d_node, d_node.scope._sortabledrop);
+				d_node.parentNode.insertBefore(d_node.scope.tN, d_node);
+				if(typeof(d_node.scope[d_node.scope.callback_picked]) == "function") {
+					d_node.scope[d_node.scope.callback_picked](event);
+				}
+			}
+		}
+	}
+	scope._sortabledrag = function(event) {
+		u.e.kill(event);
+		var i, node;
+		var event_x = u.eventX(event);
+		var event_y = u.eventY(event);
+		if(this.scope._dragged == this) {
+			this.d_left = event_x - this.mouse_ox;
+			this.d_top = event_y - this.mouse_oy;
+			// 	
+			// 		
+			// 		
+			// 
+			// 	
+			// 		
+			// 		
+			// 
+				u.as(this, "position", "absolute");
+				u.as(this, "left", this.d_left - this.rel_ox+"px");
+				u.as(this, "top", this.d_top - this.rel_oy+"px");
+				u.as(this, "bottom", "auto");
+				this.scope.detectAndInject(event_x, event_y);
+		}
+		if(typeof(this.scope[this.scope.callback_moved]) == "function") {
+			this.scope[this.scope.callback_moved](event);
+		}
+	}
+	scope._sortabledrop = function(event) {
+		u.e.kill(event);
+		u.e.removeWindowMoveEvent(this, this._event_move_id);
+		u.e.removeWindowEndEvent(this, this._event_end_id);
+		this.scope.tN = this.scope.tN.parentNode.replaceChild(this, this.scope.tN);
+		u.as(this, "position", this.start_position);
+		u.as(this, "opacity", this.start_opacity);
+		u.as(this, "left", "");
+		u.as(this, "top", "");
+		u.as(this, "bottom", "");
+		u.as(this, "width", "");
+		u.as(this.scope, "width", "");
+		u.as(this.scope, "height", "");
+		if(!this.scope.draggables) {
+			this.scope.draggable_nodes = u.qsa("li", this.scope);
+		}
+		else {
+			this.scope.draggable_nodes = u.qsa("."+this.scope.draggables, this.scope);
+		}
+		if(typeof(this.scope[this.scope.callback_dropped]) == "function") {
+			this.scope[this.scope.callback_dropped](event);
+		}
+		this.rel_ox = u.absX(this) - u.relX(this);
+		this.rel_oy = u.absY(this) - u.relY(this);
+		u.rc(this, "dragged");
+		this.scope._dragged = false;
+	}
+	scope.detectAndInject = function(event_x, event_y) {
+		for(i = this.draggable_nodes.length-1; node = this.draggable_nodes[i]; i--) {
+			if(node != this._dragged && node != this.tN && (!this.targets || u.hc(node.parentNode, this.targets))) {
+				if(this.layout == "vertical") {
+					var o_top = u.absY(node);
+					var o_height = this.draggable_node_height;
+				 	if(event_y > o_top && event_y < o_top + o_height) {
+						if(this.allow_nesting) {
+							var no_nesting_offset = o_height/3 > 7 ? 7 : o_height/3;
+							if(i === 0 && event_y > o_top && event_y < o_top + no_nesting_offset) {
+								node.parentNode.insertBefore(this.tN, node);
 							}
-							for(i = 0; node = input_vars[i]; i++) {
-								node.value = csrf_token;
-							}
-							for(i = 0; node = dom_vars[i]; i++) {
-								if(node.csrf_token) {
-									node.csrf_token = csrf_token;
+							else
+							if(event_y > o_top && event_y > (o_top + o_height) - ((no_nesting_offset)*2)) {
+								var next = u.ns(node);
+								if(next) {
+									node.parentNode.insertBefore(this.tN, next);
 								}
-							}
-							this.overlay.parentNode.removeChild(this.overlay);
-							var multiple_overlays = u.qsa("#login_overlay");
-							if(multiple_overlays) {
-								for(i = 0; overlay = multiple_overlays[i]; i++) {
-									overlay.parentNode.removeChild(overlay);
+								else {
+									node.parentNode.appendChild(this.tN);
 								}
-							}
-							u.as(document.body, "overflow", "auto");
-							this.overlay.node.autosave_disabled = false;
-							if(this.overlay.node._autosave_node && this.overlay.node._autosave_interval) {
-								u.t.setTimer(this.overlay.node._autosave_node, "autosave", this.overlay.node._autosave_interval);
-							}
-						}
-						else {
-							this.fields["username"].focus();
-							this.fields["password"].val("");
-							var error_message = u.qs(".errormessage", response);
-							if(error_message) {
-								this.overlay.node.notify({"isJSON":true, "cms_status":"error", "cms_message":error_message.innerHTML});
 							}
 							else {
-								this.overlay.node.notify({"isJSON":true, "cms_status":"error", "cms_message":"An error occured"});
+								var sub_nodes = u.qs("ul" + this.targets ? ("."+this.targets) : "", node);
+								if(!sub_nodes) {
+									sub_nodes = u.ae(node, "ul", {"class":this.targets});
+								}
+								sub_nodes.appendChild(this.tN);
 							}
+							break;
+						}
+						else {
+							if(event_y > o_top && event_y < o_top + o_height/2) {
+								node.parentNode.insertBefore(this.tN, node);
+							}
+							else {
+								var next = u.ns(node);
+								if(next) {
+									node.parentNode.insertBefore(this.tN, next);
+								}
+								else {
+									node.parentNode.appendChild(this.tN);
+								}
+							}
+							break;
 						}
 					}
-					u.request(this, this.action, {"method":this.method, "params":u.f.getParams(this)});
 				}
-			}
-			else if(messages) {
-				for(i = 0; message = messages[i]; i++) {
-					output = u.ae(this.notifications, "div", {"class":message.className, "html":message.innerHTML});
+				else {
+					var o_left = u.absX(node);
+					var o_top = u.absY(node);
+					var o_width = node.offsetWidth;
+					var o_height = node.offsetHeight;
+				 	if(event_x > o_left && event_x < o_left + o_width && event_y > o_top && event_y < o_top + o_height) {
+						if(event_x > o_left && event_x < o_left + o_width/2) {
+							node.parentNode.insertBefore(this.tN, node);
+						}
+						else {
+							var next = u.ns(node);
+							if(next) {
+								node.parentNode.insertBefore(this.tN, next);
+							}
+							else {
+								node.parentNode.appendChild(this.tN);
+							}
+						}
+						break;
+					}
 				}
 			}
 		}
-		u.t.setTimer(this.notifications, this.notifications.hide, this.notifications.hide_delay);
+	}
+	scope.getStructure = function() {
+		if(!this.draggables) {
+			this.draggable_nodes = u.qsa("li", this);
+		}
+		else {
+			this.draggable_nodes = u.qsa("."+this.draggables, this);
+		}
+		var structure = [];
+		var i, node, id, relation, position;
+		for(i = 0; node = this.draggable_nodes[i]; i++) {
+			id = u.cv(node, "node_id");
+			relation = this.getRelation(node);
+			position = this.getPositionInList(node);
+			structure.push({"id":id, "relation":relation, "position":position});
+		}
+		return structure;
+	}
+	scope.getPositionInList = function(node) {
+		var pos = 1;
+		var test_node = node;
+		while(u.ps(test_node)) {
+			test_node = u.ps(test_node);
+			pos++;
+		}
+		return pos;
+	}
+	scope.getRelation = function(node) {
+		if(!node.parentNode.relation_id) {
+			var li_relation = u.pn(node, {"include":"li"});
+			if(u.inNodeList(li_relation, this.draggable_nodes)) {
+				node.parentNode.relation_id = u.cv(li_relation, "id");
+			}
+			else {
+				node.parentNode.relation_id = 0;
+			}
+		}
+		return node.parentNode.relation_id;
+	}
+	scope.disableNodeDrag = function(node) {
+		u.bug("disableNodeDrag:" + u.nodeId(node))
+		u.e.removeStartEvent(node.drag, this._sortablepick);
+	}
+	var i, j, d_node;
+	if(!scope.draggables) {
+		scope.draggable_nodes = u.qsa("li", scope);
+	}
+	else {
+		scope.draggable_nodes = u.qsa("."+scope.draggables, scope);
+	}
+	if(!scope.draggable_nodes.length) {
+		return;
+	}
+	scope.draggable_node_height = scope.draggable_nodes[0].offsetHeight;
+	if(!scope.targets) {
+		scope.target_nodes = u.qsa("ul", scope);
+	}
+	else {
+		scope.target_nodes = u.qsa("."+scope.targets, scope);
+	}
+	if((!scope.targets || u.hc(scope, scope.targets))) {
+		if(scope.target_nodes.length) {
+			var temp_scope = scope.target_nodes;
+			scope.target_nodes = [scope];
+			var target_node;
+			for(i = 0; target_node = temp_scope[i]; i++) {
+				scope.target_nodes.push(target_node);
+			} 
+		}
+		else {
+			scope.target_nodes = [scope];
+		}
+	}
+	if(!scope.layout && scope.draggable_nodes.length) {
+		scope.layout = scope.offsetWidth < scope.draggable_nodes[0].offsetWidth*2 ? "vertical" : "horizontal";
+	}
+	for(i = 0; d_node = scope.draggable_nodes[i]; i++) {
+		d_node.scope = scope;
+		d_node.dragme = true;
+		d_node.rel_ox = u.absX(d_node) - u.relX(d_node);
+		d_node.rel_oy = u.absY(d_node) - u.relY(d_node);
+		d_node.drag = u.qs(".drag", d_node);
+		if(!d_node.drag) {
+			d_node.drag = d_node;
+		}
+		d_node.drag.d_node = d_node;
+		var drag_children = u.qsa("*", d_node.drag);
+		if(drag_children) {
+			for(j = 0; child = drag_children[j]; j++) {
+				child.d_node = d_node;
+			}
+		}
+		u.e.removeStartEvent(d_node.drag, scope._sortablepick);
+		u.e.addStartEvent(d_node.drag, scope._sortablepick);
 	}
 }
 
@@ -6938,18 +6515,6 @@ u.f.textEditor = function(field) {
 			u.e.kill(event);
 			this.field.addStrongTag(this.selection, this.tag);
 		}
-		this.selection_options._sup = u.ae(ul, "li", {"class":"sup", "html":"Superscript"});
-		this.selection_options._sup.field = this;
-		this.selection_options._sup.tag = node;
-		this.selection_options._sup.selection = selection;
-		u.ce(this.selection_options._sup);
-		this.selection_options._sup.inputStarted = function(event) {
-			u.e.kill(event);
-		}
-		this.selection_options._sup.clicked = function(event) {
-			u.e.kill(event);
-			this.field.addSupTag(this.selection, this.tag);
-		}
 		this.selection_options._span = u.ae(ul, "li", {"class":"span", "html":"CSS class"});
 		this.selection_options._span.field = this;
 		this.selection_options._span.tag = node;
@@ -7121,24 +6686,6 @@ u.f.textEditor = function(field) {
 			alert("You cannot cross the boundaries of another selection. Yet.");
 		}
 	}
-	field.addSupTag = function(selection, tag) {
-		var range, a, url, target;
-		var sup = document.createElement("sup");
-		sup.field = this;
-		sup.tag = tag;
-		range = selection.getRangeAt(0);
-		try {
-			range.surroundContents(sup);
-			selection.removeAllRanges();
-			this.deleteOrEditOption(sup);
-			this.hideSelectionOptions();
-		}
-		catch(exception) {
-			selection.removeAllRanges();
-			this.hideSelectionOptions();
-			alert("You cannot cross the boundaries of another selection. Yet.");
-		}
-	}
 	field.addSpanTag = function(selection, tag) {
 		var span = document.createElement("span");
 		span.field = this;
@@ -7276,623 +6823,6 @@ u.f.textEditor = function(field) {
 	u.sortable(field._editor, {"draggables":"tag", "targets":"editor"});
 	field.updateViewer();
 	field.addOptions();
-}
-
-
-/*u-audio.js*/
-Util.audioPlayer = function(_options) {
-	var player = document.createElement("div");
-	u.ac(player, "audioplayer");
-	player._autoplay = false;
-	player._controls = false;
-	player._controls_playpause = false;
-	player._controls_volume = false;
-	player._controls_search = false;
-	player._ff_skip = 2;
-	player._rw_skip = 2;
-	if(typeof(_options) == "object") {
-		var _argument;
-		for(_argument in _options) {
-			switch(_argument) {
-				case "autoplay"     : player._autoplay               = _options[_argument]; break;
-				case "controls"     : player._controls               = _options[_argument]; break;
-				case "playpause"    : player._controls_playpause     = _options[_argument]; break;
-				case "volume"       : player._controls_volume        = _options[_argument]; break;
-				case "search"       : player._controls_search        = _options[_argument]; break;
-				case "ff_skip"      : player._ff_skip                = _options[_argument]; break;
-				case "rw_skip"      : player._rw_skip                = _options[_argument]; break;
-			}
-		}
-	}
-	player.audio = u.ae(player, "audio");
-	if(typeof(player.audio.play) == "function") {
-		player.load = function(src, _options) {
-			if(typeof(_options) == "object") {
-				var _argument;
-				for(_argument in _options) {
-					switch(_argument) {
-						case "autoplay"     : this._autoplay               = _options[_argument]; break;
-						case "controls"     : this._controls               = _options[_argument]; break;
-						case "playpause"    : this._controls_playpause     = _options[_argument]; break;
-						case "volume"       : this._controls_volume        = _options[_argument]; break;
-						case "search"       : this._controls_search        = _options[_argument]; break;
-						case "ff_skip"      : this._ff_skip                = _options[_argument]; break;
-						case "rw_skip"      : this._rw_skip                = _options[_argument]; break;
-					}
-				}
-			}
-			if(u.hc(this, "playing")) {
-				this.stop();
-			}
-			this.setup();
-			if(src) {
-				this.audio.src = this.correctSource(src);
-				this.audio.load();
-				this.audio.controls = player._controls;
-				this.audio.autoplay = player._autoplay;
-			}
-		}
-		player.play = function(position) {
-			if(this.audio.currentTime && position !== undefined) {
-				this.audio.currentTime = position;
-			}
-			if(this.audio.src) {
-				this.audio.play();
-			}
-		}
-		player.loadAndPlay = function(src, _options) {
-			var position = 0;
-			if(typeof(_options) == "object") {
-				var _argument;
-				for(_argument in _options) {
-					switch(_argument) {
-						case "position"		: position		= _options[_argument]; break;
-					}
-				}
-			}
-			this.load(src, _options);
-			this.play(position);
-		}
-		player.pause = function() {
-			this.audio.pause();
-		}
-		player.stop = function() {
-			this.audio.pause();
-			if(this.audio.currentTime) {
-				this.audio.currentTime = 0;
-			}
-		}
-		player.ff = function() {
-			if(this.audio.src && this.audio.currentTime && this.audioLoaded) {
-				this.audio.currentTime = (this.audio.duration - this.audio.currentTime >= this._ff_skip) ? (this.audio.currentTime + this._ff_skip) : this.audio.duration;
-				this.audio._timeupdate();
-			}
-		}
-		player.rw = function() {
-			if(this.audio.src && this.audio.currentTime && this.audioLoaded) {
-				this.audio.currentTime = (this.audio.currentTime >= this._rw_skip) ? (this.audio.currentTime - this._rw_skip) : 0;
-				this.audio._timeupdate();
-			}
-		}
-		player.togglePlay = function() {
-			if(u.hc(this, "playing")) {
-				this.pause();
-			}
-			else {
-				this.play();
-			}
-		}
-		player.setup = function() {
-			if(this.audio) {
-				var audio = this.removeChild(this.audio);
-				delete audio;
-			}
-			this.audio = u.ie(this, "audio");
-			this.audio.player = this;
-			this.setControls();
-			this.currentTime = 0;
-			this.duration = 0;
-			this.audioLoaded = false;
-			this.metaLoaded = false;
-			this.audio._loadstart = function(event) {
-				u.ac(this.player, "loading");
-				if(typeof(this.player.loading) == "function") {
-					this.player.loading(event);
-				}
-			}
-			u.e.addEvent(this.audio, "loadstart", this.audio._loadstart);
-			this.audio._canplaythrough = function(event) {
-				u.rc(this.player, "loading");
-				if(typeof(this.player.canplaythrough) == "function") {
-					this.player.canplaythrough(event);
-				}
-			}
-			u.e.addEvent(this.audio, "canplaythrough", this.audio._canplaythrough);
-			this.audio._playing = function(event) {
-				u.rc(this.player, "loading|paused");
-				u.ac(this.player, "playing");
-				if(typeof(this.player.playing) == "function") {
-					this.player.playing(event);
-				}
-			}
-			u.e.addEvent(this.audio, "playing", this.audio._playing);
-			this.audio._paused = function(event) {
-				u.rc(this.player, "playing|loading");
-				u.ac(this.player, "paused");
-				if(typeof(this.player.paused) == "function") {
-					this.player.paused(event);
-				}
-			}
-			u.e.addEvent(this.audio, "pause", this.audio._paused);
-			this.audio._stalled = function(event) {
-				u.rc(this.player, "playing|paused");
-				u.ac(this.player, "loading");
-				if(typeof(this.player.stalled) == "function") {
-					this.player.stalled(event);
-				}
-			}
-			u.e.addEvent(this.audio, "stalled", this.audio._paused);
-			this.audio._ended = function(event) {
-				u.rc(this.player, "playing|paused");
-				if(typeof(this.player.ended) == "function") {
-					this.player.ended(event);
-				}
-			}
-			u.e.addEvent(this.audio, "ended", this.audio._ended);
-			this.audio._loadedmetadata = function(event) {
-				this.player.duration = this.duration;
-				this.player.currentTime = this.currentTime;
-				this.player.metaLoaded = true;
-				if(typeof(this.player.loadedmetadata) == "function") {
-					this.player.loadedmetadata(event);
-				}
-			}
-			u.e.addEvent(this.audio, "loadedmetadata", this.audio._loadedmetadata);
-			this.audio._loadeddata = function(event) {
-				this.player.audioLoaded = true;
-				if(typeof(this.player.loadeddata) == "function") {
-					this.player.loadeddata(event);
-				}
-			}
-			u.e.addEvent(this.audio, "loadeddata", this.audio._loadeddata);
-			this.audio._timeupdate = function(event) {
-				this.player.currentTime = this.currentTime;
-				if(typeof(this.player.timeupdate) == "function") {
-					this.player.timeupdate(event);
-				}
-			}
-			u.e.addEvent(this.audio, "timeupdate", this.audio._timeupdate);
-		}
-	}
-	else if(typeof(u.audioPlayerFallback) == "function") {
-		player.removeChild(player.video);
-		player = u.audioPlayerFallback(player);
-	}
-	else {
-		player.load = function() {}
-		player.play = function() {}
-		player.loadAndPlay = function() {}
-		player.pause = function() {}
-		player.stop = function() {}
-		player.ff = function() {}
-		player.rw = function() {}
-		player.togglePlay = function() {}
-	}
-	player.correctSource = function(src) {
-		var param = src.match(/\?[^$]+/) ? src.match(/(\?[^$]+)/)[1] : "";
-		src = src.replace(/\?[^$]+/, "");
-		src = src.replace(/.mp3|.ogg|.wav/, "");
-		if(this.flash) {
-			return src+".mp3"+param;
-		}
-		if(this.audio.canPlayType("audio/mpeg")) {
-			return src+".mp3"+param;
-		}
-		else if(this.audio.canPlayType("audio/ogg")) {
-			return src+".ogg"+param;
-		}
-		else {
-			return src+".wav"+param;
-		}
-	}
-	player.setControls = function() {
-		if(this.showControls) {
-			if(u.e.event_pref == "mouse") {
-				u.e.removeEvent(this, "mousemove", this.showControls);
-				u.e.removeEvent(this.controls, "mouseenter", this._keepControls);
-				u.e.removeEvent(this.controls, "mouseleave", this._unkeepControls);
-			}
-			else {
-				u.e.removeEvent(this, "touchstart", this.showControls);
-			}
-		}
-		if(this._controls_playpause || this._controls_zoom || this._controls_volume || this._controls_search) {
-			if(!this.controls) {
-				this.controls = u.ae(this, "div", {"class":"controls"});
-				this.controls.player = this;
-				this.controls._default_display = u.gcs(this.controls, "display");
-				this.hideControls = function() {
-					if(!this._keep) {
-						this.t_controls = u.t.resetTimer(this.t_controls);
-						u.a.transition(this.controls, "all 0.3s ease-out");
-						u.a.setOpacity(this.controls, 0);
-					}
-				}
-				this.showControls = function() {
-					if(this.t_controls) {
-						this.t_controls = u.t.resetTimer(this.t_controls);
-					}
-					else {
-						u.a.transition(this.controls, "all 0.5s ease-out");
-						u.a.setOpacity(this.controls, 1);
-					}
-					this.t_controls = u.t.setTimer(this, this.hideControls, 1500);
-				}
-				this._keepControls = function() {
-					this.player._keep = true;
-				}
-				this._unkeepControls = function() {
-					this.player._keep = false;
-				}
-			}
-			else {
-				u.as(this.controls, "display", this.controls._default_display);
-			}
-			if(this._controls_playpause) {
-				if(!this.controls.playpause) {
-					this.controls.playpause = u.ae(this.controls, "a", {"class":"playpause"});
-					this.controls.playpause._default_display = u.gcs(this.controls.playpause, "display");
-					this.controls.playpause.player = this;
-					u.e.click(this.controls.playpause);
-					this.controls.playpause.clicked = function(event) {
-						this.player.togglePlay();
-					}
-				}
-				else {
-					u.as(this.controls.playpause, "display", this.controls.playpause._default_display);
-				}
-			}
-			else if(this.controls.playpause) {
-				u.as(this.controls.playpause, "display", "none");
-			}
-			if(this._controls_search) {
-				if(!this.controls.search) {
-					this.controls.search_ff = u.ae(this.controls, "a", {"class":"ff"});
-					this.controls.search_ff._default_display = u.gcs(this.controls.search_ff, "display");
-					this.controls.search_ff.player = this;
-					this.controls.search_rw = u.ae(this.controls, "a", {"class":"rw"});
-					this.controls.search_rw._default_display = u.gcs(this.controls.search_rw, "display");
-					this.controls.search_rw.player = this;
-					u.e.click(this.controls.search_ff);
-					this.controls.search_ff.ffing = function() {
-						this.t_ffing = u.t.setTimer(this, this.ffing, 100);
-						this.player.ff();
-					}
-					this.controls.search_ff.inputStarted = function(event) {
-						this.ffing();
-					}
-					this.controls.search_ff.clicked = function(event) {
-						u.t.resetTimer(this.t_ffing);
-					}
-					u.e.click(this.controls.search_rw);
-					this.controls.search_rw.rwing = function() {
-						this.t_rwing = u.t.setTimer(this, this.rwing, 100);
-						this.player.rw();
-					}
-					this.controls.search_rw.inputStarted = function(event) {
-						this.rwing();
-					}
-					this.controls.search_rw.clicked = function(event) {
-						u.t.resetTimer(this.t_rwing);
-						this.player.rw();
-					}
-					this.controls.search = true;
-				}
-				else {
-					u.as(this.controls.search_ff, "display", this.controls.search_ff._default_display);
-					u.as(this.controls.search_rw, "display", this.controls.search_rw._default_display);
-				}
-			}
-			else if(this.controls.search) {
-				u.as(this.controls.search_ff, "display", "none");
-				u.as(this.controls.search_rw, "display", "none");
-			}
-			if(this._controls_zoom && !this.controls.zoom) {}
-			else if(this.controls.zoom) {}
-			if(this._controls_volume && !this.controls.volume) {}
-			else if(this.controls.volume) {}
-			if(u.e.event_pref == "mouse") {
-				u.e.addEvent(this.controls, "mouseenter", this._keepControls);
-				u.e.addEvent(this.controls, "mouseleave", this._unkeepControls);
-				u.e.addEvent(this, "mousemove", this.showControls);
-			}
-			else {
-				u.e.addEvent(this, "touchstart", this.showControls);
-			}
-		}
-		else if(this.controls) {
-			u.as(this.controls, "display", "none");
-		}
-	}
-	return player;
-}
-
-/*u-sortable.js*/
-u.sortable = function(scope, _options) {
-	scope.callback_picked = "picked";
-	scope.callback_moved = "moved";
-	scope.callback_dropped = "dropped";
-	scope.draggables;	
-	scope.targets;	
-	scope.layout;
-	scope.allow_nesting = false;
-	if(typeof(_options) == "object") {
-		var _argument;
-		for(_argument in _options) {
-			switch(_argument) {
-				case "picked"				: scope.callback_picked		= _options[_argument]; break;
-				case "moved"				: scope.callback_moved		= _options[_argument]; break;
-				case "dropped"				: scope.callback_dropped	= _options[_argument]; break;
-				case "draggables"			: scope.draggables			= _options[_argument]; break;
-				case "targets"				: scope.targets				= _options[_argument]; break;
-				case "layout"				: scope.layout				= _options[_argument]; break;
-				case "allow_nesting"		: scope.allow_nesting		= _options[_argument]; break;
-			}
-		}
-	}
-	scope._sortablepick = function(event) {
-		if(!this.d_node.scope._sorting_disabled) {
-			u.e.kill(event);
-			if(!this.d_node.scope._dragged) {
-				var d_node = this.d_node.scope._dragged = this.d_node;
-				d_node.start_opacity = u.gcs(d_node, "opacity");
-				d_node.start_position = u.gcs(d_node, "position");
-				d_node.start_width = u.gcs(d_node, "width");
-				d_node.start_height = u.gcs(d_node, "height");
-				if(!d_node.scope.tN) {
-					d_node.scope.tN = document.createElement(d_node.nodeName);
-				}
-				u.sc(d_node.scope.tN, "target " + d_node.className);
-				u.as(d_node.scope.tN, "height", u.actualHeight(d_node)+"px");
-				u.as(d_node.scope.tN, "width", u.actualWidth(d_node)+"px");
-				u.as(d_node.scope.tN, "opacity", d_node.start_opacity - 0.5);
-				d_node.scope.tN.innerHTML = d_node.innerHTML;
-				u.as(d_node, "width", u.actualWidth(d_node) + "px");
-				u.as(d_node, "opacity", d_node.start_opacity - 0.3);
-				d_node.mouse_ox = u.eventX(event) - u.absX(d_node);
-				d_node.mouse_oy = u.eventY(event) - u.absY(d_node);
-				u.as(d_node, "position", "absolute");
-				u.as(d_node, "left", (u.eventX(event) - d_node.rel_ox) - d_node.mouse_ox+"px");
-				u.as(d_node, "top", (u.eventY(event) - d_node.rel_oy) - d_node.mouse_oy+"px");
-				u.ac(d_node, "dragged");
-				d_node._event_move_id = u.e.addWindowMoveEvent(d_node, d_node.scope._sortabledrag);
-				d_node._event_end_id = u.e.addWindowEndEvent(d_node, d_node.scope._sortabledrop);
-				d_node.parentNode.insertBefore(d_node.scope.tN, d_node);
-				if(typeof(d_node.scope[d_node.scope.callback_picked]) == "function") {
-					d_node.scope[d_node.scope.callback_picked](event);
-				}
-			}
-		}
-	}
-	scope._sortabledrag = function(event) {
-		u.e.kill(event);
-		var i, node;
-		var event_x = u.eventX(event);
-		var event_y = u.eventY(event);
-		if(this.scope._dragged == this) {
-			this.d_left = event_x - this.mouse_ox;
-			this.d_top = event_y - this.mouse_oy;
-			// 	
-			// 		
-			// 		
-			// 
-			// 	
-			// 		
-			// 		
-			// 
-				u.as(this, "position", "absolute");
-				u.as(this, "left", this.d_left - this.rel_ox+"px");
-				u.as(this, "top", this.d_top - this.rel_oy+"px");
-				u.as(this, "bottom", "auto");
-				this.scope.detectAndInject(event_x, event_y);
-		}
-		if(typeof(this.scope[this.scope.callback_moved]) == "function") {
-			this.scope[this.scope.callback_moved](event);
-		}
-	}
-	scope._sortabledrop = function(event) {
-		u.e.kill(event);
-		u.e.removeWindowMoveEvent(this, this._event_move_id);
-		u.e.removeWindowEndEvent(this, this._event_end_id);
-		this.scope.tN = this.scope.tN.parentNode.replaceChild(this, this.scope.tN);
-		u.as(this, "position", this.start_position);
-		u.as(this, "opacity", this.start_opacity);
-		u.as(this, "left", "");
-		u.as(this, "top", "");
-		u.as(this, "bottom", "");
-		u.as(this, "width", "");
-		u.as(this.scope, "width", "");
-		u.as(this.scope, "height", "");
-		if(!this.scope.draggables) {
-			this.scope.draggable_nodes = u.qsa("li", this.scope);
-		}
-		else {
-			this.scope.draggable_nodes = u.qsa("."+this.scope.draggables, this.scope);
-		}
-		if(typeof(this.scope[this.scope.callback_dropped]) == "function") {
-			this.scope[this.scope.callback_dropped](event);
-		}
-		this.rel_ox = u.absX(this) - u.relX(this);
-		this.rel_oy = u.absY(this) - u.relY(this);
-		u.rc(this, "dragged");
-		this.scope._dragged = false;
-	}
-	scope.detectAndInject = function(event_x, event_y) {
-		for(i = this.draggable_nodes.length-1; node = this.draggable_nodes[i]; i--) {
-			if(node != this._dragged && node != this.tN && (!this.targets || u.hc(node.parentNode, this.targets))) {
-				if(this.layout == "vertical") {
-					var o_top = u.absY(node);
-					var o_height = this.draggable_node_height;
-				 	if(event_y > o_top && event_y < o_top + o_height) {
-						if(this.allow_nesting) {
-							var no_nesting_offset = o_height/3 > 7 ? 7 : o_height/3;
-							if(i === 0 && event_y > o_top && event_y < o_top + no_nesting_offset) {
-								node.parentNode.insertBefore(this.tN, node);
-							}
-							else
-							if(event_y > o_top && event_y > (o_top + o_height) - ((no_nesting_offset)*2)) {
-								var next = u.ns(node);
-								if(next) {
-									node.parentNode.insertBefore(this.tN, next);
-								}
-								else {
-									node.parentNode.appendChild(this.tN);
-								}
-							}
-							else {
-								var sub_nodes = u.qs("ul" + this.targets ? ("."+this.targets) : "", node);
-								if(!sub_nodes) {
-									sub_nodes = u.ae(node, "ul", {"class":this.targets});
-								}
-								sub_nodes.appendChild(this.tN);
-							}
-							break;
-						}
-						else {
-							if(event_y > o_top && event_y < o_top + o_height/2) {
-								node.parentNode.insertBefore(this.tN, node);
-							}
-							else {
-								var next = u.ns(node);
-								if(next) {
-									node.parentNode.insertBefore(this.tN, next);
-								}
-								else {
-									node.parentNode.appendChild(this.tN);
-								}
-							}
-							break;
-						}
-					}
-				}
-				else {
-					var o_left = u.absX(node);
-					var o_top = u.absY(node);
-					var o_width = node.offsetWidth;
-					var o_height = node.offsetHeight;
-				 	if(event_x > o_left && event_x < o_left + o_width && event_y > o_top && event_y < o_top + o_height) {
-						if(event_x > o_left && event_x < o_left + o_width/2) {
-							node.parentNode.insertBefore(this.tN, node);
-						}
-						else {
-							var next = u.ns(node);
-							if(next) {
-								node.parentNode.insertBefore(this.tN, next);
-							}
-							else {
-								node.parentNode.appendChild(this.tN);
-							}
-						}
-						break;
-					}
-				}
-			}
-		}
-	}
-	scope.getStructure = function() {
-		if(!this.draggables) {
-			this.draggable_nodes = u.qsa("li", this);
-		}
-		else {
-			this.draggable_nodes = u.qsa("."+this.draggables, this);
-		}
-		var structure = [];
-		var i, node, id, relation, position;
-		for(i = 0; node = this.draggable_nodes[i]; i++) {
-			id = u.cv(node, "node_id");
-			relation = this.getRelation(node);
-			position = this.getPositionInList(node);
-			structure.push({"id":id, "relation":relation, "position":position});
-		}
-		return structure;
-	}
-	scope.getPositionInList = function(node) {
-		var pos = 1;
-		var test_node = node;
-		while(u.ps(test_node)) {
-			test_node = u.ps(test_node);
-			pos++;
-		}
-		return pos;
-	}
-	scope.getRelation = function(node) {
-		if(!node.parentNode.relation_id) {
-			var li_relation = u.pn(node, {"include":"li"});
-			if(u.inNodeList(li_relation, this.draggable_nodes)) {
-				node.parentNode.relation_id = u.cv(li_relation, "id");
-			}
-			else {
-				node.parentNode.relation_id = 0;
-			}
-		}
-		return node.parentNode.relation_id;
-	}
-	scope.disableNodeDrag = function(node) {
-		u.bug("disableNodeDrag:" + u.nodeId(node))
-		u.e.removeStartEvent(node.drag, this._sortablepick);
-	}
-	var i, j, d_node;
-	if(!scope.draggables) {
-		scope.draggable_nodes = u.qsa("li", scope);
-	}
-	else {
-		scope.draggable_nodes = u.qsa("."+scope.draggables, scope);
-	}
-	if(!scope.draggable_nodes.length) {
-		return;
-	}
-	scope.draggable_node_height = scope.draggable_nodes[0].offsetHeight;
-	if(!scope.targets) {
-		scope.target_nodes = u.qsa("ul", scope);
-	}
-	else {
-		scope.target_nodes = u.qsa("."+scope.targets, scope);
-	}
-	if((!scope.targets || u.hc(scope, scope.targets))) {
-		if(scope.target_nodes.length) {
-			var temp_scope = scope.target_nodes;
-			scope.target_nodes = [scope];
-			var target_node;
-			for(i = 0; target_node = temp_scope[i]; i++) {
-				scope.target_nodes.push(target_node);
-			} 
-		}
-		else {
-			scope.target_nodes = [scope];
-		}
-	}
-	if(!scope.layout && scope.draggable_nodes.length) {
-		scope.layout = scope.offsetWidth < scope.draggable_nodes[0].offsetWidth*2 ? "vertical" : "horizontal";
-	}
-	for(i = 0; d_node = scope.draggable_nodes[i]; i++) {
-		d_node.scope = scope;
-		d_node.dragme = true;
-		d_node.rel_ox = u.absX(d_node) - u.relX(d_node);
-		d_node.rel_oy = u.absY(d_node) - u.relY(d_node);
-		d_node.drag = u.qs(".drag", d_node);
-		if(!d_node.drag) {
-			d_node.drag = d_node;
-		}
-		d_node.drag.d_node = d_node;
-		var drag_children = u.qsa("*", d_node.drag);
-		if(drag_children) {
-			for(j = 0; child = drag_children[j]; j++) {
-				child.d_node = d_node;
-			}
-		}
-		u.e.removeStartEvent(d_node.drag, scope._sortablepick);
-		u.e.addStartEvent(d_node.drag, scope._sortablepick);
-	}
 }
 
 
@@ -8122,42 +7052,199 @@ Util.Form.geoLocation = function(field) {
 }
 
 
+/*beta-u-notifier.js*/
+u.notifier = function(node) {
+	var notifications = u.qs("div.notifications", node);
+	if(!notifications) {
+		node.notifications = u.ae(node, "div", {"id":"notifications"});
+	}
+	node.notifications.hide_delay = 4500;
+	node.notifications.hide = function() {
+		u.a.transition(this, "all 0.5s ease-in-out");
+		u.a.translate(this, 0, -this.offsetHeight);
+	}
+	node.notify = function(response, _options) {
+		var class_name = "message";
+		if(typeof(_options) == "object") {
+			var argument;
+			for(argument in _options) {
+				switch(argument) {
+					case "class"	: class_name	= _options[argument]; break;
+				}
+			}
+		}
+		var output;
+		if(typeof(response) == "object" && response.isJSON) {
+			var message = response.cms_message;
+			var cms_status = response.cms_status;
+			if(typeof(message) == "object") {
+				for(type in message) {
+					if(typeof(message[type]) == "string") {
+						output = u.ae(this.notifications, "div", {"class":class_name+" "+cms_status, "html":message[type]});
+					}
+					else if(typeof(message[type]) == "object" && message[type].length) {
+						var node, i;
+						for(i = 0; _message = message[type][i]; i++) {
+							output = u.ae(this.notifications, "div", {"class":class_name+" "+cms_status, "html":_message});
+						}
+					}
+				}
+			}
+			else if(typeof(message) == "string") {
+				output = u.ae(this.notifications, "div", {"class":class_name+" "+cms_status, "html":message});
+			}
+			if(typeof(this.notifications.show) == "function") {
+				this.notifications.show();
+			}
+		}
+		else if(typeof(response) == "object" && response.isHTML) {
+			var login = u.qs(".scene.login", response);
+			var messages = u.qsa(".scene div.messages p", response);
+			if(login && !u.qs("#login_overlay")) {
+				this.autosave_disabled = true;
+				if(page.t_autosave) {
+					u.t.resetTimer(page.t_autosave);
+				}
+				var overlay = u.ae(document.body, "div", {"id":"login_overlay"});
+				overlay.node = this;
+				u.ae(overlay, login);
+				u.as(document.body, "overflow", "hidden");
+				var form = u.qs("form", overlay);
+				var relogin = u.ae(login, "p", {"class":"relogin", "html":(u.txt["relogin"] ? u.txt["relogin"] : "Your session expired")});
+				login.insertBefore(relogin, form);
+				form.overlay = overlay;
+				u.ae(form, "input", {"type":"hidden", "name":"ajaxlogin", "value":"true"})
+				u.f.init(form);
+				form.fields["username"].focus();
+				form.submitted = function() {
+					this.response = function(response) {
+						if(response.isJSON && response.cms_status == "success") {
+							var csrf_token = response.cms_object["csrf-token"];
+							var data_vars = u.qsa("[data-csrf-token]", page);
+							var input_vars = u.qsa("[name=csrf-token]", page);
+							var dom_vars = u.qsa("*", page);
+							var i, node;
+							for(i = 0; node = data_vars[i]; i++) {
+								node.setAttribute("data-csrf-token", csrf_token);
+							}
+							for(i = 0; node = input_vars[i]; i++) {
+								node.value = csrf_token;
+							}
+							for(i = 0; node = dom_vars[i]; i++) {
+								if(node.csrf_token) {
+									node.csrf_token = csrf_token;
+								}
+							}
+							this.overlay.parentNode.removeChild(this.overlay);
+							var multiple_overlays = u.qsa("#login_overlay");
+							if(multiple_overlays) {
+								for(i = 0; overlay = multiple_overlays[i]; i++) {
+									overlay.parentNode.removeChild(overlay);
+								}
+							}
+							u.as(document.body, "overflow", "auto");
+							this.overlay.node.autosave_disabled = false;
+							if(this.overlay.node._autosave_node && this.overlay.node._autosave_interval) {
+								u.t.setTimer(this.overlay.node._autosave_node, "autosave", this.overlay.node._autosave_interval);
+							}
+						}
+						else {
+							this.fields["username"].focus();
+							this.fields["password"].val("");
+							var error_message = u.qs(".errormessage", response);
+							if(error_message) {
+								this.overlay.node.notify({"isJSON":true, "cms_status":"error", "cms_message":error_message.innerHTML});
+							}
+							else {
+								this.overlay.node.notify({"isJSON":true, "cms_status":"error", "cms_message":"An error occured"});
+							}
+						}
+					}
+					u.request(this, this.action, {"method":this.method, "params":u.f.getParams(this)});
+				}
+			}
+			else if(messages) {
+				for(i = 0; message = messages[i]; i++) {
+					output = u.ae(this.notifications, "div", {"class":message.className, "html":message.innerHTML});
+				}
+			}
+		}
+		u.t.setTimer(this.notifications, this.notifications.hide, this.notifications.hide_delay);
+	}
+}
+
+
+/*u-form-custom.js*/
+u.f.fixFieldHTML = function(field) {
+	u.bug("fixFieldHTML");
+	var label = u.qs("label", field);
+	if(label) {
+		u.ae(label, field._indicator);
+	}
+}
+
 /*i-page.js*/
+u.bug_force = true;
 u.bug_console_only = true;
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
-		u.bug("init page:" + page)
 		window.page = page;
 		u.bug_force = true;
 		u.bug("This site is built using Manipulator, Janitor and Detector");
 		u.bug("Visit http://parentnode.dk for more information");
 		u.bug("Free lunch for new contributers ;-)");
 		u.bug_force = false;
-		var i, node;
-		page.hN = u.qs("#header", page);
+		page.hN = u.qs("#header");
+		page.hN.service = u.qs(".servicenavigation", page.hN);
+		page.hN = u.ae(document.body, page.hN);
+		u.e.drag(page.hN, page.hN);
+		page._title = u.ae(page.hN, "div", {"class":"title"});
 		page.cN = u.qs("#content", page);
 		page.nN = u.qs("#navigation", page);
-		if(page.nN) {
-			page.nN = page.hN.appendChild(page.nN);
-		}
-		page.fN = u.qs("#footer", page);
+		page.nN = u.ae(document.body, page.nN);
+		page.fN = u.qs("#footer");
+		page.fN.service = u.qs(".servicenavigation", page.fN);
 		page.resized = function() {
+			u.bug("page resized")
 			page.browser_h = u.browserH();
 			page.browser_w = u.browserW();
+			var available_height = page.browser_h - page.hN.offsetHeight - page.fN.offsetHeight;
+			u.as(page.cN, "height", "auto", false);
+			if(available_height >= page.cN.offsetHeight) {
+				u.as(page.cN, "height", available_height+"px", false);
+			}
+			u.ass(page, {
+				"width":page.browser_w+"px"
+			})
+			u.ass(page.nN, {
+				"width": (page.offsetWidth - page.bn_nav.offsetWidth) + "px",
+				"height": (window.innerHeight) + "px"
+			});
+			if(!page.bn_nav.is_open) {
+				u.a.translate(page.nN, -(page.offsetWidth - page.bn_nav.offsetWidth), 0);
+			}
+			else {
+				page.nN.list.updateDragBoundaries();
+				u.a.translate(page, page.offsetWidth - page.bn_nav.offsetWidth, 0);
+				u.a.translate(page.hN, page.offsetWidth - page.bn_nav.offsetWidth, 0);
+			}
 			if(page.cN && page.cN.scene && typeof(page.cN.scene.resized) == "function") {
 				page.cN.scene.resized();
 			}
+			page.offsetHeight;
 		}
 		page.scrolled = function() {
-			page.scroll_y = u.scrollY();
 			if(page.cN && page.cN.scene && typeof(page.cN.scene.scrolled) == "function") {
 				page.cN.scene.scrolled();
 			}
+			page.offsetHeight;
 		}
 		page.orientationchanged = function() {
+			page.resized();
 			if(page.cN && page.cN.scene && typeof(page.cN.scene.orientationchanged) == "function") {
 				page.cN.scene.orientationchanged();
 			}
+			page.offsetHeight;
 		}
 		page.ready = function() {
 			if(!this.is_ready) {
@@ -8165,63 +7252,129 @@ Util.Objects["page"] = new function() {
 				u.e.addEvent(window, "resize", page.resized);
 				u.e.addEvent(window, "scroll", page.scrolled);
 				u.e.addEvent(window, "orientationchange", page.orientationchanged);
-				page.initHeader();
+				page.initNavigation();
 				u.notifier(page);
 				u.navigation();
 				page.resized();
 			}
 		}
 		page.cN.navigate = function(url) {
-			u.bug("page.navigated");
 			location.href = url;
 		}
-		page.initHeader = function() {
-			var janitor = u.ie(this.hN, "ul", {"class":"janitor"});
-			u.ae(janitor, u.qs(".servicenavigation .front", page.hN));
-			var janitor_text = u.qs("li a", janitor);
-			if(janitor_text) {
-				janitor_text.innerHTML = "<span>"+janitor_text.innerHTML.split("").join("</span><span>")+"</span>"; 
-				page.hN.janitor_spans = u.qsa("span", janitor_text);
-				var i, span, j, section, node;
-				for(i = 0; span = page.hN.janitor_spans[i]; i++) {
-					if(i == 0) {
-						u.ass(span, {
-							"transform":"translate(-8px, 0)"
-						});
-					}
-					else {
-						u.ass(span, {
-							"opacity":0,
-							"transform":"translate(-8px, -30px)"
-						});
-					}
+		page.initNavigation = function() {
+			page.nN.list = u.qs("ul.navigation", page.nN);
+			page.bn_nav = u.ae(page.hN, "div", {"class":"nav"});
+			u.ae(page.bn_nav, "div");
+			u.ae(page.bn_nav, "div");
+			u.ae(page.bn_nav, "div");
+			u.ce(page.bn_nav);
+			page.bn_nav.clicked = function(event) {
+				if(this.is_open) {
+					this.close();
 				}
-				u.ass(janitor_text, {"opacity": 1});
+				else {
+					u.bug("open navigation")
+					this.is_open = true;
+					u.ass(document.body, {
+						"overflow-y":"hidden"
+					});
+					u.a.transition(page, "all 0.2s ease-in-out");
+					u.a.transition(page.nN, "all 0.2s ease-in-out");
+					u.a.transition(page.hN, "all 0.2s ease-in-out");
+					u.a.translate(page, page.offsetWidth - this.offsetWidth, 0);
+					u.a.translate(page.hN, page.offsetWidth - this.offsetWidth, 0);
+					u.a.translate(page.nN, 0, 0);
+					page.nN.list.updateDragBoundaries();
+				}
 			}
-			u.ae(page, u.qs(".servicenavigation", page.hN));
+			page.bn_nav.close = function(event) {
+				u.bug("close navigation")
+				this.is_open = false;
+				u.ass(document.body, {
+					"overflow-y":"auto"
+				});
+				u.a.transition(page, "all 0.2s ease-in-out");
+				u.a.transition(page.nN, "all 0.2s ease-in-out");
+				u.a.transition(page.hN, "all 0.2s ease-in-out");
+				u.a.translate(page, 0, 0);
+				u.a.translate(page.hN, 0, 0);
+				u.a.translate(page.nN, - (page.offsetWidth - this.offsetWidth), 0);
+			}
+			if(page.fN.service) {
+				nodes = u.qsa("li:not(.totop)", page.fN.service);
+				for(i = 0; node = nodes[i]; i++) {
+					u.ae(page.nN.list, node);
+				}
+			}
+			var to_top = u.qs("li.totop", page.fN.service);
+			if(to_top) {
+				u.svgIcons("totoparrow", to_top);
+				u.ce(to_top);
+				to_top.clicked = function() {
+					u.scrollTo(window, page.hN);
+				}
+			}
+			if(page.hN.service) {
+				nodes = u.qsa("li", page.hN.service);
+				nodes = u.qsa("li:not(.front)", page.hN.service);
+				for(i = 0; node = nodes[i]; i++) {
+					u.ae(page.nN.list, node);
+				}
+				u.ie(page.nN.list, u.qs("li.front", page.hN.service));
+			}
+			u.ass(page.nN, {
+				"width": (page.offsetWidth - page.bn_nav.offsetWidth) + "px",
+				"height": (window.innerHeight) + "px"
+			});
+			u.a.translate(page.nN, -(page.offsetWidth - page.bn_nav.offsetWidth), 0);
+			u.ass(page.nN, {
+				"display": "block",
+				"opacity": 1
+			});
+			u.e.drag(page.nN.list, [0, (window.innerHeight) - page.nN.list.offsetHeight, page.nN.offsetWidth, page.nN.list.offsetHeight], {"strict":false, "elastica":200, "vertical_lock":true});
+			page.nN.list.updateDragBoundaries = function() {
+				u.bug("updateDragBoundaries:" + this.offsetHeight + ", " + window.innerHeight)
+				if(this.offsetHeight > window.innerHeight) {					
+					this.start_drag_y = (window.innerHeight - 0) - this.offsetHeight;
+					this.end_drag_y = this.offsetHeight;
+					this.locked = false;
+				}
+				else {
+					this.start_drag_y = 0;
+					this.end_drag_y = this.offsetHeight;
+					this.locked = true;
+				}
+			}
 			var sections = u.qsa("ul.navigation > li", page.nN);
-			if(sections.length) {
+			if(sections) {
 				for(i = 0; section = sections[i]; i++) {
 					section.header = u.qs("h3", section);
 					if(section.header) {
 						section.nodes = u.qsa("li", section);
 						if(section.nodes.length) {
+							for(j = 0; node = section.nodes[j]; j++) {
+								u.ce(node, {"type":"link"});
+								if(u.hc(node, document.body.className)) {
+									u.ac(node, "selected");
+								}
+							}
 							if(section.header) {
 								section.header.section = section;
 								u.e.click(section.header);
-								section.header.clicked = function(event) {
-									u.e.kill(event);
+								section.header.clicked = function() {
 									if(this.section.is_open) {
 										this.section.is_open = false;
 										u.as(this.section, "height", this.offsetHeight+"px");
 										u.saveNodeCookie(this.section, "open", 0, {"ignore_classvars":true});
 										u.addExpandArrow(this);
+										page.nN.list.updateDragBoundaries();
 									}
 									else {
 										this.section.is_open = true;
 										u.as(this.section, "height", "auto");
 										u.saveNodeCookie(this.section, "open", 1, {"ignore_classvars":true});
 										u.addCollapseArrow(this);
+										page.nN.list.updateDragBoundaries();
 									}
 								}
 								var state = u.getNodeCookie(section, "open", {"ignore_classvars":true});
@@ -8229,15 +7382,6 @@ Util.Objects["page"] = new function() {
 									section.is_open = true;
 								}
 								section.header.clicked();
-							}
-							for(j = 0; node = section.nodes[j]; j++) {
-								u.ce(node, {"type":"link"});
-								if(u.hc(node, document.body.className)) {
-									u.ac(node, "selected");
-									if(!section.is_open) {
-										section.header.clicked();
-									}
-								}
 							}
 						}
 						else {
@@ -8252,112 +7396,32 @@ Util.Objects["page"] = new function() {
 					}
 				}
 			}
-			u.ass(page.nN, {
-				"display":"none"
-			});
-			if(sections.length && janitor_text) {
-				if(u.e.event_support == "mouse") {
-					u.e.hover(page.hN, {"delay_over":300});
-				}
-				else {
-					u.e.click(page.hN);
-					page.hN.clicked = function(event) {
-						if(!this.is_open) {
-							u.e.kill(event);
-							this.over();
-						}
-					}
-					page.hN.close = function(event) {
-						if(this.is_open) {
-							u.e.kill(event);
-							this.out();
-						}
-					}
-					u.e.addWindowEndEvent(page.hN, "close");
-				}
-				page.hN.over = function() {
-					this.is_open = true;
-					u.a.transition(page.nN, "none");
-					page.nN.transitioned = null;
-					u.t.resetTimer(this.t_navigation);
-					u.a.transition(this, "all 0.3s ease-in-out");
-					u.ass(this, {
-						"width":"230px"
-					});
-					u.ass(page.nN, {
-						"display":"block"
-					});
-					u.a.transition(page.nN, "all 0.3s ease-in");
-					u.ass(page.nN, {
-						"opacity":1
-					});
-					for(i = 0; span = page.hN.janitor_spans[i]; i++) {
-						if(i == 0) {
-							u.a.transition(span, "all 0.2s ease-in " + (i*50) + "ms");
-							u.ass(span, {
-								"transform":"translate(0, 0)"
-							});
-						}
-						else {
-							u.a.transition(span, "all 0.2s ease-in " + (i*50) + "ms");
-							u.ass(span, {
-								"opacity":1,
-								"transform":"translate(0, 0)"
-							});
-						}
-					}
-				}
-				page.hN.out = function() {
-					this.is_open = false;
-					u.a.transition(page.nN, "none");
-					page.nN.transitioned = null;
-					var span, i;
-					for(i = 0; span = page.hN.janitor_spans[i]; i++) {
-						if(i == 0) {
-							u.a.transition(span, "all 0.2s ease-in " + ((page.hN.janitor_spans.length-i)*50) + "ms");
-							u.ass(span, {
-								"transform":"translate(-8px, 0)"
-							});
-						}
-						else {
-							u.a.transition(span, "all 0.2s ease-in " + ((page.hN.janitor_spans.length-i)*50) + "ms");
-							u.ass(span, {
-								"opacity":0,
-								"transform":"translate(-8px, -30px)"
-							});
-						}
-					}
-					page.nN.transitioned = function() {
-						u.ass(this, {
-							"display":"none"
-						});
-					}
-					u.a.transition(page.nN, "all 0.2s ease-in");
-					u.ass(page.nN, {
-						"opacity":0
-					});
-					u.a.transition(this, "all 0.2s ease-in-out 300ms");
-					u.ass(this, {
-						"width":"30px"
-					});
-				}
-			}
 		}
 		page.ready();
 	}
 }
-u.e.addDOMReadyEvent(u.init)
+u.e.addDOMReadyEvent(u.init);
 
 
 /*i-scene.js*/
 Util.Objects["scene"] = new function() {
 	this.init = function(scene) {
+		u.bug("scene init:" + u.nodeId(scene))
 		scene.resized = function() {
 		}
 		scene.scrolled = function() {
 		}
 		scene.ready = function() {
 			page.cN.scene = this;
+			var h1 = u.qs("h1", this);
+			var h2 = u.qs("h1 + h2", this);
+			if(h1) {
+				u.ae(page._title, h1);
+			}
+			if(h2) {
+				u.ac(page._title, "double");
+				u.ae(page._title, h2);
+			}
 			page.resized();
 		}
 		scene.ready();
@@ -8373,6 +7437,15 @@ Util.Objects["login"] = new function() {
 		}
 		scene.ready = function() {
 			page.cN.scene = this;
+			var h1 = u.qs("h1", this);
+			var h2 = u.qs("h1 + h2", this);
+			if(h1) {
+				u.ae(page._title, h1);
+			}
+			if(h2) {
+				u.ac(page._title, "double");
+				u.ae(page._title, h2);
+			}
 			this._form = u.qs("form", this);
 			u.f.init(this._form);
 			this._form.fields["username"].focus();
@@ -8385,7 +7458,6 @@ Util.Objects["login"] = new function() {
 /*i-default_list.js*/
 Util.Objects["defaultList"] = new function() {
 	this.init = function(div) {
-		u.bug("init defaultList:" + u.nodeId(div))
 		var i, node;
 		div.list = u.qs("ul.items", div);
 		if(!div.list) {
@@ -8415,163 +7487,44 @@ Util.Objects["defaultList"] = new function() {
 					initialized++;
 				}
 			}
-			if(initialized == this.nodes.length && this.scroll_event_id) {
-				u.e.removeWindowEvent(this, "scroll", this.scroll_event_id);
-				this.scroll_event_id = false;
+			if(initialized == this.nodes.length) {
+				this.scroll_event_id = u.e.removeWindowEvent(this, "scroll", this.scroll_event_id);
 			}
 		}
 		div.scroll_event_id = u.e.addWindowEvent(div, "scroll", div.scrolled);
 		div.buildNode = function(node) {
-			node._actions = u.qsa(".actions li", node);
-			var i, action, form, bn_detele, form_disable, form_enable;
-			for(i = 0; action = node._actions[i]; i++) {
-				if(u.hc(action, "status")) {
-					if(!action.childNodes.length) {
-						action.update_status_url = action.getAttribute("data-item-status");
-						if(action.update_status_url) {
-							form_disable = u.f.addForm(action, {"action":action.update_status_url+"/"+node._item_id+"/0", "class":"disable"});
-							u.f.addField(form_disable, {"type":"hidden", "name":"csrf-token", "value":this.csrf_token});
-							u.f.addAction(form_disable, {"value":"Disable", "class":"button status"});
-							form_enable = u.f.addForm(action, {"action":action.update_status_url+"/"+node._item_id+"/1", "class":"enable"});
-							u.f.addField(form_enable, {"type":"hidden", "name":"csrf-token", "value":this.csrf_token});
-							u.f.addAction(form_enable, {"value":"Enable", "class":"button status"});
-						}
-					}
-					else {
-						form_disable = u.qs("form.disable", action);
-						form_enable = u.qs("form.enable", action);
-					}
-					if(form_disable && form_enable) {
-						u.f.init(form_disable);
-						form_disable.submitted = function() {
-							this.response = function(response) {
-								page.notify(response);
-								if(response.cms_status == "success") {
-									u.ac(this.parentNode, "disabled");
-									u.rc(this.parentNode, "enabled");
-								}
-							}
-							u.request(this, this.action, {"method":"post", "params":u.f.getParams(this)});
-						}
-						u.f.init(form_enable);
-						form_enable.submitted = function() {
-							this.response = function(response) {
-								page.notify(response);
-								if(response.cms_status == "success") {
-									u.rc(this.parentNode, "disabled");
-									u.ac(this.parentNode, "enabled");
-								}
-							}
-							u.request(this, this.action, {"method":"post", "params":u.f.getParams(this)});
-						}
-					}
-				}
-				else if(u.hc(action, "delete")) {
-					action.node = node;
-					u.o.oneButtonForm.init(action);
-					action.confirmed = function(response) {
-						if(response.cms_status == "success") {
-							if(response.cms_object && response.cms_object.constraint_error) {
-								u.ac(this.form.confirm_submit_button, "disabled");
-							}
-							else {
-								this.node.parentNode.removeChild(this.node);
-								this.node.div.scrolled();
-								u.sortable(this.node.div.list, {"targets":"items", "draggables":"draggable"});
-							}
-						}
-					}
-				}
-			}
-			if(div._images) {
-				u.ass(node._text, {
-					"padding-left": div._node_padding_left + "px"
-				});
-				node._format = u.cv(node, "format");
-				node._variant = u.cv(node, "variant");
-				if(node._format && node.div._media_width) {
-					node._image_src = "/images/"+node._item_id+"/"+(node._variant ? node._variant+"/" : "")+node.div._media_width+"x."+node._format;
-				}
-				else {
-					node._image_src = "/images/0/missing/"+node.div._media_width+"x.png";
-				}
-				if(node._image_src) {
-					u.as(node, "backgroundImage", "url("+node._image_src+")");
-				}
-			}
-			else if(div._audios) {
-				u.ass(node._text, {
-					"padding-left": div._node_padding_left + "px"
-				});
-				node._format = u.cv(node, "format");
-				node._variant = u.cv(node, "variant");
-				if(node._format) {
-					node._audio = u.ie(node, "div", {"class":"audioplayer"});
-					if(!page.audioplayer) {
-						page.audioplayer = u.audioPlayer();
-					}
-					node._audio.scene = this;
-					node._audio.url = "/audios/"+node._item_id+"/" + (node._variant ? node._variant+"/" : "") + "128."+node._format;
-					u.e.click(node._audio);
-					node._audio.clicked = function(event) {
-						if(!u.hc(this.parentNode, "playing")) {
-							var node, i;
-							for(i = 0; node = this.scene.nodes[i]; i++) {
-								u.rc(node, "playing");
-							}
-							page.audioplayer.loadAndPlay(this.url);
-							u.ac(this.parentNode, "playing");
-						}
-						else {
-							page.audioplayer.stop();
-							u.rc(this.parentNode, "playing");
-						}
-					}
-				}
-				else {
-					u.ac(audio, "disabled");
-				}
-			}
-			else if(div._videos) {
-			}
+			// 	
+			// 	
+			// 		
+			// 				
+			// 				
+			// 		
+			// 		
+			// 			
+			// 			
+			// 		
+			// 		
+			// 		
+			// 				
+			// 				
+			// 							
+			// 
+			// 	
+			// 	
+			// 	
+			// 	
+			// 
+			// 	
+			// 	
+			// 		
+			// 		
+			// 		
+			// 				
+			// 	
+			// 
+			// 
 			node._ready = true;
 			node.div.scrolled();
-		}
-		if(u.hc(div, "images") || u.hc(div, "videos") || u.hc(div, "audios")) {
-			div._images = u.hc(div, "images");
-			div._videos = u.hc(div, "videos");
-			div._audios = u.hc(div, "audios");
-			div._media_width = u.cv(div, "width") ? u.cv(div, "width") : (div._audios ? 40 : 100);
-			div._node_padding_left = ((Number(div._media_width) - 15) + ((u.hc(div, "sortable") && div.list) ? 25 : 0));
-		}
-		if(u.hc(div, "taggable")) {
-			div.add_tag_url = div.getAttribute("data-tag-add");
-			div.delete_tag_url = div.getAttribute("data-tag-delete");
-			div.get_tags_url = div.getAttribute("data-tag-get");
-			if(div.csrf_token && div.get_tags_url && div.delete_tag_url && div.add_tag_url) {
-				div.tagsResponse = function(response) {
-					if(response.cms_status == "success" && response.cms_object) {
-						this.all_tags = response.cms_object;
-					}
-					else {
-						page.notify(response);
-						this.all_tags = [];
-					}
-					var i, node;
-					for(i = 0; node = this.nodes[i]; i++) {
-						node.data_div = this;
-						node._tags = u.qs("ul.tags", node);
-						if(!node._tags) {
-							node._tags = u.ae(node, "ul", {"class":"tags"});
-						}
-						node._tags.div = this;
-						node._bn_add = u.ae(node._tags, "li", {"class":"add","html":"+"});
-						node._bn_add.node = node;
-						u.enableTagging(node);
-					}
-				}
-				u.request(div, div.get_tags_url, {"callback":"tagsResponse", "method":"post", "params":"csrf-token=" + div.csrf_token});
-			}
 		}
 		if(u.hc(div, "filters")) {
 			u.defaultFilters(div);
