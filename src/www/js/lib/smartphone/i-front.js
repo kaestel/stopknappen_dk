@@ -5,18 +5,26 @@ Util.Objects["front"] = new function() {
 		scene.resized = function(event) {
 //			u.bug("scene.resized:" + u.nodeId(this));
 
-			if(this.intro && this.intro._i_think && !this.intro_done) {
+			if(this.intro && !this.intro_done) {
 
-				// adjust scene padding for nice centered animation
-				u.ass(this.intro, {
-					"paddingTop": (((u.browserH() - this.intro._i_think.offsetHeight)/2) - page.hN.offsetHeight) + "px"
-				});
-				u.ass(this.intro, {
-					"paddingBottom": ((u.browserH() - this.intro._to_think.offsetHeight)/2) - 0 + "px"
-				});
+				if(this.intro.stop) {
+					// adjust scene padding for nice centered animation
+					u.ass(this.intro, {
+						"paddingTop": (((u.browserH() - this.intro.stop.offsetHeight)/2) - page.hN.offsetHeight) + "px",
+						"paddingBottom": (((u.browserH() - this.intro.stop.offsetHeight)/2) - page.hN.offsetHeight) + "px"
+					});
+
+				}
+				else if(this.intro.quote) {
+					// adjust scene padding for nice centered animation
+					u.ass(this.intro, {
+						"paddingTop": (((u.browserH() - this.intro.quote.offsetHeight)/2) - page.hN.offsetHeight) + "px",
+						"paddingBottom": (((u.browserH() - this.intro.quote.offsetHeight)/2) - page.hN.offsetHeight) + "px"
+					});
+
+				}
 
 			}
-			
 
 			if(this.div_article) {
 				this.div_article_y = u.absY(this.div_article);
@@ -39,8 +47,6 @@ Util.Objects["front"] = new function() {
 		scene.renderControl = function() {
 //			u.bug("renderControl:" + u.nodeId(this));
 
-u.bug((page.scrolled_y - 100) +">"+ (this.div_posts_y) + " - " + (page.browser_h));
-
 			if(this.intro_done && !this.div_article_done) {
 				page.resized();
 				this.initArticle();
@@ -55,10 +61,6 @@ u.bug((page.scrolled_y - 100) +">"+ (this.div_posts_y) + " - " + (page.browser_h
 				// accept cookies?
 				page.acceptCookies();
 			}
-			// // end intro if still running
-			// else if(!this.intro_done && page.scrolled_y > 40) {
-			// 	this.intro.clicked();
-			// }
 
 		}
 
@@ -94,10 +96,10 @@ u.bug((page.scrolled_y - 100) +">"+ (this.div_posts_y) + " - " + (page.browser_h
 
 		// INTRO
 
+
 		// Prepare intro content for playback
 		scene.initIntro = function() {
 //			u.bug("initIntro")
-
 
 			// if intro exists
 			if(this.intro) {
@@ -111,120 +113,73 @@ u.bug((page.scrolled_y - 100) +">"+ (this.div_posts_y) + " - " + (page.browser_h
 				this.intro.clicked = function() {
 //					u.bug("intro clicked")
 
+					// stop event chain
 					if(typeof(this.stopTimeline) == "function") {
 						// stop any playback
 						this.stopTimeline();
 					}
-
-				}
-
-				window.scrolledToCancelled = function() {
-
-					if(typeof(page.cN.scene.intro.stopTimeline) == "function") {
-						// stop any playback
-						page.cN.scene.intro.stopTimeline();
+					// or just hide intro
+					else {
+						// hide intro
+						this.scene.endIntro();
 					}
 				}
 
-
-				// // apply text-scaling
-				// u.textscaler(this.intro, {
-				// 	"min_height":300,
-				// 	"max_height":1000,
-				// 	"min_width":600,
-				// 	"max_width":1300,
-				// 	"unit":"rem",
-				// 	"h2.i_think":{
-				// 		"min_size":4,
-				// 		"max_size":8
-				// 	},
-				// 	"h2":{
-				// 		"min_size":2,
-				// 		"max_size":4
-				// 	},
-				// 	"h2 span.s2":{
-				// 		"min_size":2.2,
-				// 		"max_size":4.4
-				// 	},
-				// 	"h3":{
-				// 		"min_size":1.4,
-				// 		"max_size":2.8
-				// 	},
-				// 	"p":{
-				// 		"min_size":1,
-				// 		"max_size":2
-				// 	},
-				// 	"p span.s2":{
-				// 		"min_size":1.4,
-				// 		"max_size":2.8
-				// 	}
-				// });
-
-
-				// reference intro content
-				this.intro._i_think = u.qs(".i_think", this.intro);
-				this.intro._long = u.qs(".long", this.intro);
-				this.intro._long._spans = u.qsa("span", this.intro._long);
-
-				this.intro._now = u.qs(".now", this.intro);
-				this.intro._time = u.qs(".time", this.intro);
-				this.intro._time._spans = u.qsa("span", this.intro._time);
-				this.intro._wake = u.qs(".wake", this.intro);
-				this.intro._wake._spans = u.qsa("span", this.intro._wake);
-				this.intro._realize = u.qs(".realize", this.intro);
-
-				this.intro._means = u.qs(".means", this.intro);
-				this.intro._tyrant = u.qs(".tyrant", this.intro);
-				this.intro._tyrant._spans = u.qsa("span", this.intro._tyrant);
-
-				this.intro._goal = u.qs(".goal", this.intro);
-				this.intro._goal._spans = u.qsa("span", this.intro._goal);
-
-				this.intro._forgotten = u.qs(".forgotten", this.intro);
-				this.intro._bills = u.qs(".bills", this.intro);
-				this.intro._bills._spans = u.qsa("span", this.intro._bills);
-				this.intro._busy = u.qs(".busy", this.intro);
-				this.intro._busy._spans = u.qsa("span", this.intro._busy);
-				this.intro._idleness = u.qs(".idleness", this.intro);
-				this.intro._idleness._spans = u.qsa("span", this.intro._idleness);
-
-				this.intro._safety = u.qs(".safety", this.intro);
-				this.intro._safety._spans = u.qsa("span", this.intro._safety);
-
-				this.intro._luxery = u.qs(".luxery", this.intro);
-				this.intro._luxery._spans = u.qsa("span", this.intro._luxery);
-
-				this.intro._cost = u.qs(".cost", this.intro);
-				this.intro._cost._spans = u.qsa("span", this.intro._cost);
-				this.intro._everything = u.qs(".everything", this.intro);
-				this.intro._content = u.qs(".content", this.intro);
-				this.intro._sheep = u.qs(".sheep", this.intro);
-				this.intro._sheep._spans = u.qsa("span", this.intro._sheep);
-
-				this.intro._nothing = u.qs(".nothing", this.intro);
-				this.intro._nothing._spans = u.qsa("span", this.intro._nothing);
-
-				this.intro._except = u.qs(".except", this.intro);
-				this.intro._ability = u.qs(".ability", this.intro);
-				this.intro._to_think = u.qs(".to_think", this.intro);
-				this.intro._to_think._spans = u.qsa("span", this.intro._to_think);
-
-
-
-
-				// apply correct link handling
-				var links = u.qsa("a", this.intro);
-				for(i = 0; link = links[i]; i++) {
-					link.intro = this.intro;
-					u.ce(link);
-					link.clicked = function() {
-						if(this._active) {
-							location.href = this.url;
-						}
-						else {
-							this.intro.clicked();
-						}
+				// apply text-scaling
+				u.textscaler(this.intro, {
+					"min_height":400,
+					"max_height":1000,
+					"min_width":600,
+					"max_width":1300,
+					"unit":"rem",
+					"h2.stop span":{
+						"min_size":4,
+						"max_size":10
+					},
+					".quote h2":{
+						"min_size":4,
+						"max_size":10
+					},
+					".quote h3":{
+						"min_size":1.5,
+						"max_size":3
+					},
+					".quote h4":{
+						"min_size":1,
+						"max_size":1.5
+					},
+					".quote p":{
+						"min_size":1,
+						"max_size":1.5
 					}
+				});
+
+
+				this.intro.stop = u.qs("h2.stop", this.intro);
+				this.intro.stop.span = u.qs("span", this.intro.stop);
+
+				this.intro.quote = u.qs(".quote", this.intro);
+				if(this.intro.quote) {
+					this.intro.quote.spans = u.qsa("span", this.intro.quote);
+				}
+
+				// show node
+				this.intro.show = function(node) {
+					u.a.transition(node, "all 0.3s ease-in");
+					u.a.setOpacity(node, 1);
+				}
+
+				// hide node
+				this.intro.hide = function(node) {
+					u.a.transition(node, "all 0.2s ease-in");
+					u.a.setOpacity(node, 0);
+				}
+
+				// show next span in quote
+				this.intro.showSpan = function() {
+
+					this.i = this.i || 0;
+					this.show(this.quote.spans[this.i++]);
 				}
 
 
@@ -233,345 +188,110 @@ u.bug((page.scrolled_y - 100) +">"+ (this.div_posts_y) + " - " + (page.browser_h
 				// re-position the intro elements
 				page.resized();
 
-				u.timeline(this.intro);
 
+				// create intro timeline
+				u.timeline(this.intro);
 				var t = 0;
 
-				// show: jeg tror
-				this.intro.atDo(t+=100, function() {this.show(this._i_think);});
+				// show: stop
+				this.intro.atDo(t+=100, function() {this.show(this.stop);});
+
+				// show: green circle
+				this.intro.atDo(t+=100, function() {
+					var width = this.stop.span.offsetWidth;
+					var height = this.stop.span.offsetHeight;
+
+					// set size of "stop"-span to make a circle
+					u.ass(this.stop.span, {
+						"padding": ((width+40) - height) / 2 + "px 20px",
+						"border-radius":(width+40)/2 + "px"
+					});
+
+					// recalc intro position
+					page.resized();
+
+					// show green circle
+					u.a.transition(this.stop.span, "all 0.2s ease-in-out");
+					u.ass(this.stop.span, {
+						"backgroundColor": "#26962d"
+					});
+				});
+
+				// hide: stop
+				this.intro.atDo(t+=1800, function() {this.hide(this.stop);});
+
+				// any quote to show
+				if(this.intro.quote && this.intro.quote.spans.length) {
+
+					// show first span
+					this.intro.atDo(t+=400, function() {
+					
+						u.ass(this.stop, {
+							"display": "none"
+						});
+						delete this.stop;
+
+						u.ass(this.quote, {
+							"display": "block"
+						});
+
+						// recalc intro position
+						page.resized();
+
+						this.showSpan();
+					});
+
+
+					if(this.intro.quote.spans.length > 1) {
+						var i, span;
+						for(i = 1; span = this.intro.quote.spans[i]; i++) {
+
+							this.intro.atDo(
+								t+=parseInt(u.cv(this.intro.quote.spans[i-1], "t")), 
+								function() {this.showSpan();}
+							);
 
-				// hide: jeg tror
-				this.intro.atDo(t+=1400, function() {this.hide(this._i_think);});
-
-				// show: vi har
-				this.intro.atDo(t+=400, function() {this.showSpan(this._long._spans[0], true);});
-
-				// show: sovet
-				this.intro.atDo(t+=100, function() {this.showSpan(this._long._spans[1]);});
-
-				// show: længe nok
-				this.intro.atDo(t+=500, function() {this.showSpan(this._long._spans[2]);});
-
-				// hide: vi har
-				this.intro.atDo(t+=300, function() {this.hide(this._long._spans[0]);});
-
-				// hide: sovet
-				this.intro.atDo(t+=200, function() {this.hide(this._long._spans[1]);});
-
-				// hide: længe nok
-				this.intro.atDo(t+=300, function() {this.hide(this._long._spans[2]);});
-
-				// show: nu
-				this.intro.atDo(t+=200, function() {this.show(this._now);});
-
-				// hide: nu
-				this.intro.atDo(t+=800, function() {this.hide(this._now);});
-
-				// show: er det
-				this.intro.atDo(t+=200, function() {this.showSpan(this._time._spans[0], true);});
-
-				// show: på tide
-				this.intro.atDo(t+=200, function() {this.showSpan(this._time._spans[1]);});
-
-				// hide: er det
-				this.intro.atDo(t+=900, function() {this.hide(this._time._spans[0]);});
-
-				// hide: på tide
-				this.intro.atDo(t+=100, function() {this.hide(this._time._spans[1]);});
-
-				// show: at
-				this.intro.atDo(t+=200, function() {this.showSpan(this._wake._spans[0], true);}, "at vågne");
-
-				// show: vågne
-				this.intro.atDo(t+=100, function() {this.showSpan(this._wake._spans[1]);});
-
-				// hide: at
-				this.intro.atDo(t+=900, function() {this.hide(this._wake._spans[0]);});
-
-				// show: og
-				this.intro.atDo(t+=0, function() {this.showSpan(this._wake._spans[2]);});
-
-				// show: indse
-				this.intro.atDo(t+=200, function() {this.show(this._realize);}, "indse");
-
-				// hide: vågne
-				this.intro.atDo(t+=100, function() {this.hide(this._wake._spans[1]);});
-
-				// hide: og
-				this.intro.atDo(t+=300, function() {this.hide(this._wake);});
-
-				// hide: indse
- 				this.intro.atDo(t+=800, function() {this.hide(this._realize);});
-
-				// show: at midlet
-				this.intro.atDo(t+=200, function() {this.show(this._means);}, "midlet");
-
-				// hide: at midlet
-				this.intro.atDo(t+=900, function() {this.hide(this._means);});
-
-				// show: er blevet
-				this.intro.atDo(t+=100, function() {this.showSpan(this._tyrant._spans[0], true);});
-
-				// show: en tyran
-				this.intro.atDo(t+=300, function() {this.showSpan(this._tyrant._spans[1]);}, "tyran");
-
-				// hide: er blevet
- 				this.intro.atDo(t+=600, function() {this.hide(this._tyrant._spans[0]);});
-
-				// hide: en tyran
- 				this.intro.atDo(t+=800, function() {this.hide(this._tyrant._spans[1]);});
-
-				// show: og
-				this.intro.atDo(t+=100, function() {this.showSpan(this._goal._spans[0], true);}, "målet");
-
-				// show: målet
-				this.intro.atDo(t+=100, function() {this.showSpan(this._goal._spans[1]);});
-
-				// show: er
-				this.intro.atDo(t+=300, function() {this.showSpan(this._goal._spans[2]);});
-
-				// hide: og
-				this.intro.atDo(t+=400, function() {this.hide(this._goal._spans[0]);});
-
-				// hide: målet
-				this.intro.atDo(t+=100, function() {this.hide(this._goal._spans[1]);});
-
-				// hide: er
-				this.intro.atDo(t+=100, function() {this.hide(this._goal._spans[2]);});
-
-				// show: glemt
-				this.intro.atDo(t+=100, function() {this.show(this._forgotten);});
-
-				// hide: glemt
-				this.intro.atDo(t+=700, function() {this.hide(this._forgotten);});
-
-				// show: i stakken
-				this.intro.atDo(t+=100, function() {this.showSpan(this._bills._spans[0], true);});
-
-				// show: af
-				this.intro.atDo(t+=100, function() {this.showSpan(this._bills._spans[1]);});
-
-				// show: regninger
-				this.intro.atDo(t+=200, function() {this.showSpan(this._bills._spans[2]);});
-
-				// hide: i stakken
-				this.intro.atDo(t+=1100, function() {this.hide(this._bills._spans[0]);});
-
-				// hide: af
-				this.intro.atDo(t+=100, function() {this.hide(this._bills._spans[1]);});
-
-				// hide: regninger
-				this.intro.atDo(t+=100, function() {this.hide(this._bills._spans[2]);});
-
-				// show: vi har så
-				this.intro.atDo(t+=500, function() {this.showSpan(this._busy._spans[0], true);}, "travlt");
-
-				// show: travlt
-				this.intro.atDo(t+=100, function() {this.showSpan(this._busy._spans[1]);});
-
-				// hide: vi har så
-				this.intro.atDo(t+=800, function() {this.hide(this._busy._spans[0]);});
-
-				// hide: travlt
-				this.intro.atDo(t+=100, function() {this.hide(this._busy._spans[1]);});
-
-				// show: at stilstand
-				this.intro.atDo(t+=300, function() {this.show(this._idleness);});
-
-				// hide: at
-				this.intro.atDo(t+=700, function() {this.hide(this._idleness._spans[0]);});
-
-				// show: er tryghed
-				this.intro.atDo(t+=0, function() {this.show(this._safety);});
-
-				// hide: stilstand
-				this.intro.atDo(t+=900, function() {this.hide(this._idleness._spans[1]);});
-
-				// hide: er tryghed
-				this.intro.atDo(t+=100, function() {this.hide(this._safety);});
-
-				// show: og
-				this.intro.atDo(t+=200, function() {this.showSpan(this._luxery._spans[0], true);});
-
-				// show: tryghed
-				this.intro.atDo(t+=100, function() {this.showSpan(this._luxery._spans[1]);});
-
-				// show: er
-				this.intro.atDo(t+=400, function() {this.showSpan(this._luxery._spans[2]);});
-
-				// hide: og
-				this.intro.atDo(t+=200, function() {this.hide(this._luxery._spans[0]);});
-
-				// show: en luksus
-				this.intro.atDo(t+=100, function() {this.showSpan(this._luxery._spans[3]);});
-
-				// hide: tryghed
-				this.intro.atDo(t+=1100, function() {this.hide(this._luxery._spans[1]);});
-
-				// hide: er
-				this.intro.atDo(t+=100, function() {this.hide(this._luxery._spans[2]);});
-
-				// hide: en luksus
-				this.intro.atDo(t+=100, function() {this.hide(this._luxery._spans[3]);});
-
-				// show: der
-				this.intro.atDo(t+=100, function() {this.showSpan(this._cost._spans[0], true);});
-
-				// show: koster
-				this.intro.atDo(t+=100, function() {this.show(this._cost._spans[1]);});
-
-				// show: os
-				this.intro.atDo(t+=100, function() {this.showSpan(this._cost._spans[2]);});
-
-				// hide: der
-				this.intro.atDo(t+=600, function() {this.hide(this._cost._spans[0]);});
-
-				// hide: koster
-				this.intro.atDo(t+=100, function() {this.hide(this._cost._spans[1]);});
-
-				// show: alt
-				this.intro.atDo(t+=100, function() {this.show(this._everything);});
-
-				// hide: os
-				this.intro.atDo(t+=100, function() {this.hide(this._cost._spans[2]);});
-
-				// hide: alt
-				this.intro.atDo(t+=1500, function() {this.hide(this._everything);});
-
-				// show: tilfredse
-				this.intro.atDo(t+=300, function() {this.show(this._content);}, "tilfredse");
-
-				// show: som mættede
-				this.intro.atDo(t+=800, function() {this.showSpan(this._sheep._spans[0], true);});
-
-				// show: får
-				this.intro.atDo(t+=100, function() {this.showSpan(this._sheep._spans[1]);});
-
-				// hide: som mættede
-				this.intro.atDo(t+=600, function() {this.hide(this._sheep._spans[0]);});
-
-				// hide: tilfredse
-				this.intro.atDo(t+=600, function() {this.hide(this._content);});
-
-				// hide: får
-				this.intro.atDo(t+=100, function() {this.hide(this._sheep._spans[1]);});
-
-				// show: men
-				this.intro.atDo(t+=200, function() {this.showSpan(this._nothing._spans[0], true);});
-
-				// show: intet er vores
-				this.intro.atDo(t+=400, function() {this.showSpan(this._nothing._spans[1]);});
-
-				// hide: men
-				this.intro.atDo(t+=100, function() {this.hide(this._nothing._spans[0]);});
-
-				// hide: intet er vores
-				this.intro.atDo(t+=800, function() {this.hide(this._nothing._spans[1]);});
-
-				// show: bortset fra
-				this.intro.atDo(t+=300, function() {this.show(this._except);});
-
-				// show: evnen
-				this.intro.atDo(t+=600, function() {this.show(this._ability);});
-
-				// hide: bortset fra
-				this.intro.atDo(t+=100, function() {this.hide(this._except);});
-
-				// hide: evnen
-				this.intro.atDo(t+=1000, function() {this.hide(this._ability);});
-
-				// show: til at
-				this.intro.atDo(t+=200, function() {this.showSpan(this._to_think._spans[0], true);});
-				//
-				// show: tænke
-				this.intro.atDo(t+=100, function() {this.showSpan(this._to_think._spans[1]);});
-
-				// show: selv
-				this.intro.atDo(t+=100, function() {this.showSpan(this._to_think._spans[2]);});
-
-				// hide: til at
-				this.intro.atDo(t+=1500, function() {this.hide(this._to_think._spans[0]);});
-				//
-				// hide: tænke
-				this.intro.atDo(t+=100, function() {this.hide(this._to_think._spans[1]);});
-
-				// hide: selv
-				this.intro.atDo(t+=100, function() {this.hide(this._to_think._spans[2]);});
-
-				// wait before ending
-				this.intro.atDo(t+=500, function(){});
-
-
-
-
-				// show node
-				this.intro.show = function(node) {
-					node.transitioned = function() {
-						var i, a, as = u.qsa("a", node);
-						for(i = 0; a = as[i]; i++) {
-							a._active = true;
-							u.ac(a, "active");
 						}
-					}
-					u.a.transition(node, "all 0.3s ease-in");
-					u.a.setOpacity(node, 1);
 
-					u.scrollTo(window, {"node":node, "offset_y":(u.browserH() - node.offsetHeight)/2});
+					}
+
+					// wait before ending
+					this.intro.atDo(t+=parseInt(u.cv(this.intro.quote.spans[this.intro.quote.spans.length-1], "t")), function(){});
 				}
+				else {
 
-				// hide node
-				this.intro.hide = function(node) {
-					var i, a, as = u.qsa("a", node);
-					for(i = 0; a = as[i]; i++) {
-						a._active = false; 
-						u.rc(a, "active");
-					}
-					u.a.transition(node, "all 0.2s ease-in");
-					u.a.setOpacity(node, 0);
+					// wait before ending
+					this.intro.atDo(400, function(){});
 				}
-
-				// show one span, and hide the rest for later
-				this.intro.showSpan = function(span, show_node) {
-					var i, _span;
-					if(show_node) {
-						for(i = 0; _span = span.parentNode._spans[i]; i++) {
-							if(_span != span) {
-								u.a.transition(_span, "none");
-								u.a.setOpacity(_span, 0);
-							}
-						}
-						this.show(span.parentNode);
-					}
-					else {
-						this.show(span);
-					}
-				}
-
-
 
 				// timeline ended
 				this.intro.timelineEnded = this.intro.timelineStopped = function() {
-//					u.bug("timeline ended")
+					u.bug("timeline ended")
 
 					// hide intro
 					this.scene.endIntro();
 
+//					u.t.setTimer(this.scene, "endIntro", 500);
 				}
 
 				// start playback
 				this.intro.playTimeline({"start":0, "speed":1});
-				
+
 			}
+			// no intro
 			else {
-				// hide intro
+
+				// endIntro will continue to next step
 				this.scene.endIntro();
+
 			}
 
 		}
 
 		// hide intro and continue to article
 		scene.endIntro = function() {
-//			u.bug("exit intro")
+			u.bug("end intro");
+//			return;
 
 			// ensure correct rendering
 			page.resized();
@@ -582,8 +302,34 @@ u.bug((page.scrolled_y - 100) +">"+ (this.div_posts_y) + " - " + (page.browser_h
 				this.intro.transitioned = function() {
 
 					this.scene.removeChild(this);
+					delete this.scene.intro;
 
-					window.scrollTo(0, 0);
+
+					// show header and footer
+					u.a.transition(page.hN, "none");
+					u.ass(page.hN, {
+						"opacity":0,
+						"display":"block"
+					});
+
+					u.a.transition(page.fN, "none");
+					u.ass(page.fN, {
+						"opacity":0,
+						"display":"block"
+					});
+
+					u.a.transition(page.hN, "all 0.5s ease-in");
+					u.ass(page.hN, {
+						"opacity":1,
+					});
+
+					u.a.transition(page.fN, "all 0.5s ease-in");
+					u.ass(page.fN, {
+						"opacity":1,
+					});
+
+
+//					window.scrollTo(0, 0);
 
 					// make it known
 					this.scene.intro_done = true;
@@ -591,6 +337,7 @@ u.bug((page.scrolled_y - 100) +">"+ (this.div_posts_y) + " - " + (page.browser_h
 					this.scene.renderControl();
 
 				}
+
 				u.a.transition(this.intro, "all 0.3s linear")
 				u.ass(this.intro, {
 					"opacity":0

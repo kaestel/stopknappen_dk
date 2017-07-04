@@ -3,8 +3,9 @@ ul.actions input.button.primary:hover,
 ul.actions a.button.primary:hover,
 #content ul.actions a.button.primary:hover {background-color: #26962d;}
 
+/*
 #content .scene.front .link:hover {text-decoration: underline;}
-
+*/
 
 #content .scene ul.articles .article ul.tags a:hover,
 #content .scene .article ul.tags a:hover {color: #00c90d;}

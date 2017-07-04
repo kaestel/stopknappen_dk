@@ -8,13 +8,17 @@
 	}
 }
 
+body.front #header {/*display: none;*/ opacity: 0;}
 
 
 
+#content .scene ul.info {display: none;}
 
 
 /* FRONT */
-#content .scene.front {
+#content .scene.front {padding: 0; opacity: 1;}
+
+#content .scene.front div.intro {padding-bottom: 60px;
 	-o-user-select: none;
 	-ms-user-select: none;
 	-moz-user-select: none;
@@ -23,57 +27,28 @@
 }
 
 
+/* STOP LOGO */
+#content .scene.front div.intro h2.stop {font-size: 50px; padding: 20px 5px; width: auto; text-align: center; line-height: 1em; color: #ffffff;
+	font-family: "OpenSans", Verdana, Arial, sans-serif; font-weight: 700;
+}
+#content .scene.front div.intro h2.stop span {display: inline-block; vertical-align: baseline;}
 
-#content .scene.front div.intro a {cursor: default;}
-#content .scene.front div.intro span {display: inline-block; vertical-align: baseline;}
-#content .scene.front div.intro .active a {cursor: pointer;}
-
-#content .scene.front div.intro h1 {font-size: 65px; padding: 0 5px 10px;}
-#content .scene.front div.intro h2 {font-size: 50px; padding: 10px 5px 10px;}
-#content .scene.front div.intro h3 {font-size: 26px; padding: 0 5px 5px;}
-#content .scene.front div.intro p {font-size: 20px; padding: 0 5px 0px;}
-#content .scene.front div.intro h2.means {font-size: 44px;}
-#content .scene.front div.intro h2.safety {font-size: 44px;}
-
-#content .scene.front div.intro .now {text-transform: uppercase;}
-#content .scene.front div.intro .long .s2,
-#content .scene.front div.intro .long .s2 a {font-size: 28px; color: #01939a;}
-#content .scene.front div.intro .now {font-size: 38px;}
-#content .scene.front div.intro .wake .s2,
-#content .scene.front div.intro .wake .s2 a {font-size: 28px; color: #bf7230;}
-#content .scene.front div.intro .tyrant .s2,
-#content .scene.front div.intro .tyrant .s2 a {font-size: 30px; color: #01939a;}
-#content .scene.front div.intro .goal .s2,
-#content .scene.front div.intro .goal .s2 a {font-size: 28px; color: #bf7230;}
-#content .scene.front div.intro .idleness .s2,
-#content .scene.front div.intro .idleness .s2 {font-size: 28px; color: #01939a;}
-#content .scene.front div.intro .bills .s2,
-#content .scene.front div.intro .bills .s2 a,
-#content .scene.front div.intro .busy .s2,
-#content .scene.front div.intro .busy .s2 a,
-#content .scene.front div.intro .luxery .s2,
-#content .scene.front div.intro .luxery .s2 a,
-#content .scene.front div.intro .cost .s2,
-#content .scene.front div.intro .cost .s2 a,
-#content .scene.front div.intro .to_think .s2,
-#content .scene.front div.intro .to_think .s2 a {font-size: 26px;}
-
-#content .scene.front div.intro .content,
-#content .scene.front div.intro .content a {font-size: 28px; color: #01939a;}
-#content .scene.front div.intro .sheep .s2,
-#content .scene.front div.intro .sheep .s2 a {font-size: 26px; color: #01939a;}
-
-#content .scene.front div.intro .everything {font-size: 38px; color: #bf7230;}
-
-
-#content .scene.front div.intro h1,
-#content .scene.front div.intro h2,
-#content .scene.front div.intro h3,
-#content .scene.front div.intro p {opacity: 0; text-align: center;}
+/* INTRO QUOTE */
+#content .scene.front div.intro div.quote {display: none; text-align: center; font-size: 30px; font-style: italic;}
+#content .scene.front div.intro div.quote h2,
+#content .scene.front div.intro div.quote h3,
+#content .scene.front div.intro div.quote h4,
+#content .scene.front div.intro div.quote p {padding: 0; width: auto; line-height: 1.25em; text-align: center;}
+#content .scene.front div.intro div.quote span {display: inline-block; white-space: pre; opacity: 0;}
+#content .scene.front div.intro div.quote span.green {color: #26962d;}
+#content .scene.front div.intro div.quote span.red {color: #bf7230;}
+#content .scene.front div.intro div.quote span.blue {color: #01939a;}
 
 
 /* FRONT - ARTICLE */
-#content .scene.front div.article {opacity: 0;}
+#content .scene.front div.article {opacity: 0;
+	padding-top: 60px;
+}
 
 
 /* FRONT - POSTS */

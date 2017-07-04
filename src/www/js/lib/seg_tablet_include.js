@@ -22,7 +22,8 @@ document.write('<script type="text/javascript" src="http://parentnode.local/js/g
 document.write('<script type="text/javascript" src="http://parentnode.local/js/global/desktop/u-sharing.js"></script>');
 document.write('<script type="text/javascript" src="http://parentnode.local/js/global/desktop/u-checkmark.js"></script>');
 document.write('<script type="text/javascript" src="http://parentnode.local/js/global/desktop/u-expandarrow.js"></script>');
-document.write('<script type="text/javascript" src="http://parentnode.local/js/global/desktop//i-qnas.js"></script>');
+document.write('<script type="text/javascript" src="http://parentnode.local/js/global/desktop/i-qnas.js"></script>');
+document.write('<script type="text/javascript" src="http://parentnode.local/js/global/desktop/i-pagination.js"></script>');
 
 
 
@@ -34,3 +35,5 @@ document.write('<script type="text/javascript" src="/js/lib/desktop/i-start.js">
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-topic.js"></script>');
 document.write('<script type="text/javascript" src="http://parentnode.local/js/global/desktop/i-article.js"></script>');
 document.write('<script type="text/javascript" src="http://parentnode.local/js/global/desktop/i-article_mini_list.js"></script>');
+
+document.write('<script type="text/javascript" src="/js/lib/desktop/u-basics.js"></script>');
