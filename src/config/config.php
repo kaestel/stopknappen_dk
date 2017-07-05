@@ -11,7 +11,7 @@ error_reporting(E_ALL);
 /**
 * Site name
 */
-define("SITE_UID", "stop");
+define("SITE_UID", "STOP");
 define("SITE_NAME", "Stopknappen");
 define("SITE_URL", (isset($_SERVER["HTTPS"]) ? "https" : "http")."://".$_SERVER["SERVER_NAME"]);
 define("SITE_EMAIL", "start@stopknappen.dk");
