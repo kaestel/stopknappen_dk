@@ -6847,23 +6847,27 @@ Util.Objects["page"] = new function() {
 		}
 		page.acceptCookies = function() {
 			if(u.terms_version && !u.getCookie(u.terms_version)) {
-				var terms = u.ie(page.cN, "div", {"class":"terms_notification"});
-				u.ae(terms, "h3", {"html":"We love <br />cookies and privacy"});
-				var bn_accept = u.ae(terms, "a", {"class":"accept", "html":"Accept"});
-				bn_accept.terms = terms;
-				u.ce(bn_accept);
-				bn_accept.clicked = function() {
-					this.terms.parentNode.removeChild(this.terms);
-					u.saveCookie(u.terms_version, true, {"path":"/", "expires":false});
+				var terms_link = u.qs("li.terms a");
+				if(terms_link && (terms_link.href || terms_link.parentNode.url)) {
+					var terms_url = terms_link.href || terms_link.parentNode.url;
+					var terms = u.ie(page.cN, "div", {"class":"terms_notification"});
+					u.ae(terms, "h3", {"html":u.stringOr(u.txt["terms-headline"], "We love <br />cookies and privacy")});
+					var bn_accept = u.ae(terms, "a", {"class":"accept", "html":u.stringOr(u.txt["terms-accept"], "Accept")});
+					bn_accept.terms = terms;
+					u.ce(bn_accept);
+					bn_accept.clicked = function() {
+						this.terms.parentNode.removeChild(this.terms);
+						u.saveCookie(u.terms_version, true, {"path":"/", "expires":false});
+					}
+					if(!location.href.match(terms_url)) {
+						var bn_details = u.ae(terms, "a", {"class":"details", "html":u.stringOr(u.txt["terms-details"], "Details"), "href":terms_url});
+						u.ce(bn_details, {"type":"link"});
+					}
+					u.a.transition(terms, "all 0.5s ease-in");
+					u.ass(terms, {
+						"opacity": 1
+					});
 				}
-				if(!location.href.match(/\/terms/)) {
-					var bn_details = u.ae(terms, "a", {"class":"details", "html":"Details", "href":"/terms"});
-					u.ce(bn_details, {"type":"link"});
-				}
-				u.a.transition(terms, "all 0.5s ease-in");
-				u.ass(terms, {
-					"opacity": 1
-				});
 			}
 		}
 		page.initNavigation = function() {
@@ -7180,21 +7184,21 @@ Util.Objects["front"] = new function() {
 					}
 				}
 				u.textscaler(this.intro, {
-					"min_height":400,
+					"min_height":300,
 					"max_height":1000,
-					"min_width":600,
+					"min_width":320,
 					"max_width":1300,
 					"unit":"rem",
 					"h2.stop span":{
-						"min_size":4,
-						"max_size":10
+						"min_size":3,
+						"max_size":8
 					},
 					".quote h2":{
-						"min_size":4,
-						"max_size":10
+						"min_size":2,
+						"max_size":8
 					},
 					".quote h3":{
-						"min_size":1.5,
+						"min_size":1,
 						"max_size":3
 					},
 					".quote h4":{
@@ -7603,3 +7607,38 @@ Util.Objects["article"] = new function() {
 	}
 }
 
+
+/*u-basics.js*/
+u.logo_max_font_size = 15;
+u.logo_min_font_size = 8;
+u.logo_max_border_radius = 25;
+u.logo_min_border_radius = 15;
+u.logo_max_width = 50;
+u.logo_min_width = 30;
+u.logo_max_top = 30;
+u.logo_min_top = 14;
+u.logo_max_padding_top = 16;
+u.logo_min_padding_top = 7;
+u.logo_max_height = 34;
+u.logo_min_height = 23;
+u.logoScroller = function() {
+	if(page.scrolled_y < page.logo.top_offset) {
+		page.logo.is_reduced = false;
+		var state = (page.logo.top_offset-page.scrolled_y)/page.logo.top_offset;
+		page.logo.css_rule.style.setProperty("font-size", u.logo_max_font_size - ((u.logo_max_font_size - u.logo_min_font_size) * (1-state))+"px", "important");
+		page.logo.css_rule.style.setProperty("border-radius", u.logo_max_border_radius - ((u.logo_max_border_radius - u.logo_min_border_radius) * (1-state))+"px", "important");
+		page.logo.css_rule.style.setProperty("width", u.logo_max_width - ((u.logo_max_width - u.logo_min_width) * (1-state))+"px", "important");
+		page.logo.css_rule.style.setProperty("top", u.logo_max_top - ((u.logo_max_top - u.logo_min_top) * (1-state))+"px", "important");
+		page.logo.css_rule.style.setProperty("height", u.logo_max_height - ((u.logo_max_height - u.logo_min_height) * (1-state))+"px", "important");
+		page.logo.css_rule.style.setProperty("padding-top", u.logo_max_padding_top - ((u.logo_max_padding_top - u.logo_min_padding_top) * (1-state))+"px", "important");
+	}
+	else if(!page.logo.is_reduced) {
+		page.logo.is_reduced = true;
+		page.logo.css_rule.style.setProperty("font-size", u.logo_min_font_size+"px", "important");
+		page.logo.css_rule.style.setProperty("border-radius", u.logo_min_border_radius+"px", "important");
+		page.logo.css_rule.style.setProperty("width", u.logo_min_width+"px", "important");
+		page.logo.css_rule.style.setProperty("top", u.logo_min_top+"px", "important");
+		page.logo.css_rule.style.setProperty("height", u.logo_min_height+"px", "important");
+		page.logo.css_rule.style.setProperty("padding-top", u.logo_min_padding_top+"px", "important");
+	}
+}

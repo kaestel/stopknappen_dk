@@ -127,21 +127,21 @@ Util.Objects["front"] = new function() {
 
 				// apply text-scaling
 				u.textscaler(this.intro, {
-					"min_height":400,
+					"min_height":300,
 					"max_height":1000,
-					"min_width":600,
+					"min_width":320,
 					"max_width":1300,
 					"unit":"rem",
 					"h2.stop span":{
-						"min_size":4,
-						"max_size":10
+						"min_size":3,
+						"max_size":8
 					},
 					".quote h2":{
-						"min_size":4,
-						"max_size":10
+						"min_size":2,
+						"max_size":8
 					},
 					".quote h3":{
-						"min_size":1.5,
+						"min_size":1,
 						"max_size":3
 					},
 					".quote h4":{

@@ -36,6 +36,7 @@ document.write('<script type="text/javascript" src="/js/lib/smartphone/i-topic.j
 
 document.write('<script type="text/javascript" src="http://parentnode.local/js/global/desktop/i-article.js"></script>');
 
+document.write('<script type="text/javascript" src="/js/lib/desktop/u-basics.js"></script>');
 
 
 
