@@ -1,7 +1,7 @@
 <?php
 $IC = new Items();
 
-$page_item = $IC->getItem(array("tags" => "page:stopstart", "extend" => array("user" => true, "tags" => true, "mediae" => true)));
+$page_item = $IC->getItem(array("tags" => "page:stopstart", "extend" => array("comments" => true, "tags" => true, "mediae" => true)));
 
 if($page_item) {
 	$this->sharingMetaData($page_item);
@@ -46,6 +46,8 @@ $this->pageTitle("STOP / START");
 			<?= $page_item["html"] ?>
 		</div>
 		<? endif; ?>
+
+		<?= $HTML->frontendComments($page_item, "/janitor/admin/page/addComment") ?>
 
 	</div>
 <? endif; ?>

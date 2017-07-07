@@ -15,3 +15,7 @@ ul.actions a.button.primary:hover,
 #content .scene div.comments h2:hover svg.arrow line {stroke: #00c90d;}
 #content .scene div.qnas h2:hover {color: #00c90d;}
 #content .scene div.qnas h2:hover svg.arrow line {stroke: #00c90d;}
+
+
+#content .scene li.topic:hover h3 a {background-color: #26962d; color: #ffffff;}
+#content .scene li.topic:hover h3 svg.checkmark line {stroke: #ffffff;}

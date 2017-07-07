@@ -1,3 +1,17 @@
 ul.actions input.button.primary:active,
 ul.actions a.button.primary:active,
 #content ul.actions a.button.primary:active {background-color: #26962d;}
+
+
+#content .scene ul.articles .article ul.tags a:active,
+#content .scene .article ul.tags a:active {color: #00c90d;}
+#content .scene div.readstate:active p {color: #26962d;}
+
+#content .scene div.comments h2:active {color: #00c90d;}
+#content .scene div.comments h2:active svg.arrow line {stroke: #00c90d;}
+#content .scene div.qnas h2:active {color: #00c90d;}
+#content .scene div.qnas h2:active svg.arrow line {stroke: #00c90d;}
+
+
+#content .scene li.topic:active h3 a {background-color: #26962d; color: #ffffff;}
+#content .scene li.topic:active h3 svg.checkmark line {stroke: #ffffff;}

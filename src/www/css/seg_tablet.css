@@ -862,20 +862,28 @@ body.buttons #footer {display: none;}
 #content .scene.stop {}
 #content .scene.stop div.article {text-align: center; }
 #content .scene.stop div.article h1,
-#content .scene.stop div.article h2 {display: inline-block; vertical-align: top; min-width: 500px; max-width: 640px; width: auto;}
+#content .scene.stop div.article h2 { max-width: 640px; width: auto;
+	margin: 0 auto;
+}
 #content .scene.stop div.article h3,
 #content .scene.stop div.article p {display: inline-block; vertical-align: top;}
-#content .scene ul.topics {padding: 10px 60px 0; margin-bottom: 30px; text-align: center;}
+#content .scene ul.topics {padding: 10px 60px 0; text-align: center;}
 #content .scene li.topic {display: inline-block; vertical-align: top; margin: 10px; border-radius: 5px; border: 1px solid #26962d;}
 #content .scene li.topic > h3 a {display: block; padding: 9px 15px 11px; text-decoration: none;}
 #content .scene ul.topics li.topic > h3.read a {padding-left: 35px;}
-#content .scene li.topic:hover h3 a {background-color: #26962d; color: #ffffff;}
-#content .scene li.topic:hover h3 svg.checkmark line {stroke: #ffffff;}
 #content .scene li.topic > h3 svg.checkmark {position: absolute; top: 13px; left: 12px;}
 #content .scene li.topic > h3 svg.checkmark line {stroke: #666666; stroke-width: 3px;}
 #content .scene li.topic h3 {position: relative; width: auto; padding: 0;}
 #content .scene li.topic ul.tags,
 #content .scene li.topic div.description {display: none;}
+#content .scene.start {}
+#content .scene.start div.article {text-align: center; }
+#content .scene.start div.article h1,
+#content .scene.start div.article h2 { max-width: 640px; width: auto;
+	margin: 0 auto;
+}
+#content .scene.start div.article h3,
+#content .scene.start div.article p {display: inline-block; vertical-align: top;}
 #content .scene.stop .topic div.related {border: none; padding-top: 20px; padding-bottom: 15px; position: relative; z-index: 1;}
 #content .scene.stop .topic div.related h2 {font-size: 16px; padding-bottom: 25px;}
 #content .scene.stop .topic div.related ul.articles {list-style: none; margin: 0;}
@@ -926,4 +934,13 @@ body > div.pagination li.next {border-color: #26962d;}
 ul.actions input.button.primary:active,
 ul.actions a.button.primary:active,
 #content ul.actions a.button.primary:active {background-color: #26962d;}
+#content .scene ul.articles .article ul.tags a:active,
+#content .scene .article ul.tags a:active {color: #00c90d;}
+#content .scene div.readstate:active p {color: #26962d;}
+#content .scene div.comments h2:active {color: #00c90d;}
+#content .scene div.comments h2:active svg.arrow line {stroke: #00c90d;}
+#content .scene div.qnas h2:active {color: #00c90d;}
+#content .scene div.qnas h2:active svg.arrow line {stroke: #00c90d;}
+#content .scene li.topic:active h3 a {background-color: #26962d; color: #ffffff;}
+#content .scene li.topic:active h3 svg.checkmark line {stroke: #ffffff;}
 

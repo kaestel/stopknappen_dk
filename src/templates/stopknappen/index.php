@@ -13,11 +13,28 @@ $items = $IC->getItems(array("itemtype" => $itemtype, "status" => 1, "order" => 
 
 $items_read = [];
 // sort items in read and not read
-foreach($items as $i => $item) {
-	if($item["readstate"]) {
-		array_push($items_read, $items[$i]);
-		unset($items[$i]);
-	}
+// foreach($items as $i => $item) {
+// 	if($item["readstate"]) {
+// 		array_push($items_read, $items[$i]);
+// 		unset($items[$i]);
+// 	}
+// }
+
+// find introduction and conclusion
+$introduction = false;
+$introduction_index = arrayKeyValue($items, "name", "Introduktion");
+if($introduction_index !== false) {
+	// isolate introduction from other topics
+	$introduction = $items[$introduction_index];
+	unset($items[$introduction_index]);
+}
+
+$conclusion = false;
+$conclusion_index = arrayKeyValue($items, "name", "Konklusion");
+if($conclusion_index !== false) {
+	// isolate conclution from other topics
+	$conclusion = $items[$conclusion_index];
+	unset($items[$conclusion_index]);
 }
 
 ?>
@@ -64,27 +81,51 @@ foreach($items as $i => $item) {
 <? endif; ?>
 
 
-	<ul class="topics">
-<?	foreach($items as $item):
-		$media = $IC->sliceMedia($item); ?>
-		<li class="topic item_id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
-			data-readstate="<?= $item["readstate"] ?>"
+
+	<? if($introduction): ?>
+	<ul class="topics i:articleMiniList">
+		<li class="article topic introduction item_id:<?= $introduction["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
+			data-readstate="<?= $introduction["readstate"] ?>"
 			>
 
+			<?= $HTML->articleTags($introduction, [
+				"context" => ["about"],
+				"url" => "/stop/tag"
+			]) ?>
+
+			<h3 class="headline"><a href="/stop/<?= $introduction["sindex"] ?>"><?= strip_tags($introduction["name"]) ?></a></h3>
+
+			<?= $HTML->articleInfo($introduction, "/stop/".$introduction["sindex"], [
+				"media" => $media
+			]) ?>
+
+			<? if($introduction["description"]): ?>
+			<div class="description" itemprop="description">
+				<p><?= nl2br($introduction["description"]) ?></p>
+			</div>
+			<? endif; ?>
+
+		</li>
+	</ul>
+	<? endif; ?>
+
+	<ul class="topics i:articleMiniList">
+	<? foreach($items as $item):
+		$media = $IC->sliceMedia($item); ?>
+		<li class="article topic item_id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
+			data-readstate="<?= $item["readstate"] ?>"
+			>
 
 			<?= $HTML->articleTags($item, [
 				"context" => ["about"],
 				"url" => "/stop/tag"
 			]) ?>
 
-
 			<h3 class="headline"><a href="/stop/<?= $item["sindex"] ?>"><?= strip_tags($item["name"]) ?></a></h3>
 
-
 			<?= $HTML->articleInfo($item, "/stop/".$item["sindex"], [
 				"media" => $media
 			]) ?>
-
 
 			<? if($item["description"]): ?>
 			<div class="description" itemprop="description">
@@ -93,40 +134,35 @@ foreach($items as $i => $item) {
 			<? endif; ?>
 
 		</li>
-<?	endforeach; ?>
+	<?	endforeach; ?>
 	</ul>
 
 
-	<ul class="topics read i:articleMiniList">
-<?	foreach($items_read as $item):
-		$media = $IC->sliceMedia($item); ?>
-		<li class="article topic item_id:<?= $item["item_id"] ?>"
-			data-readstate="<?= $item["readstate"] ?>"
+	<? if($conclusion): ?>
+	<ul class="topics i:articleMiniList">
+		<li class="article topic conclusion item_id:<?= $conclusion["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
+			data-readstate="<?= $conclusion["readstate"] ?>"
 			>
 
-
-			<?= $HTML->articleTags($item, [
+			<?= $HTML->articleTags($conclusion, [
 				"context" => ["about"],
-				"url" => "/stop/tag",
+				"url" => "/stop/tag"
 			]) ?>
 
+			<h3 class="headline"><a href="/stop/<?= $conclusion["sindex"] ?>"><?= strip_tags($conclusion["name"]) ?></a></h3>
 
-			<h3 class="headline"><a href="/stop/<?= $item["sindex"] ?>"><?= $item["name"] ?></a></h3>
-
-			<?= $HTML->articleInfo($item, "/stop/".$item["sindex"], [
+			<?= $HTML->articleInfo($conclusion, "/stop/".$conclusion["sindex"], [
 				"media" => $media
 			]) ?>
 
-
-			<? if($item["description"]): ?>
+			<? if($conclusion["description"]): ?>
 			<div class="description" itemprop="description">
-				<p><?= nl2br($item["description"]) ?></p>
+				<p><?= nl2br($conclusion["description"]) ?></p>
 			</div>
 			<? endif; ?>
 
 		</li>
-<?	endforeach; ?>
 	</ul>
-
+	<? endif; ?>
 
 </div>

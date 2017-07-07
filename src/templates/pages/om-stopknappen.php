@@ -31,7 +31,7 @@ if($page_item) {
 		<? endif; ?>
 
 
-		<?= $HTML->articleInfo($page_item, "/hvad-er-stopknappen", [
+		<?= $HTML->articleInfo($page_item, "/om-stopknappen", [
 			"media" => $media,
 			"sharing" => true
 		]) ?>
