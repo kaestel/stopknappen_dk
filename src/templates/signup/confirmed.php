@@ -25,11 +25,9 @@ session()->reset("signup_username");
 		<div class="image item_id:<?= $page_item["item_id"] ?> format:<?= $media["format"] ?> variant:<?= $media["variant"] ?>"></div>
 		<? endif; ?>
 
-
 		<?= $HTML->articleTags($page_item, [
 			"context" => false
 		]) ?>
-
 
 		<h1 itemprop="headline"><?= $page_item["name"] ?></h1>
 
@@ -37,11 +35,9 @@ session()->reset("signup_username");
 		<h2 itemprop="alternativeHeadline"><?= $page_item["subheader"] ?></h2>
 		<? endif; ?>
 
-
 		<?= $HTML->articleInfo($page_item, "/deltag/bekraeft/kvittering", [
 			"media" => $media
 		]) ?>
-
 
 		<? if($page_item["html"]): ?>
 		<div class="articlebody" itemprop="articleBody">

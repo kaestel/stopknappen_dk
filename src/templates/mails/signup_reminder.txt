@@ -1,0 +1,12 @@
+SUBJECT:Aktivér din Stopknap!
+
+Det lader til at du har glemt at bekræfte din konto på stopknappen.dk.
+
+Du kan gøre det nu på linket nedenfor:
+{SITE_URL}/deltag/bekraeft/email/{EMAIL}/{VERIFICATION}
+
+Vi glæder os til at læse dine kommentarer og spørgsmål på sitet. 
+Du er også velkommen til at kontakte os direkte på start@stopknappen.dk eller ved at at besvare denne email.
+
+Stopknappen
+{SITE_URL}
