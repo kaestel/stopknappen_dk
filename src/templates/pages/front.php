@@ -68,13 +68,12 @@ $post_items = $IC->getItems(array("itemtype" => "post", "tags" => "on:frontpage"
 <? if($post_items): ?>
 	<div class="posts">
 		<h2>Aktuelle opslag <a href="/opslag">(se alle)</a></h2>
-		<ul class="items articles">
+		<ul class="items articles i:articlePreviewList">
 		<? foreach($post_items as $item): 
 			$media = $IC->sliceMedia($item); ?>
 			<li class="item article id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/BlogPosting"
 				data-readstate="<?= $item["readstate"] ?>"
 				>
-
 
 				<?= $HTML->articleTags($item, [
 					"context" => ["post"],
@@ -82,18 +81,15 @@ $post_items = $IC->getItems(array("itemtype" => "post", "tags" => "on:frontpage"
 					"default" => ["/opslag", "Alle"]
 				]) ?>
 
-
-				<h3 itemprop="headline"><?= $item["name"] ?></h3>
-
+				<h3 itemprop="headline"><a href="/opslag/<?= $item["sindex"] ?>"><?= $item["name"] ?></a></h3>
 
 				<?= $HTML->articleInfo($page_item, "/opslag/".$item["sindex"], [
 					"media" => $media
 				]) ?>
 
-
-				<? if($item["html"]): ?>
-				<div class="articlebody" itemprop="articleBody">
-					<?= $item["html"] ?>
+				<? if($item["description"]): ?>
+				<div class="description" itemprop="description">
+					<p><?= nl2br($item["description"]) ?> <a href="/opslag/<?= $item["sindex"] ?>">Læs mere</a>.</p>
 				</div>
 				<? endif; ?>
 

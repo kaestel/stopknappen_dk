@@ -12,6 +12,8 @@ u.txt["share-info-txt"] = "Vi har med vilje ikke inkluderet social media plugins
 u.txt["share-info-ok"] = "OK";
 
 
+//u.txt["readmore"] = "Læs mere";
+
 u.txt["readstate-not_read"] = "Klik for at markere som læst";
 u.txt["readstate-read"] = "Læst";
 
