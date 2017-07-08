@@ -68,7 +68,7 @@ $post_items = $IC->getItems(array("itemtype" => "post", "tags" => "on:frontpage"
 <? if($post_items): ?>
 	<div class="posts">
 		<h2>Aktuelle opslag <a href="/opslag">(se alle)</a></h2>
-		<ul class="items articles i:articlePreviewList">
+		<ul class="items articles i:articleMiniList">
 		<? foreach($post_items as $item): 
 			$media = $IC->sliceMedia($item); ?>
 			<li class="item article id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/BlogPosting"

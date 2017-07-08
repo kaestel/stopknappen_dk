@@ -12,7 +12,7 @@ $categories = $IC->getTags(array("context" => $itemtype, "order" => "value"));
 
 <div class="scene posts tag i:scene">
 <? if($items): ?>
-	<h1>Opslag <br />om <?= $selected_tag ?></h1>
+	<h1>Opslag om <br /><?= $selected_tag ?></h1>
 <? else: ?>
 	<h1>Opslag</h1>
 <? endif; ?>

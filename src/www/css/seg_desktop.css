@@ -888,8 +888,10 @@ body.buttons #footer {display: none;}
 #content .scene li.topic > h3 svg.checkmark {position: absolute; top: 13px; left: 12px;}
 #content .scene li.topic > h3 svg.checkmark line {stroke: #666666; stroke-width: 3px;}
 #content .scene li.topic h3 {position: relative; width: auto; padding: 0;}
-#content .scene li.topic ul.tags,
 #content .scene li.topic div.description {display: none;}
+#content .scene li.topic ul.tags {padding: 0; position: relative;}
+#content .scene li.topic ul.tags li {display: none; margin: 0;}
+#content .scene li.topic:hover ul.tags li.editing {display: block; position: absolute; top: -10px; left: -10px; white-space: nowrap; border: 1px solid #ffffff;}
 #content .scene.start {}
 #content .scene.start div.article {text-align: center; }
 #content .scene.start div.article h1,

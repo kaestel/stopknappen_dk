@@ -6840,29 +6840,7 @@ Util.Objects["articleMiniList"] = new function() {
 		}
 	}
 }
-Util.Objects["articlePreviewList"] = new function() {
-	this.init = function(list) {
-		u.bug("articlePreviewList");
-		list.articles = u.qsa("li.article", list);
-		var i, node, link;
-		for(i = 0; node = list.articles[i]; i++) {
-			var header = u.qs("h2,h3", node);
-			if(header) {
-				header.current_readstate = node.getAttribute("data-readstate");
-				if(header.current_readstate) {
-					u.ac(header, "read");
-					u.addCheckmark(header);
-				}
-	// 
-	// // 			
-	// 
-	// 				
-	// 				
-	// 				
-			}
-		}
-	}
-}
+
 
 /*u-basics.js*/
 u.logo_max_font_size = 15;
