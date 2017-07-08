@@ -8,5 +8,5 @@ Du kan gøre det nu på linket nedenfor:
 Vi glæder os til at læse dine kommentarer og spørgsmål på sitet. 
 Du er også velkommen til at kontakte os direkte på start@stopknappen.dk eller ved at at besvare denne email.
 
-Stopknappen
+Din Stopknap
 {SITE_URL}
