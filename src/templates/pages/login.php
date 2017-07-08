@@ -10,6 +10,24 @@ if($forward_url) {
 
 $username = stringOr(getPost("username"));
 
+// if username was posted and we ended up here, something went wrong
+if($username) {
+
+	// it could be that the account was not verified yet
+	// - in that case, update error message
+	$messages = message()->getMessages(["type" => "error"]);
+	foreach($messages as $message) {
+		if(preg_match("/User.+not.+verified/", $message)) {
+			message()->resetMessages();
+			message()->addMessage("Kontoen er ikke aktiv. Har du glemt at bekræfte din konto?", ["type" => "error"]);
+			break;
+		}
+	}
+
+}
+
+
+
 $IC = new Items();
 $page_item = $IC->getItem(array("tags" => "page:login", "extend" => true));
 
