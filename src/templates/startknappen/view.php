@@ -82,7 +82,7 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 
 		<?= $HTML->frontendQuestions($item, $qnas, "/janitor/admin/qna/save") ?>
 
-		<?= $HTML->frontendComments($item, "/janitor/topic/addComment") ?>
+		<?= $HTML->frontendComments($item, "/janitor/starttopic/addComment") ?>
 
 	</div>
 
