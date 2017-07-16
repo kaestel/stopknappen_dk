@@ -467,22 +467,41 @@ body #selection_options ul.actions a.button:hover {background-color: #313942;}
 
 
 /*s-shop.css*/
-#content .scene.shopList ul.items > li dl.details dt.price {display: none;}
-#content .scene.shopList ul.items > li dl.details dd.price {position: absolute; top: 10px; right: 100px; font-size: 26px;}
-#content .scene.shopList ul.items > li p.error {padding-bottom: 6px; color: #df0000;}
+#content .scene.shopList ul.tabs li.waiting {color: orange;}
+#content .scene.shopList ul.tabs li.pending {color: red;}
+#content .scene.shopList ul.tabs li.complete {color: green;}
+#content .scene.shopList div.all_items ul.items dd.missing {color: #df0000;}
+#content .scene.shopList ul.items > li dl.info dt.price {display: none;}
+#content .scene.shopList ul.items > li dl.info dd.price {position: absolute; top: 10px; right: 100px; font-size: 26px;}
+#content .scene.shopList ul.items > li dl.info dd.waiting,
+#content .scene.shopList ul.items > li dl.info dd.partial {color: orange;}
+#content .scene.shopList ul.items > li dl.info dd.pending,
+#content .scene.shopList ul.items > li dl.info dd.unpaid,
+#content .scene.shopList ul.items > li dl.info dd.unshipped {color: #df0000;}
+#content .scene.shopList ul.items > li dl.info dd.complete,
+#content .scene.shopList ul.items > li dl.info dd.paid,
+#content .scene.shopList ul.items > li dl.info dd.shipped {color: green;}
 #content .scene.shopView > ul.actions li.invoice {float: right; padding: 0 0 10px 10px;}
+#content .scene.shopView > ul.actions li.creditnote {float: right; padding: 0 0 10px 10px;}
 #content .scene.shopView > ul.actions li.ship {float: right; padding: 0 0 10px 10px;}
-#content .scene.shopView dl.list {padding-top: 3px; padding-right: 0; padding-bottom: 40px; width: 370px;}
+#content .scene.shopView > ul.actions li.pay {float: right; padding: 0 0 10px 10px;}
+#content .scene.shopView dl.list {padding-top: 3px; padding-right: 0; padding-bottom: 25px; width: 370px;}
 #content .scene.shopView dl.list dt {width: 120px;}
 #content .scene.shopView dl.list dt:after {content: ":";}
 #content .scene.shopView dl.list dd {width: 250px; margin: 0;}
 #content .scene.shopView > div > form {display: none; padding-top: 10px; padding-bottom: 10px;}
 #content .scene.shopView > div > h2 > span {color: #7d848c; cursor: pointer;}
-#content .scene.shopView > div > h2 > span:before {content: " - ";}
-#content .scene.shopView div.all_items {border-top: 1px solid #bbbbbb; padding-bottom: 40px;}
-#content .scene.shopView div.all_items > ul.actions {padding-top: 10px;}
-#content .scene.shopView div.all_items > ul.actions li {padding-bottom: 0px;}
-#content .scene.shopView ul.items li h3 {font-size: 0; overflow: hidden; padding-right: 30px; padding-top: 6px; padding-bottom: 6px;}
+#content .scene.shopView > div > h2 > span:before {content: "\00a0-\00a0";}
+#content .scene.shopView div.basics,
+#content .scene.shopView div.contact,
+#content .scene.shopView div.delivery,
+#content .scene.shopView div.billing {border-bottom: 1px solid #bbbbbb;}
+#content .scene.shopView > div.togglable > h2 > span {display: none;}
+#content .scene.shopView > div.togglable.open > h2 > span {display: inline-block;}
+#content .scene.shopView div.all_items {border-bottom: 1px solid #bbbbbb;}
+#content .scene.shopView div.all_items p {padding-bottom: 25px;}
+#content .scene.shopView div.all_items > p + ul.items {display: none;}
+#content .scene.shopView ul.items li h3 {font-size: 0; overflow: hidden; padding-right: 30px; padding-top: 3px; padding-bottom: 3px;}
 #content .scene.shopView ul.items li h3 span {font-size: 14px; line-height: 1em; padding: 9px 5px 5px 0; display: inline-block; vertical-align: top;}
 #content .scene.shopView ul.items li h3 span.total_price {float: right;  padding: 8px 0; display: inline-block; font-size: 16px;}
 #content .scene.shopView ul.items li h3 form {display: inline-block; vertical-align: top; position: relative;}
@@ -497,22 +516,57 @@ body #selection_options ul.actions a.button:hover {background-color: #313942;}
 	background-position: center center;
 	background-repeat: no-repeat;
 }
+#content .scene.shopView ul.items li ul.actions {padding-top: 2px;}
 #content .scene.cartView {}
-#content .scene.cartView div.all_items {border-bottom: 1px solid #bbbbbb;}
-#content .scene.cartView ul.items li h3 {padding-right: 120px;}
-#content .scene.cartView div.order {border-top: 1px solid #bbbbbb; padding-bottom: 40px;}
+#content .scene.cartView div.all_items > ul.actions {padding-top: 10px; padding-bottom: 25px;}
+#content .scene.cartView div.all_items > ul.actions li {padding-bottom: 0px;}
+#content .scene.cartView ul.items li h3 {padding-right: 110px;}
+#content .scene.cartView div.order {border-bottom: 1px solid #bbbbbb;}
+#content .scene.cartView div.order ul.actions {padding-bottom: 15px;}
 #content .scene.orderView {}
-	#content .scene.orderView div.basics,
-	#content .scene.orderView div.contact,
-	#content .scene.orderView div.delivery,
-	#content .scene.orderView div.billing {}
+#content .scene.orderView div.all_items > ul.items {padding-bottom: 25px;}
 #content .scene.orderView div.orderstatus {border-bottom: 1px solid #bbbbbb;}
-#content .scene.orderView div.comment {border-top: 1px solid #bbbbbb;}
-#content .scene.orderView div.payments {border-top: 1px solid #bbbbbb; border-bottom: 1px solid #bbbbbb;}
-#content .scene.orderView div.payments ul.actions {padding-bottom: 10px; overflow: hidden;}
-#content .scene.orderView div.payments ul.actions li {float: left; clear: both;}
-#content .scene.orderList div.all_items ul.items dd.missing {color: #df0000;}
-#content .scene.paymentList ul.items > li dl.details dd.price {right: 140px;}
+#content .scene.orderView div.comment {border-bottom: 1px solid #bbbbbb;}
+#content .scene.orderView div.payments {border-bottom: 1px solid #bbbbbb; border-bottom: 1px solid #bbbbbb;}
+#content .scene.orderView div.payments h3 {padding-bottom: 15px;}
+#content .scene.orderView div.payments ul.actions {padding-bottom: 15px;}
+#content .scene.paymentList ul.items > li dl.info dd.price {right: 140px;}
+#content .scene.newPayment div.basics {border-top: 1px solid #bbbbbb;}
+#content .scene.newPayment div.basics,
+#content .scene.newPayment div.charge,
+#content .scene.newPayment div.reminder,
+#content .scene.newPayment div.register {border-bottom: 1px solid #bbbbbb;}
+#content .scene.newPayment > div ul.actions {padding-bottom: 15px;}
+#content .scene.newPayment > div ul.actions li {}
+#content .scene.newPayment > div.charge ul.actions {overflow: hidden;}
+#content .scene.newPayment > div.charge ul.actions li {float: left; clear: both;}
+#content .scene.newPayment div.reminder ul.info {padding: 0 30px 25px;}
+#content .scene.newPayment div.reminder ul.info li {padding: 0 0 3px; display: block;}
+body.invoice {background: #ffffff;}
+body.invoice #navigation,
+body.invoice #header,
+body.invoice #footer,
+body.invoice #page > ul.servicenavigation {display: none;}
+body.invoice #page {margin: 0;}
+body.invoice #content {margin: 50px 0;}
+body.invoice #content div.scene ul.info {padding: 0 30px;}
+body.invoice #content div.scene ul.info li {display: block; padding: 0 0 2px; font-size: 14px;}
+body.invoice #content div.scene .basics {text-align: right;}
+body.invoice #content div.scene .basics h1 {padding-bottom: 5px;}
+body.invoice #content div.scene .basics ul.info li.cvr {padding-top: 10px;}
+body.invoice #content div.scene .basics h2 {padding-top: 25px;}
+body.invoice #content div.scene .basics dl.info {padding: 10px 30px;}
+body.invoice #content div.scene .basics dl.info dt {font-weight: 700;}
+body.invoice #content div.scene .basics dl.info dd,
+body.invoice #content div.scene .basics dl.info dt {display: block; padding: 0 0 5px;}
+body.invoice #content div.scene .buyer ul.info {padding-bottom: 20px;}
+body.invoice #content div.scene .all_items {padding-top: 20px;}
+body.invoice #content div.scene .all_items ul.items li h3 {padding-right: 30px;}
+body.invoice #content div.scene .all_items ul.items li h3 span {font-size: 14px; line-height: 1em; padding: 9px 5px 5px 0; display: inline-block; vertical-align: top;}
+body.invoice #content div.scene .all_items ul.items li h3 span.total_price {float: right; padding: 8px 0; display: inline-block; font-size: 16px;}
+body.invoice #content div.scene .all_items ul.items li.order_total {font-size: 20px; padding: 20px 30px 5px; border-bottom: none;}
+body.invoice #content div.scene .all_items ul.items li.order_vat {font-size: 14px; padding: 0 30px 20px;}
+body.invoice #content div.scene .all_items ul.items li span.amount {float: right;}
 
 
 /*s-user.css*/
@@ -549,7 +603,7 @@ body #selection_options ul.actions a.button:hover {background-color: #313942;}
 #content .scene.userEdit > div.addresses ul.addresses > li div {padding: 0 0 3px;}
 #content .scene.userEdit > div.addresses ul.addresses > li .actions {position: absolute; bottom: 0; left: 0; padding: 0;}
 #content .scene.userEdit > div.addresses ul.addresses > li .actions li {padding-left: 0;}
-#content .scene.userEdit > div.addresses > .actions {padding-bottom: 10px;}
+#content .scene.userEdit > div.addresses > .actions {padding-bottom: 15px;}
 #content .scene.userEdit > div.newsletters {border-bottom: 1px solid #bbbbbb;}
 #content .scene.userEdit > div.newsletters ul.newsletters {padding: 0 30px 10px;}
 #content .scene.userEdit > div.newsletters ul.newsletters > li {display: block; padding: 0 0 10px;}
@@ -608,7 +662,8 @@ body #selection_options ul.actions a.button:hover {background-color: #313942;}
 #content .defaultView.userMembership div.change div.option {padding-bottom: 30px;}
 #content .defaultView.userMembership div.change div.option h3 {padding-bottom: 10px; font-size: 18px;}
 #content .defaultView.userMembership div.change div.option p {padding-bottom: 10px;}
-#content .defaultView.userMembership div.cancel {}
+#content .defaultView.userMembership div.cancel {border-bottom: 1px solid #bbbbbb;}
+#content .defaultView.userMembership div.cancel ul.actions {padding-bottom: 15px;}
 #content .defaultList.memberList dd.payment_status.missing {color: #df0000;}
 #content .defaultEdit.userMember ul.actions li.user {float: right; padding: 0 0 10px 10px;}
 #content .defaultEdit.userMember div.orders {border-bottom: 1px solid #bbbbbb;}
@@ -618,7 +673,9 @@ body #selection_options ul.actions a.button:hover {background-color: #313942;}
 #content .defaultList.newsletterList > ul.actions li.download {float: right; padding: 0 0 10px 10px;}
 #content .scene.profileEdit div.password label {display: block; padding-left: 3px;}
 #content .scene.profileEdit div.password .indicator {top: 20px;}
+#content .scene.profileEdit div.cancellation {border-bottom: 1px solid #bbbbbb;}
 #content .scene.profileEdit div.cancellation div.field.password {display: none;}
+#content .scene.profileEdit div.cancellation ul.actions {padding-bottom: 15px;}
 #content .scene.profileEdit div.cancellation ul.actions input.button.confirm,
 #content .scene.profileEdit div.cancellation ul.actions input.button.confirm:hover {color: #ffffff; background-color: #df0000;}
 
