@@ -1,12 +1,13 @@
 <?php
-	
 global $action;
 global $model;
+
 
 $forward_url = getVar("forward_url");
 if($forward_url) {
 	session()->value("login_forward", $forward_url);
 }
+
 
 $username = stringOr(getPost("username"));
 
