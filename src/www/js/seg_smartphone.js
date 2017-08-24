@@ -4319,86 +4319,7 @@ u.txt["terms-details"] = "?";
 
 
 /*u-basics.js*/
-Util.Objects["oneButtonForm"] = new function() {
-	this.init = function(node) {
-		u.bug("oneButtonForm:" + u.nodeId(node));
-		if(!node.childNodes.length) {
-			var csrf_token = node.getAttribute("data-csrf-token");
-			var form_action = node.getAttribute("data-form-action");
-			var button_value = node.getAttribute("data-button-value");
-			var button_name = node.getAttribute("data-button-name");
-			var button_class = node.getAttribute("data-button-class");
-			var inputs = node.getAttribute("data-inputs");
-			if(csrf_token && form_action && button_value) {
-				node.form = u.f.addForm(node, {"action":form_action, "class":"confirm_action_form"});
-				node.form.node = node;
-				u.ae(node.form, "input", {"type":"hidden","name":"csrf-token", "value":csrf_token});
-				if(inputs) {
-					for(input_name in inputs)
-					u.ae(node.form, "input", {"type":"hidden","name":input_name, "value":inputs[input_name]});
-				}
-				u.f.addAction(node.form, {"value":button_value, "class":"button" + (button_class ? " "+button_class : ""), "name":u.stringOr(button_name, "save")});
-			}
-		}
-		else {
-			node.form = u.qs("form", node);
-		}
-		if(node.form) {
-			u.f.init(node.form);
-			node.form.node = node;
-			node.form.confirm_submit_button = u.qs("input[type=submit]", node.form);
-			node.form.confirm_submit_button.org_value = node.form.confirm_submit_button.value;
-			node.form.confirm_submit_button.confirm_value = node.getAttribute("data-confirm-value");
-			node.form.success_function = node.getAttribute("data-success-function");
-			node.form.success_location = node.getAttribute("data-success-location");
-			node.form.restore = function(event) {
-				u.t.resetTimer(this.t_confirm);
-				this.confirm_submit_button.value = this.confirm_submit_button.org_value;
-				u.rc(this.confirm_submit_button, "confirm");
-			}
-			node.form.submitted = function() {
-				if(!u.hc(this.confirm_submit_button, "confirm") && this.confirm_submit_button.confirm_value) {
-					u.ac(this.confirm_submit_button, "confirm");
-					this.confirm_submit_button.value = this.confirm_submit_button.confirm_value;
-					this.t_confirm = u.t.setTimer(this, this.restore, 3000);
-				}
-				else {
-					u.t.resetTimer(this.t_confirm);
-					this.response = function(response) {
-						page.notify(response);
-						if(response) {
-							if(response.cms_object && response.cms_object.constraint_error) {
-								this.value = this.confirm_submit_button.org_value;
-								u.ac(this, "disabled");
-							}
-							else {
-								if(this.success_location) {
-									u.ass(this.confirm_submit_button, {
-										"display": "none"
-									});
-									location.href = this.success_location;
-								}
-								else if(this.success_function) {
-									if(typeof(this.node[this.success_function]) == "function") {
-										this.node[this.success_function](response);
-									}
-								}
-								else if(typeof(this.node.confirmed) == "function") {
-									this.node.confirmed(response);
-								}
-								else {
-									u.bug("default return handling" + this.success_location)
-								}
-							}
-						}
-						this.restore();
-					}
-					u.request(this, this.action, {"method":"post", "params":u.f.getParams(this)});
-				}
-			}
-		}
-	}
-}
+
 
 /*u-googleanalytics.js*/
 if(u.ga_account) {
@@ -4628,37 +4549,109 @@ u.fontsReady = function(node, fonts, _options) {
 			}
 		}
 	}
+	window["_man_fonts_"] = window["_man_fonts_"] || {};
+	window["_man_fonts_"].fontApi = document.fonts && typeof(document.fonts.check) == "function" ? true : false;
+	window["_man_fonts_"].fonts = window["_man_fonts_"].fonts || {};
 	var font, node, i;
-	var loadkey = u.randomString(8);
 	if(typeof(fonts.length) == "undefined") {
 		font = fonts;
 		fonts = new Array();
 		fonts.push(font);
 	}
-	window["_man_fonts_"+loadkey] = u.ae(document.body, "div");
+	var loadkey = u.randomString(8);
+	if(window["_man_fonts_"].fontApi) {
+		window["_man_fonts_"+loadkey] = {};
+		window["_man_fonts_"+loadkey].t_timeout = u.t.setTimer(window["_man_fonts_"+loadkey], "checkFontsStatus", max_time);
+	}
+	else {
+		window["_man_fonts_"+loadkey] = u.ae(document.body, "div");
+		window["_man_fonts_"+loadkey].basenodes = {};
+	}
 	window["_man_fonts_"+loadkey].nodes = [];
-	window["_man_fonts_"+loadkey].font_style_weight = {};
+	window["_man_fonts_"+loadkey].loadkey = loadkey;
 	window["_man_fonts_"+loadkey].callback_node = node;
 	window["_man_fonts_"+loadkey].callback_name = callback_loaded;
 	window["_man_fonts_"+loadkey].callback_timeout = callback_timeout;
 	window["_man_fonts_"+loadkey].max_time = max_time;
 	window["_man_fonts_"+loadkey].start_time = new Date().getTime();
 	for(i = 0; font = fonts[i]; i++) {
-		font.style = font.style ? font.style : "normal";
-		font.weight = font.weight ? font.weight : "400";
-		if(!window["_man_fonts_"+loadkey].font_style_weight[font.style+font.weight]) {
-			window["_man_fonts_"+loadkey].font_style_weight[font.style+font.weight] = u.ae(window["_man_fonts_"+loadkey], "span", {"html":"I'm waiting for your fonts to load!","style":"font-family: Times !important; font-style: "+font.style+" !important; font-weight: "+font.weight+" !important; font-size: 20px !important; line-height: 1em !important; opacity: 0 !important;"});
+		font.style = font.style || "normal";
+		font.weight = font.weight || "400";
+		font.size = font.size || "16px";
+		font.status = "waiting";
+		font.id = u.normalize(font.family+font.style+font.weight);
+		if(!window["_man_fonts_"].fonts[font.id]) {
+			window["_man_fonts_"].fonts[font.id] = font;
 		}
-		node = u.ae(window["_man_fonts_"+loadkey], "span", {"html":"I'm waiting for your fonts to load!+?","style":"font-family: '"+font.family+"', Times !important; font-style: "+font.style+" !important; font-weight: "+font.weight+" !important; font-size: 20px !important; line-height: 1em !important; opacity: 0 !important;"});
-		node._family = font.family;
-		node._weight = font.weight;
-		node._style = font.style;
+		if(window["_man_fonts_"].fontApi) {
+			node = {};
+		}
+		else {
+			if(!window["_man_fonts_"+loadkey].basenodes[font.style+font.weight]) {
+				window["_man_fonts_"+loadkey].basenodes[font.style+font.weight] = u.ae(window["_man_fonts_"+loadkey], "span", {"html":"I'm waiting for your fonts to load!","style":"font-family: Times !important; font-style: "+font.style+" !important; font-weight: "+font.weight+" !important; font-size: "+font.size+" !important; line-height: 1em !important; opacity: 0 !important;"});
+			}
+			node = u.ae(window["_man_fonts_"+loadkey], "span", {"html":"I'm waiting for your fonts to load!","style":"font-family: '"+font.family+"', Times !important; font-style: "+font.style+" !important; font-weight: "+font.weight+" !important; font-size: "+font.size+" !important; line-height: 1em !important; opacity: 0 !important;"});
+		}
+		node.font_size = font.size;
+		node.font_family = font.family;
+		node.font_weight = font.weight;
+		node.font_style = font.style;
+		node.font_id = font.id;
+		node.loadkey = loadkey;
 		window["_man_fonts_"+loadkey].nodes.push(node);
 	}
-	window["_man_fonts_"+loadkey].checkfonts = function() {
+	window["_man_fonts_"+loadkey].checkFontsAPI = function() {
+		var i, node, font_string;
+		for(i = 0; node = this.nodes[i]; i++) {
+			if(window["_man_fonts_"].fonts[node.font_id] && window["_man_fonts_"].fonts[node.font_id].status == "waiting") {
+				font_string = node.font_style + " " + node.font_weight + " " + node.font_size + " " + node.font_family;
+				document.fonts.load(font_string).then(function(fontFaceSetEvent) {
+					if(fontFaceSetEvent && fontFaceSetEvent.length && fontFaceSetEvent[0].status == "loaded") {
+						window["_man_fonts_"].fonts[this.font_id].status = "loaded";
+					}
+					else {
+						window["_man_fonts_"].fonts[this.font_id].status = "failed";
+					}
+					if(window["_man_fonts_"+this.loadkey] && typeof(window["_man_fonts_"+this.loadkey].checkFontsStatus) == "function") {
+						window["_man_fonts_"+this.loadkey].checkFontsStatus();
+					}
+				}.bind(node));
+			}
+			else {
+			}
+		}
+		if(typeof(this.checkFontsStatus) == "function") {
+			this.checkFontsStatus();
+		}
+	}
+	window["_man_fonts_"+loadkey].checkFontsStatus = function(event) {
+		u.bug("checkFontsStatus");
+		var i, node;
+		for(i = 0; node = this.nodes[i]; i++) {
+			if(window["_man_fonts_"].fonts[node.font_id].status == "waiting") {
+				if(this.start_time + this.max_time <= new Date().getTime()) {
+					if(typeof(this.callback_node[this.callback_timeout]) == "function") {
+						this.callback_node[this.callback_timeout]();
+					}
+					else if(typeof(this.callback_node[this.callback_name]) == "function") {
+						this.callback_node[this.callback_name]();
+					}
+					u.t.resetTimer(this.t_timeout);
+					delete window["_man_fonts_"+this.loadkey];
+				}
+				return;
+			}
+		}
+		if(typeof(this.callback_node[this.callback_name]) == "function") {
+			this.callback_node[this.callback_name]();
+		}
+		u.t.resetTimer(this.t_timeout);
+		delete window["_man_fonts_"+this.loadkey];
+	}
+	window["_man_fonts_"+loadkey].checkFontsFallback = function() {
 		var basenode, i, node, loaded = 0;
 		for(i = 0; node = this.nodes[i]; i++) {
-			basenode = this.font_style_weight[node._style+node._weight];
+			basenode = this.basenodes[node.font_style+node.font_weight];
 			if(node.offsetWidth != basenode.offsetWidth || node.offsetHeight != basenode.offsetHeight) {
 				loaded++;
 			}
@@ -4683,7 +4676,12 @@ u.fontsReady = function(node, fonts, _options) {
 			}
 		}
 	}
-	window["_man_fonts_"+loadkey].checkfonts();
+	if(window["_man_fonts_"].fontApi) {
+		window["_man_fonts_"+loadkey].checkFontsAPI();
+	}
+	else {
+		window["_man_fonts_"+loadkey].checkFontsFallback();
+	}
 }
 
 /*beta-u-notifier.js*/
@@ -5617,6 +5615,9 @@ Util.Form = u.f = new function() {
 			}
 		}
 		if(!Object.keys(this.error_fields).length) {
+			if(typeof(this.preSubmitted) == "function") {
+				this.preSubmitted(iN);
+			}
 			if(typeof(this.submitted) == "function") {
 				this.submitted(iN);
 			}
@@ -6445,6 +6446,90 @@ u.f.recurseName = function(object, indexes, value) {
 	return object;
 }
 
+
+/*u-string.js*/
+Util.cutString = function(string, length) {
+	var matches, match, i;
+	if(string.length <= length) {
+		return string;
+	}
+	else {
+		length = length-3;
+	}
+	matches = string.match(/\&[\w\d]+\;/g);
+	if(matches) {
+		for(i = 0; match = matches[i]; i++){
+			if(string.indexOf(match) < length){
+				length += match.length-1;
+			}
+		}
+	}
+	return string.substring(0, length) + (string.length > length ? "..." : "");
+}
+Util.prefix = function(string, length, prefix) {
+	string = string.toString();
+	prefix = prefix ? prefix : "0";
+	while(string.length < length) {
+		string = prefix + string;
+	}
+	return string;
+}
+Util.randomString = function(length) {
+	var key = "", i;
+	length = length ? length : 8;
+	var pattern = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
+	for(i = 0; i < length; i++) {
+		key += pattern[u.random(0,35)];
+	}
+	return key;
+}
+Util.uuid = function() {
+	var chars = '0123456789abcdef'.split('');
+	var uuid = [], rnd = Math.random, r, i;
+	uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+	uuid[14] = '4';
+	for(i = 0; i < 36; i++) {
+		if(!uuid[i]) {
+			r = 0 | rnd()*16;
+			uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r & 0xf];
+		}
+ 	}
+	return uuid.join('');
+}
+Util.stringOr = u.eitherOr = function(value, replacement) {
+	if(value !== undefined && value !== null) {
+		return value;
+	}
+	else {
+		return replacement ? replacement : "";
+	}	
+}
+Util.getMatches = function(string, regex) {
+	var match, matches = [];
+	while(match = regex.exec(string)) {
+		matches.push(match[1]);
+	}
+	return matches;
+}
+Util.upperCaseFirst = u.ucfirst = function(string) {
+	return string.replace(/^(.){1}/, function($1) {return $1.toUpperCase()});
+}
+Util.lowerCaseFirst = u.lcfirst = function(string) {
+	return string.replace(/^(.){1}/, function($1) {return $1.toLowerCase()});
+}
+Util.normalize = function(string) {
+	string = string.toLowerCase();
+	string = string.replace(/[^a-z0-9\_]/g, '-');
+	string = string.replace(/-+/g, '-');
+	string = string.replace(/^-|-$/g, '');
+	return string;
+}
+Util.pluralize = function(count, singular, plural) {
+	if(count != 1) {
+		return count + " " + plural;
+	}
+	return count + " " + singular;
+}
 
 /*u-form-builder.js*/
 u.f.customBuild = {};
