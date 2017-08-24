@@ -6800,13 +6800,18 @@ Util.Objects["signup"] = new function() {
 		}
 		scene.ready = function() {
 			page.cN.scene = this;
-			var signup_form = u.qs("form.signup", this);
+			var form_signup = u.qs("form.signup", this);
 			var place_holder = u.qs("div.articlebody .placeholder.signup", this);
-			if(signup_form && place_holder) {
-				place_holder.parentNode.replaceChild(signup_form, place_holder);
+			if(form_signup && place_holder) {
+				place_holder.parentNode.replaceChild(form_signup, place_holder);
 			}
-			if(signup_form) {
-				u.f.init(signup_form);
+			if(form_signup) {
+				u.f.init(form_signup);
+				form_signup.preSubmitted = function() {
+					this.actions["signup"].value = "Vent";
+					u.ac(this, "submitting");
+					u.ac(this.actions["signup"], "disabled");
+				}
 			}
 			u.showScene(this);
 			page.acceptCookies();
