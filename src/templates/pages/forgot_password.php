@@ -13,7 +13,7 @@ $this->pageTitle("Glemt kode?");
 		<?= $HTML->serverMessages(array("type" => "error")) ?>
 
 		<fieldset>
-			<?= $model->input("username", array("type" => "string", "label" => "Email", "required" => true, "pattern" => "[\w\.\-\_]+@[\w-\.]+\.\w{2,4}", "hint_message" => "Dit brugernavn er din email-adresse.", "error_message" => "Det indtastede er ikke en gyldig email-adresse.")); ?>
+			<?= $model->input("username", array("type" => "string", "label" => "Email", "required" => true, "pattern" => "[\w\.\-\_]+@[\w-\.]+\.\w{2,10}", "hint_message" => "Dit brugernavn er din email-adresse.", "error_message" => "Det indtastede er ikke en gyldig email-adresse.")); ?>
 		</fieldset>
 
 		<ul class="actions">
