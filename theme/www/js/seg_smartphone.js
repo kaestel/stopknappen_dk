@@ -4319,6 +4319,76 @@ u.txt["terms-details"] = "?";
 
 
 /*u-basics.js*/
+u.smartphoneSwitch = new function() {
+	this.state = 0;
+	this.init = function(node) {
+		this.callback_node = node;
+		this.event_id = u.e.addWindowEvent(this, "resize", this.resized);
+		this.resized();
+	}
+	this.resized = function() {
+		if(u.browserW() < 500 && !this.state) {
+			this.switchOn();
+		}
+		else if(u.browserW() > 500 && this.state) {
+			this.switchOff();
+		}
+	}
+	this.switchOn = function() {
+		if(!this.panel) {
+			this.state = true;
+			this.panel = u.ae(document.body, "div", {"id":"smartphone_switch"});
+			u.ass(this.panel, {
+				opacity: 0
+			});
+			u.ae(this.panel, "h1", {html:u.stringOr(u.txt["smartphone-switch-headline"], "Hello curious")});
+			if(u.txt["smartphone-switch-text"].length) {
+				for(i = 0; i < u.txt["smartphone-switch-text"].length; i++) {
+					u.ae(this.panel, "p", {html:u.txt["smartphone-switch-text"][i]});
+				}
+			}
+			var ul_actions = u.ae(this.panel, "ul", {class:"actions"});
+			var li; 
+			li = u.ae(ul_actions, "li", {class:"hide"});
+			var bn_hide = u.ae(li, "a", {class:"hide button", html:u.txt["smartphone-switch-bn-hide"]});
+			li = u.ae(ul_actions, "li", {class:"switch"});
+			var bn_switch = u.ae(li, "a", {class:"switch button primary", html:u.txt["smartphone-switch-bn-switch"]});
+			u.e.click(bn_switch);
+			bn_switch.clicked = function() {
+				u.saveCookie("smartphoneSwitch", "on");
+				location.href = location.href.replace(/[&]segment\=desktop|segment\=desktop[&]?/, "") + (location.href.match(/\?/) ? "&" : "?") + "segment=smartphone";
+			}
+			u.e.click(bn_hide);
+			bn_hide.clicked = function() {
+				u.e.removeWindowEvent(u.smartphoneSwitch, "resize", u.smartphoneSwitch.event_id);
+				u.smartphoneSwitch.switchOff();
+			}
+			u.a.transition(this.panel, "all 0.5s ease-in-out");
+			u.ass(this.panel, {
+				opacity: 1
+			});
+			if(this.callback_node && typeof(this.callback_node.smartphoneSwitchedOn) == "function") {
+				this.callback_node.smartphoneSwitchedOn();
+			}
+		}
+	}
+	this.switchOff = function() {
+		if(this.panel) {
+			this.state = false;
+			this.panel.transitioned = function() {
+				this.parentNode.removeChild(this);
+				delete u.smartphoneSwitch.panel;
+			}
+			u.a.transition(this.panel, "all 0.5s ease-in-out");
+			u.ass(this.panel, {
+				opacity: 0
+			});
+			if(this.callback_node && typeof(this.callback_node.smartphoneSwitchedOff) == "function") {
+				this.callback_node.smartphoneSwitchedOff();
+			}
+		}
+	}
+}
 
 
 /*u-googleanalytics.js*/
@@ -4625,7 +4695,6 @@ u.fontsReady = function(node, fonts, _options) {
 		}
 	}
 	window["_man_fonts_"+loadkey].checkFontsStatus = function(event) {
-		u.bug("checkFontsStatus");
 		var i, node;
 		for(i = 0; node = this.nodes[i]; i++) {
 			if(window["_man_fonts_"].fonts[node.font_id].status == "waiting") {
@@ -4686,12 +4755,14 @@ u.fontsReady = function(node, fonts, _options) {
 
 /*beta-u-notifier.js*/
 u.notifier = function(node) {
+	u.bug_force = true;
+	u.bug("enable notifier");
 	var notifications = u.qs("div.notifications", node);
 	if(!notifications) {
 		node.notifications = u.ae(node, "div", {"id":"notifications"});
 	}
 	node.notifications.hide_delay = 4500;
-	node.notifications.hide = function() {
+	node.notifications.hide = function(node) {
 		u.a.transition(this, "all 0.5s ease-in-out");
 		u.a.translate(this, 0, -this.offsetHeight);
 	}
@@ -4705,25 +4776,25 @@ u.notifier = function(node) {
 				}
 			}
 		}
-		var output;
-		if(typeof(response) == "object" && response.isJSON) {
+		var output = [];
+		if(typeof(response) == "object") {
 			var message = response.cms_message;
-			var cms_status = response.cms_status;
+			var cms_status = typeof(response.cms_status) != "undefined" ? response.cms_status : "";
 			if(typeof(message) == "object") {
 				for(type in message) {
 					if(typeof(message[type]) == "string") {
-						output = u.ae(this.notifications, "div", {"class":class_name+" "+cms_status, "html":message[type]});
+						output.push(u.ae(this.notifications, "div", {"class":class_name+" "+cms_status+" "+type, "html":message[type]}));
 					}
 					else if(typeof(message[type]) == "object" && message[type].length) {
 						var node, i;
 						for(i = 0; _message = message[type][i]; i++) {
-							output = u.ae(this.notifications, "div", {"class":class_name+" "+cms_status, "html":_message});
+							output.push(u.ae(this.notifications, "div", {"class":class_name+" "+cms_status+" "+type, "html":_message}));
 						}
 					}
 				}
 			}
 			else if(typeof(message) == "string") {
-				output = u.ae(this.notifications, "div", {"class":class_name+" "+cms_status, "html":message});
+				output.push(u.ae(this.notifications, "div", {"class":class_name+" "+cms_status, "html":message}));
 			}
 			if(typeof(this.notifications.show) == "function") {
 				this.notifications.show();
@@ -4797,11 +4868,11 @@ u.notifier = function(node) {
 			}
 			else if(messages) {
 				for(i = 0; message = messages[i]; i++) {
-					output = u.ae(this.notifications, "div", {"class":message.className, "html":message.innerHTML});
+					output.push(u.ae(this.notifications, "div", {"class":message.className, "html":message.innerHTML}));
 				}
 			}
 		}
-		u.t.setTimer(this.notifications, this.notifications.hide, this.notifications.hide_delay);
+		this.t_notifier = u.t.setTimer(this.notifications, this.notifications.hide, this.notifications.hide_delay, output);
 	}
 }
 
@@ -5166,6 +5237,8 @@ u.textscaler = function(node, _settings) {
 		window._man_text._width = u.browserW();
 		window._man_text._height = u.browserH();
 		window._man_text.scale = function() {
+			var _width = u.browserW();
+			var _height = u.browserH();
 			window._man_text._width = u.browserW();
 			window._man_text._height = u.browserH();
 			var i, node;
@@ -5224,7 +5297,7 @@ u.textscaler = function(node, _settings) {
 	var tag;
 	node._man_text = {};
 	for(tag in node.text_settings) {
-		if(tag == "min_height" || tag == "max_height" || tag == "min_width" || tag == "max_width" || tag == "unit") {
+		if(tag == "min_height" || tag == "max_height" || tag == "min_width" || tag == "max_width" || tag == "unit" || tag == "ref") {
 			node._man_text[tag] = node.text_settings[tag];
 			node.text_settings[tag] = null;
 			delete node.text_settings[tag];
@@ -5584,6 +5657,7 @@ Util.Form = u.f = new function() {
 		for(i = 0; hidden_field = hidden_fields[i]; i++) {
 			if(!_form.fields[hidden_field.name]) {
 				_form.fields[hidden_field.name] = hidden_field;
+				hidden_field._form = _form;
 				hidden_field.val = this._value;
 			}
 		}
@@ -6061,10 +6135,10 @@ Util.Form = u.f = new function() {
 		}
 	}
 	this.validate = function(iN) {
-		if(!iN._form._validation) {
+		if(!iN._form._validation || !iN.field) {
 			return true;
 		}
-		var min, max, pattern;
+		var min, max, pattern, compare_to;
 		var validated = false;
 		if(!u.hc(iN.field, "required") && iN.val() === "") {
 			this.fieldCorrect(iN);
@@ -6088,10 +6162,12 @@ Util.Form = u.f = new function() {
 				min = min ? min : 8;
 				max = max ? max : 20;
 				pattern = iN.getAttribute("pattern");
+				compare_to = iN.getAttribute("data-compare-to");
 				if(
 					iN.val().length >= min && 
 					iN.val().length <= max && 
-					(!pattern || iN.val().match("^"+pattern+"$"))
+					(!pattern || iN.val().match("^"+pattern+"$")) &&
+					(!compare_to || iN.val() == iN._form.fields[compare_to].val())
 				) {
 					this.fieldCorrect(iN);
 				}
@@ -6530,6 +6606,40 @@ Util.pluralize = function(count, singular, plural) {
 	}
 	return count + " " + singular;
 }
+Util.isStringJSON = function(string) {
+	if(string.trim().substr(0, 1).match(/[\{\[]/i) && string.trim().substr(-1, 1).match(/[\}\]]/i)) {
+		try {
+			var test = JSON.parse(string);
+			if(typeof(test) == "object") {
+				test.isJSON = true;
+				return test;
+			}
+		}
+		catch(exception) {
+			console.log(exception)
+		}
+	}
+	return false;
+}
+Util.isStringHTML = function(string) {
+	if(string.trim().substr(0, 1).match(/[\<]/i) && string.trim().substr(-1, 1).match(/[\>]/i)) {
+		try {
+			var test = document.createElement("div");
+			test.innerHTML = string;
+			if(test.childNodes.length) {
+				var body_class = string.match(/<body class="([a-z0-9A-Z_: ]+)"/);
+				test.body_class = body_class ? body_class[1] : "";
+				var head_title = string.match(/<title>([^$]+)<\/title>/);
+				test.head_title = head_title ? head_title[1] : "";
+				test.isHTML = true;
+				return test;
+			}
+		}
+		catch(exception) {}
+	}
+	return false;
+}
+
 
 /*u-form-builder.js*/
 u.f.customBuild = {};
@@ -6879,8 +6989,8 @@ Util.Objects["page"] = new function() {
 	this.init = function(page) {
 		window.page = page;
 		u.bug_force = true;
-		u.bug("This site is built using Manipulator, Janitor and Detector");
-		u.bug("Visit http://parentnode.dk for more information");
+		u.bug("This site is built using the combined powers of body, mind and spirit. Well, and also Manipulator, Janitor and Detector");
+		u.bug("Visit https://parentnode.dk for more information");
 		u.bug_force = false;
 		page.hN = u.qs("#header");
 		page.hN.service = u.qs(".servicenavigation", page.hN);
@@ -6893,22 +7003,32 @@ Util.Objects["page"] = new function() {
 		page.fN = u.qs("#footer");
 		page.fN.service = u.qs(".servicenavigation", page.fN);
 		page.resized = function() {
-			page.browser_h = u.browserH();
-			page.browser_w = u.browserW();
-			page.available_height = page.browser_h - page.hN.offsetHeight - page.fN.offsetHeight;
-			u.as(page.cN, "min-height", "auto", false);
-			if(page.available_height >= page.cN.offsetHeight) {
-				u.as(page.cN, "min-height", page.available_height+"px", false);
+			this.browser_h = u.browserH();
+			this.browser_w = u.browserW();
+			this.available_height = this.browser_h - this.hN.offsetHeight - this.fN.offsetHeight;
+			u.as(this.cN, "min-height", "auto", false);
+			if(this.available_height >= this.cN.offsetHeight) {
+				u.as(this.cN, "min-height", this.available_height+"px", false);
 			}
-			if(page.cN && page.cN.scene && typeof(page.cN.scene.resized) == "function") {
-				page.cN.scene.resized();
+			if(this.cN && this.cN.scene && typeof(this.cN.scene.resized) == "function") {
+				this.cN.scene.resized();
 			}
-			page.offsetHeight;
+			this.offsetHeight;
+		}
+		page.fixiOSScroll = function() {
+			u.ass(this.hN, {
+				"position":"absolute",
+			});
+			u.ass(this.hN, {
+				"position":"fixed",
+			});
 		}
 		page.scrolled = function() {
-			page.scrolled_y = u.scrollY();
-			if(page.cN && page.cN.scene && typeof(page.cN.scene.scrolled) == "function") {
-				page.cN.scene.scrolled();
+			u.t.resetTimer(this.t_fix);
+			this.t_fix = u.t.setTimer(this, "fixiOSScroll", 200);
+			this.scrolled_y = u.scrollY();
+			if(this.cN && this.cN.scene && typeof(this.cN.scene.scrolled) == "function") {
+				this.cN.scene.scrolled();
 			}
 		}
 		page.orientationchanged = function() {
@@ -6922,10 +7042,21 @@ Util.Objects["page"] = new function() {
 		page.ready = function() {
 			if(!this.is_ready) {
 				this.is_ready = true;
-				u.e.addEvent(window, "resize", page.resized);
-				u.e.addEvent(window, "scroll", page.scrolled);
-				u.e.addEvent(window, "orientationchange", page.orientationchanged);
-				u.notifier(this);
+				u.e.addWindowEvent(this, "resize", this.resized);
+				u.e.addWindowEvent(this, "scroll", this.scrolled);
+				u.e.addWindowEvent(this, "orientationchange", this.orientationchanged);
+				if(typeof(u.notifier) == "function") {
+					u.notifier(this);
+				}
+				if(u.getCookie("smartphoneSwitch") == "on") {
+					console.log("Back to desktop")
+					var bn_switch = u.ae(document.body, "div", {id:"desktop_switch", html:"Back to desktop"});
+					u.ce(bn_switch);
+					bn_switch.clicked = function() {
+						u.saveCookie("smartphoneSwitch", "off");
+						location.href = location.href.replace(/[&]segment\=smartphone|segment\=smartphone[&]?/, "") + (location.href.match(/\?/) ? "&" : "?") + "segment=desktop";
+					}
+				}
 				this.initNavigation();
 				this.resized();
 			}
@@ -6956,7 +7087,7 @@ Util.Objects["page"] = new function() {
 			}
 		}
 		page.initNavigation = function() {
-			page.nN.list = u.qs("ul.navigation", page.nN);
+			this.nN.list = u.qs("ul.navigation", this.nN);
 			this.bn_nav = u.qs(".servicenavigation li.navigation", this.hN);
 			if(this.bn_nav) {
 				u.ae(this.bn_nav, "div");
