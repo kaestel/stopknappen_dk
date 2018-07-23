@@ -2,10 +2,6 @@
 global $action;
 global $model;
 
-$forward_url = getVar("forward_url");
-if($forward_url) {
-	session()->value("login_forward", $forward_url);
-}
 
 $IC = new Items();
 $page_item = $IC->getItem(array("tags" => "page:signup", "extend" => array("user" => true, "tags" => true, "mediae" => true)));
