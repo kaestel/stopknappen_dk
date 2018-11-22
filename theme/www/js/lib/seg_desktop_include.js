@@ -18,12 +18,12 @@ document.write('<script type="text/javascript" src="assets/parentnode-skin-defau
 document.write('<script type="text/javascript" src="js/lib/u-settings.js"></script>');
 document.write('<script type="text/javascript" src="js/lib/desktop/u-basics.js"></script>');
 
-document.write('<script type="text/javascript" src="js/lib/desktop/i-front.js"></script>');
-document.write('<script type="text/javascript" src="js/lib/desktop/i-buttons.js"></script>');
-document.write('<script type="text/javascript" src="js/lib/desktop/i-signup.js"></script>');
-document.write('<script type="text/javascript" src="js/lib/desktop/i-stop.js"></script>');
-document.write('<script type="text/javascript" src="js/lib/desktop/i-start.js"></script>');
-document.write('<script type="text/javascript" src="js/lib/desktop/i-topic.js"></script>');
+document.write('<script type="text/javascript" src="js/lib/desktop/i-front.js"></script>'); // Different
+document.write('<script type="text/javascript" src="js/lib/desktop/i-buttons.js"></script>'); // Not in skin
+document.write('<script type="text/javascript" src="js/lib/desktop/i-signup.js"></script>'); // Small js snippet added aswell as u.showScene at bottom
+document.write('<script type="text/javascript" src="js/lib/desktop/i-stop.js"></script>'); // Not in skin
+document.write('<script type="text/javascript" src="js/lib/desktop/i-start.js"></script>'); // Not in skin
+document.write('<script type="text/javascript" src="js/lib/desktop/i-topic.js"></script>'); // Not in skin
 
 
 // Getting necessary u.showScene initializers from think
