@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2018-11-23 19:54:47
+asset-builder @ 2018-11-23 22:18:32
 */
 
 /*seg_smartphone_include.js*/
@@ -6245,6 +6245,7 @@ u.f.textEditor = function(field) {
 		}
 	}
 	field.updateContent = function() {
+		u.bug("updateContent");
 		var tags = u.qsa("div.tag", this);
 		this._input.val("");
 		var i, node, tag, type, value, j, html = "";
@@ -6612,7 +6613,7 @@ u.f.textEditor = function(field) {
 		u.request(tag, this.file_delete_action+"/"+tag._item_id+"/"+tag._variant, {"method":"post", "params":form_data});
 	}
 	field._file_updated = function(event) {
-		u.bug("file:" + u.nodeId(this))
+		u.bug("file:", this);
 		var form_data = new FormData();
 		form_data.append(this.name, this.files[0], this.value);
 		form_data.append("csrf-token", this._form.fields["csrf-token"].val());
@@ -6924,15 +6925,15 @@ u.f.textEditor = function(field) {
 		}
 		this.field.hideSelectionOptions();
 		if(selection && !selection.isCollapsed) {
-			u.bug("selection:" + u.nodeId(this))
+			u.bug("selection:", this);
 			var node = selection.anchorNode;
-			u.bug("node:" + u.nodeId(node))
+			u.bug("node:", node);
 			while(node != this) {
 				if(node.nodeName == "HTML" || !node.parentNode) {
 					break;
 				}
 				node = node.parentNode;
-				u.bug("node:" + u.nodeId(node))
+				u.bug("node:", node);
 			}
 			if(node == this) {
 				this.field.showSelectionOptions(this, selection);
@@ -6983,7 +6984,7 @@ u.f.textEditor = function(field) {
 					text_nodes.push(document.createElement("br"));
 				}
 			}
-			for(i = text_nodes.length-1; i > 0; i--) {
+			for(i = text_nodes.length-1; i >= 0; i--) {
 				node = text_nodes[i];
 				var range = selection.getRangeAt(0);
 				range.insertNode(node);
@@ -8150,7 +8151,6 @@ u.e.addDOMReadyEvent(u.init);
 /*i-scene.js*/
 Util.Objects["scene"] = new function() {
 	this.init = function(scene) {
-		u.bug("scene init:" + u.nodeId(scene))
 		scene.resized = function() {
 		}
 		scene.scrolled = function() {
@@ -8453,7 +8453,6 @@ Util.Objects["sendMessage"] = new function() {
 /*i-default_new.js*/
 Util.Objects["defaultNew"] = new function() {
 	this.init = function(form) {
-		u.bug("defaultNew:" + u.nodeId(form));
 		u.f.init(form);
 		if(form.actions["cancel"]) {
 			form.actions["cancel"].clicked = function(event) {
@@ -8464,7 +8463,6 @@ Util.Objects["defaultNew"] = new function() {
 			this.response = function(response) {
 				u.rc(this, "submitting");
 				if(response.cms_status == "success" && response.cms_object) {
-					console.log(response)
 					if(response.return_to) {
 						if(response.cms_object.item_id) {
 							location.href = response.return_to + response.cms_object.item_id;
