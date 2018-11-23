@@ -49,7 +49,7 @@ if($page_item) {
 
 <? else:?>
 
-	<h1>Vilkår, cookies, privatliv og licenser</h1>
+	<h1>Vilkår, kager, privatliv og licenser</h1>
 	<p>Vi er lige i gang med at opdatere siden – prøv igen senere.</p>
 
 <? endif; ?>
