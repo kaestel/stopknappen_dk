@@ -1,3 +1,4 @@
+// Custom logo animation
 u.logo_max_font_size = 15;
 u.logo_min_font_size = 8;
 

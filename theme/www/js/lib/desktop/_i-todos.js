@@ -1,6 +1,6 @@
 Util.Objects["todos"] = new function() {
 	this.init = function(div) {
-//		u.bug("todos init:" + u.nodeId(div))
+		// u.bug("todos init:", div);
 
 
 		div.item_id = u.cv(div, "item_id");

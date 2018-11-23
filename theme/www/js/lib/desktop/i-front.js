@@ -1,9 +1,9 @@
 Util.Objects["front"] = new function() {
 	this.init = function(scene) {
-//		u.bug("scene init:" + u.nodeId(scene))
+		// u.bug("scene init:", scene);
 
 		scene.resized = function(event) {
-//			u.bug("scene.resized:" + u.nodeId(this));
+			// u.bug("scene.resized:", this);
 
 			if(this.intro && !this.intro_done) {
 
@@ -38,13 +38,13 @@ Util.Objects["front"] = new function() {
 		}
 
 		scene.scrolled = function(event) {
-			u.bug("scrolled:" + u.nodeId(this))
+			// u.bug("scrolled:", this);
 
 			this.renderControl();
 		}
 
 		scene.renderControl = function() {
-//			u.bug("renderControl:" + u.nodeId(this));
+			// u.bug("renderControl:", this);
 
 			if(this.intro_done && !this.div_article_done) {
 				page.resized();
@@ -65,7 +65,7 @@ Util.Objects["front"] = new function() {
 
 
 		scene.ready = function() {
-//			u.bug("scene.ready:" + u.nodeId(this));
+			// u.bug("scene.ready:", this);
 
 			page.cN.scene = this;
 

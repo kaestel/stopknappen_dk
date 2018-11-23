@@ -1,5 +1,5 @@
 /*
-#00c90d - PRIMARY LIGHT
+#34cc3d - PRIMARY LIGHT
 #26962d - PRIMARY DARK
 #ccdbcd - BORDER
 */
@@ -8,16 +8,16 @@
 
 body {}
 
-#header .logo {color: #00c90d;}
-#navigation ul li a {color: #00c90d;}
+#header .logo {color: #34cc3d;}
+#navigation ul li a {color: #34cc3d;}
 
-#content .scene a {color: #00c90d;}
+#content .scene a {color: #34cc3d;}
 #content .scene hr {border-color: #ccdbcd;}
 
 #content ul.actions input.button.primary,
 #content ul.actions a.button.primary,
 #content .scene .pagination .next,
-#content .scene .pagination .previous {background-color: #00c90d;}
+#content .scene .pagination .previous {background-color: #34cc3d;}
 #content ul.actions input.button.primary:hover,
 #content ul.actions a.button.primary:hover,
 #content .scene .pagination .next:hover,
@@ -26,7 +26,7 @@ body {}
 #footer {border-color: #ccdbcd;}
 
 .terms_notification .accept,
-.terms_notification .details {color: #00c90d;}
+.terms_notification .details {color: #34cc3d;}
 .terms_notification {border-color: #26962d;}
 
 

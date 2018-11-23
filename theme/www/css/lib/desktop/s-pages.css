@@ -1,6 +1,6 @@
 /* PAGE LOGO */
 #header a.logo {display: block;
-	font-family: "OpenSans", Verdana, Arial, sans-serif; font-weight: bold; width: 50px; height: 34px; padding: 0; top: 30px; border-radius: 25px; background-color: #26962d; color: #ffffff; font-size: 1em; text-align: center; line-height: 15px; padding-top: 16px;
+	font-family: "OpenSans", Verdana, Arial, sans-serif; font-weight: bold; width: 50px; height: 34px; padding: 0; top: 30px; border-radius: 25px; font-size: 1em; text-align: center; line-height: 15px; padding-top: 16px;
 } 
 @media all and (-webkit-min-device-pixel-ratio:0) {
 	#header a.logo {
@@ -138,16 +138,16 @@ body.buttons #footer {display: none;}
 /* TODOS */
 #content .scene div.todos {padding-bottom: 15px; position: relative; z-index: 1;}
 #content .scene div.todos h2 {font-size: 16px; padding-bottom: 25px; position: relative; color: #dedede; cursor: pointer;}
-#content .scene div.todos h2:hover {color: #00c90d;}
+#content .scene div.todos h2:hover {color: #34cc3d;}
 #content .scene div.todos h2 svg.arrow {position: absolute; top: 6px; right: 55px;}
 #content .scene div.todos h2 svg.arrow line {stroke: #dedede; stroke-width: 3px;}
-#content .scene div.todos h2:hover svg.arrow line {stroke: #00c90d;}
+#content .scene div.todos h2:hover svg.arrow line {stroke: #34cc3d;}
 
 #content .scene div.todos > p,
 #content .scene div.todos ul.todos,
 #content .scene div.todos ul.actions {display: none;}
 
-#content .scene div.todos.open h2 {color: #00c90d;}
+#content .scene div.todos.open h2 {color: #34cc3d;}
 #content .scene div.todos.open > p,
 #content .scene div.todos.open ul.todos,
 #content .scene div.todos.open ul.actions {display: block;}
@@ -220,12 +220,12 @@ body.buttons #footer {display: none;}
 #content .scene.stop .topic div.problem {padding-top: 20px;}
 #content .scene.stop .topic div.solution {padding-top: 20px;}
 #content .scene.stop .topic div.details {}
-#content .scene.stop .topic div.details h3.clickable {color: #00c90d; cursor: pointer; padding-bottom: 40px; position: underline; position: relative;}
+#content .scene.stop .topic div.details h3.clickable {color: #34cc3d; cursor: pointer; padding-bottom: 40px; position: underline; position: relative;}
 #content .scene.stop .topic div.details h3.clickable svg.arrow {position: absolute; top: 7px; right: 55px;}
 #content .scene.stop .topic div.details h3.clickable svg.arrow line {stroke: #dedede; stroke-width: 3px;}
 
 #content .scene.stop .topic div.details h3.clickable:hover {text-decoration: underline;}
-#content .scene.stop .topic div.details h3.clickable:hover svg.arrow line {stroke: #00c90d;}
+#content .scene.stop .topic div.details h3.clickable:hover svg.arrow line {stroke: #34cc3d;}
 
 
 #content .scene.stop .topic div.details div.description,

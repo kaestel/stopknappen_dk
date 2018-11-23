@@ -1,5 +1,5 @@
 /*
-#00c90d - PRIMARY LIGHT
+#34cc3d - PRIMARY LIGHT
 #26962d - PRIMARY DARK
 #ccdbcd - BORDER
 */
@@ -8,8 +8,9 @@
 
 body {}
 
-#header .logo {color: #00c90d;}
+#header .logo {background-color: #26962d; color: #ffffff;}
 #navigation ul li {color: #34cc3d;}
+#navigation ul li.selected {color: #26962d;}
 
 #content .scene a,
 #content .scene ul.geo.active li.location {color: #34cc3d;}
@@ -31,7 +32,9 @@ ul.actions a.button.primary,
 #content .scene h6,
 #content .scene p,
 #content .scene li,
-#content .scene dd {color: #777777;}
+#content .scene dd,
+label,
+body > div#smartphone_switch p {color: #777777;}
 
 #footer {border-color: #ccdbcd;}
 #footer a {color: #34cc3d;}
@@ -41,18 +44,5 @@ body > div.pagination li.previous > svg.arrow line {stroke: #26962d;}
 body > div.pagination li.previous,
 body > div.pagination li.next {border-color: #26962d;}
 
+
 .terms_notification {background-color: #26962d;}
-
-
-/* LOCAL */
-
-/*.front #header .logo,*/
-.posts #navigation ul li.posts,
-.signup #navigation ul li.signup,
-.about #navigation ul li.about,
-.buttons #navigation ul li.buttons,
-.articles #navigation ul li.articles,
-.stop #navigation ul li.stop,
-.start #navigation ul li.start {color: #26962d;}
-
-

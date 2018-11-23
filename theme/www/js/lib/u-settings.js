@@ -1,8 +1,8 @@
 u.site_name = "STOP";
 u.terms_version = "terms_v1";
 
-// u.ga_account = 'UA-70121397-1';
-// u.ga_domain = 'stopknappen.dk';
+u.ga_account = 'UA-70121397-1';
+u.ga_domain = 'stopknappen.dk';
 
 
 u.txt = {};
@@ -34,3 +34,14 @@ u.txt["relogin"] = "Din session er udløbet - log ind igen for at fortsætte.";
 u.txt["terms-headline"] = "Vi elsker <br />kager og privatliv";
 u.txt["terms-accept"] = "OK";
 u.txt["terms-details"] = "?";
+
+
+// Smartphone Switch
+u.txt["smartphone-switch-headline"] = "Halløjsa";
+u.txt["smartphone-switch-text"] = [
+	"Hvis du kigger efter en mobil version af siden, hjælper det, hvis du faktisk bruger en mobil telefon.",
+	"Vi forsøger altid at skabe den bedste besøgsoplevelse og benytter parentNode's <em>Et UI til hver device type</em>-metode, til at skabe en optimeret brugeroplevelse, med et mindre energi forbrug i alle led af kæden.",
+	"Men, da brugeroplevelsen er i højsædet, kan du naturligvis blot skifte til vores Smartphone version og se om det tjener dit behov bedre lige nu. Du kan altid vende tilbage til Desktop versionen igen senere.",
+];
+u.txt["smartphone-switch-bn-hide"] = "Gem";
+u.txt["smartphone-switch-bn-switch"] = "Smartphone version";

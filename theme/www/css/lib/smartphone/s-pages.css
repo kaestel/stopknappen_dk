@@ -71,7 +71,7 @@ body.front #header {/*display: none;*/ opacity: 0;}
 /* ARTICLE */
 /*#content .scene.article div.intro {padding-bottom: 10px; border-bottom: 1px solid #dedede; margin-bottom: 30px; margin-top: -20px;}
 #content .scene.article div.intro p {font-size: 13px; color: #cccccc;}
-#content .scene .article ul.tags a:active {color: #00c90d;}
+#content .scene .article ul.tags a:active {color: #34cc3d;}
 */
 
 
@@ -95,7 +95,7 @@ body.front #header {/*display: none;*/ opacity: 0;}
 #content .scene.stop li.topic > h3 {position: relative;}
 #content .scene.stop li.topic > h3 svg.arrow {position: absolute; top: 7px; right: 20px;}
 #content .scene.stop li.topic > h3 svg.arrow line {stroke: #dedede; stroke-width: 3px;}
-#content .scene.stop li.topic > h3:hover svg.arrow line {stroke: #00c90d;}
+#content .scene.stop li.topic > h3:hover svg.arrow line {stroke: #34cc3d;}
 
 
 #content .scene.stop li.topic > h3 a {display: block;}
@@ -108,12 +108,12 @@ body.front #header {/*display: none;*/ opacity: 0;}
 #content .scene.stop .topic div.solution {padding-top: 20px;}
 #content .scene.stop .topic div.details {}
 #content .scene.stop .topic div.details h3 {font-size: 16px;}
-#content .scene.stop .topic div.details h3.clickable {color: #00c90d; cursor: pointer; padding-bottom: 40px; position: underline; position: relative;}
+#content .scene.stop .topic div.details h3.clickable {color: #34cc3d; cursor: pointer; padding-bottom: 40px; position: underline; position: relative;}
 #content .scene.stop .topic div.details h3.clickable svg.arrow {position: absolute; top: 7px; right: 20px;}
 #content .scene.stop .topic div.details h3.clickable svg.arrow line {stroke: #dedede; stroke-width: 3px;}
 
 #content .scene.stop .topic div.details h3.clickable:hover {text-decoration: underline;}
-#content .scene.stop .topic div.details h3.clickable:hover svg.arrow line {stroke: #00c90d;}
+#content .scene.stop .topic div.details h3.clickable:hover svg.arrow line {stroke: #34cc3d;}
 
 
 #content .scene.stop .topic div.details div.description,

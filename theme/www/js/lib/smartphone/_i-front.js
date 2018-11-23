@@ -1,10 +1,10 @@
 Util.Objects["front"] = new function() {
 	this.init = function(scene) {
-//		u.bug("scene init:" + u.nodeId(scene))
+		// u.bug("scene init:", scene);
 		
 
 		scene.resized = function() {
-//			u.bug("scene.resized:" + u.nodeId(this));
+			// u.bug("scene.resized:", this);
 
 			// Position all content relatively to this._h1
 			// u.a.translate(this._h1, (page.cN.offsetWidth/2)-(this._h1.offsetWidth/2), (page.cN.offsetHeight/2)-(this._h1.offsetHeight))
@@ -35,11 +35,11 @@ Util.Objects["front"] = new function() {
 		}
 
 		scene.scrolled = function() {
-//			u.bug("scrolled:" + u.nodeId(this))
+//			// u.bug("scrolled:", this);
 		}
 
 		scene.ready = function() {
-//			u.bug("scene.ready:" + u.nodeId(this));
+			// u.bug("scene.ready:", this);
 
 
 			// reference content
