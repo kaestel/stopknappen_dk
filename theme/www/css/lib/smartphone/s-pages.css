@@ -47,7 +47,7 @@ body.front #header {/*display: none;*/ opacity: 0;}
 
 /* FRONT - ARTICLE */
 #content .scene.front div.article {opacity: 0;
-	padding-top: 60px;
+	padding-top: 30px;
 }
 
 
@@ -57,7 +57,7 @@ body.front #header {/*display: none;*/ opacity: 0;}
 #content .scene.front div.posts h2 a {font-size: 12px; display: inline-block; vertical-align: middle;
 	font-family: "OpenSans";
 }
-#content .scene.front div.posts ul.articles li.article h3 {padding-bottom: 20px; color: #26962d;}
+#content .scene.front div.posts ul.articles li.article p a.readmore {white-space: nowrap;}
 
 
 /* ARTICLES */

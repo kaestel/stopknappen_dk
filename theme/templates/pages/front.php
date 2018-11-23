@@ -89,7 +89,7 @@ $post_items = $IC->getItems(array("itemtype" => "post", "tags" => "on:frontpage"
 
 				<? if($item["description"]): ?>
 				<div class="description" itemprop="description">
-					<p><?= nl2br($item["description"]) ?> <a href="/opslag/<?= $item["sindex"] ?>">Læs mere</a>.</p>
+					<p><?= nl2br($item["description"]) ?> <a href="/opslag/<?= $item["sindex"] ?>" class="readmore">Læs mere</a>.</p>
 				</div>
 				<? endif; ?>
 
