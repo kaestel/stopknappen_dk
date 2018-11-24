@@ -101,7 +101,7 @@ $related_items = $IC->getRelatedItems($related_pattern);
 
 
 				<?= $HTML->articleTags($item, [
-					"context" => [$itemtype],
+					"context" => ["about"],
 					"url" => "/artikler/tag",
 					"default" => ["/artikler", "Alle artikler"]
 				]) ?>
