@@ -73,6 +73,14 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 		]) ?>
 
 
+		<? if($editing_tag_index !== false && preg_match("/Kladde/", $item["tags"][arrayKeyValue($item["tags"], "context", "editing")]["value"])): ?>
+		<div class="disclaimer">
+			<h3>Dette emne er midt i en intens redigeringsprocess</h3>
+			<p>Du må gerne læse kladden, men den kan indeholde både halve sætninger og sågar sludder og vrøvl.</p>
+		</div>
+		<? endif; ?>
+
+
 		<? if($item["html"]): ?>
 		<div class="articlebody" itemprop="articleBody">
 			<?= $item["html"] ?>
