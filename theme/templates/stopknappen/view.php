@@ -2,37 +2,16 @@
 global $IC;
 global $action;
 global $itemtype;
+$model = $IC->typeObject($itemtype);
 
 $qnas = false;
 $next = false;
 $prev = false;
 
-$item = $IC->getItem(array("sindex" => $action[0], "extend" => array("tags" => true, "user" => true, "comments" => true, "readstate" => true)));
-if($item) {
-	$this->sharingMetaData($item);
-
-	$qnas = $IC->getItems(array("itemtype" => "qna", "status" => 1, "where" => "qna.about_item_id = ".$item["id"], "extend" => array("user" => true)));
-
-	$next = $IC->getNext($item["item_id"], array("itemtype" => $itemtype, "status" => 1, "order" => "position ASC", "extend" => true));
-	$prev = $IC->getPrev($item["item_id"], array("itemtype" => $itemtype, "status" => 1, "order" => "position ASC", "extend" => true));
-}
-
-
-// clean tags for non-indexing related stuff
-$related_tags = $item["tags"];
-$todo_tag_index = arrayKeyValue($related_tags, "context", "todo");
-if($todo_tag_index !== false) {
-	unset($related_tags[$todo_tag_index]);
-}
-$editing_tag_index = arrayKeyValue($related_tags, "context", "editing");
-if($editing_tag_index !== false) {
-	unset($related_tags[$editing_tag_index]);
-}
-
+// default related search pattern
 $related_topic_pattern = array(
 	"itemtype" => $itemtype, 
-	"tags" => $related_tags, 
-	"exclude" => $item["id"],
+	"tags" => [], 
 	"autofill" => false,
 	"limit" => 5,
 	"extend" => array(
@@ -42,6 +21,50 @@ $related_topic_pattern = array(
 	)
 );
 
+// Use special property, fixed_url_identifier to identify topic
+$fixed_url_identifier = $action[0];
+$sql = "SELECT item_id FROM ".$model->db." WHERE fixed_url_identifier = '$fixed_url_identifier' LIMIT 1";
+$query = new Query;
+if($query->sql($sql)) {
+	$item_id = $query->result(0, "item_id");
+	$item = $IC->getItem(array("id" => $item_id, "extend" => array("tags" => true, "user" => true, "comments" => true, "readstate" => true)));
+}
+// attempt look up by sindex, for fallback purposes
+else {
+	$item = $IC->getItem(array("sindex" => $action[0], "extend" => array("tags" => true, "user" => true, "comments" => true, "readstate" => true)));
+}
+
+// Did we find the topic
+if($item && $item["itemtype"] == $itemtype) {
+	$this->sharingMetaData($item);
+
+	$qnas = $IC->getItems(array("itemtype" => "qna", "status" => 1, "where" => "qna.about_item_id = ".$item["id"], "extend" => array("user" => true)));
+
+	$next = $IC->getNext($item["item_id"], array("itemtype" => $itemtype, "status" => 1, "order" => "position ASC", "extend" => true));
+	$prev = $IC->getPrev($item["item_id"], array("itemtype" => $itemtype, "status" => 1, "order" => "position ASC", "extend" => true));
+
+	// clean tags for non-indexing related stuff
+	$related_tags = $item["tags"];
+	$todo_tag_index = arrayKeyValue($related_tags, "context", "todo");
+	if($todo_tag_index !== false) {
+		unset($related_tags[$todo_tag_index]);
+	}
+	$editing_tag_index = arrayKeyValue($related_tags, "context", "editing");
+	if($editing_tag_index !== false) {
+		unset($related_tags[$editing_tag_index]);
+	}
+
+	// Update related search pattern
+	$related_topic_pattern["tags"] = $related_tags;
+	$related_topic_pattern["exclude"] = $item["id"];
+
+}
+// avoid showing wrong topic types
+else {
+	$item = false;
+}
+
+
 // get related items
 $related_topics = $IC->getRelatedItems($related_topic_pattern);
 
@@ -49,7 +72,7 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 <div class="scene topic i:topic">
 
 <? if($item):
-	$media = $IC->sliceMedia($page_item); ?>
+	$media = $IC->sliceMedia($item); ?>
 
 	<div class="i:article topic article id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
 		data-csrf-token="<?= session()->value("csrf") ?>"
@@ -68,7 +91,7 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 
 		<h1 itemprop="headline"><?= $item["name"] ?></h1>
 
-		<?= $HTML->articleInfo($item, "/stop/".$item["sindex"], [
+		<?= $HTML->articleInfo($item, "/stop/".$item["fixed_url_identifier"], [
 			"media" => $media
 		]) ?>
 
@@ -99,10 +122,10 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 	<div class="pagination i:pagination">
 		<ul>
 		<? if($prev): ?>
-			<li class="previous"><a href="/stop/<?= $prev[0]["sindex"] ?>"><?= strip_tags($prev[0]["name"]) ?></a></li>
+			<li class="previous"><a href="/stop/<?= $prev[0]["fixed_url_identifier"] ?>"><?= strip_tags($prev[0]["name"]) ?></a></li>
 		<? endif; ?>
 		<? if($next): ?>
-			<li class="next"><a href="/stop/<?= $next[0]["sindex"] ?>"><?= strip_tags($next[0]["name"]) ?></a></li>
+			<li class="next"><a href="/stop/<?= $next[0]["fixed_url_identifier"] ?>"><?= strip_tags($next[0]["name"]) ?></a></li>
 		<? endif; ?>
 		</ul>
 	</div>
@@ -124,10 +147,10 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 
 <? 	if($related_topics): ?>
 	<div class="related">
-		<h2>Relateret <a href="/stop">(Se alle)</a></h2>
+		<h2>Relaterede emner <a href="/stop">(Se alle)</a></h2>
 		<ul class="topics i:articleMiniList">
 		<? foreach($related_topics as $item):
-			$media = $IC->sliceMedia($page_item); ?>
+			$media = $IC->sliceMedia($item); ?>
 			<li class="article topic item_id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
 				data-readstate="<?= $item["readstate"] ?>"
 				>
@@ -139,10 +162,10 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 				]) ?>
 
 
-				<h3 class="headline"><a href="/stop/<?= $item["sindex"] ?>"><?= strip_tags($item["name"]) ?></a></h3>
+				<h3 class="headline"><a href="/stop/<?= $item["fixed_url_identifier"] ?>"><?= strip_tags($item["name"]) ?></a></h3>
 
 
-				<?= $HTML->articleInfo($item, "/stop/".$item["sindex"], [
+				<?= $HTML->articleInfo($item, "/stop/".$item["fixed_url_identifier"], [
 					"media" => $media
 				]) ?>
 

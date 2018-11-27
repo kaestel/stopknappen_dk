@@ -11,13 +11,29 @@ if($page_item) {
 // topic items
 $items = $IC->getItems(array("itemtype" => $itemtype, "status" => 1, "order" => "position ASC", "extend" => array("tags" => true, "user" => true, "readstate" => true)));
 
-$items_read = [];
-// sort items in read and not read
-foreach($items as $i => $item) {
-	if($item["readstate"]) {
-		array_push($items_read, $items[$i]);
-		unset($items[$i]);
-	}
+
+// find introduction and conclusion
+$introduction = false;
+$introduction_index = arrayKeyValue($items, "name", "Introduktion");
+if($introduction_index !== false) {
+	// isolate introduction from other topics
+	$introduction = $items[$introduction_index];
+	unset($items[$introduction_index]);
+}
+
+$budget = false;
+$budget_index = arrayKeyValue($items, "name", "Budget");
+if($budget_index !== false) {
+	// isolate budet from other topics
+	$budget = $items[$budget_index];
+	unset($items[$budget_index]);
+}
+$timeline = false;
+$timeline_index = arrayKeyValue($items, "name", "Tidslinje");
+if($timeline_index !== false) {
+	// isolate timeline from other topics
+	$timeline = $items[$timeline_index];
+	unset($items[$timeline_index]);
 }
 
 ?>
@@ -64,27 +80,51 @@ foreach($items as $i => $item) {
 <? endif; ?>
 
 
-	<ul class="topics">
-<?	foreach($items as $item):
-		$media = $IC->sliceMedia($item); ?>
-		<li class="topic item_id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
-			data-readstate="<?= $item["readstate"] ?>"
+	<? if($introduction): ?>
+	<ul class="topics i:articleMiniList">
+		<li class="article topic introduction item_id:<?= $introduction["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
+			data-readstate="<?= $introduction["readstate"] ?>"
 			>
 
+			<?= $HTML->articleTags($introduction, [
+				"context" => ["about"],
+				"url" => "/start/tag"
+			]) ?>
+
+			<h3 class="headline"><a href="/start/<?= $introduction["fixed_url_identifier"] ?>"><?= strip_tags($introduction["name"]) ?></a></h3>
+
+			<?= $HTML->articleInfo($introduction, "/start/".$introduction["fixed_url_identifier"], [
+				"media" => $media
+			]) ?>
+
+			<? if($introduction["description"]): ?>
+			<div class="description" itemprop="description">
+				<p><?= nl2br($introduction["description"]) ?></p>
+			</div>
+			<? endif; ?>
+
+		</li>
+	</ul>
+	<? endif; ?>
+
+
+	<ul class="topics i:articleMiniList">
+	<? foreach($items as $item):
+		$media = $IC->sliceMedia($item); ?>
+		<li class="article topic item_id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
+			data-readstate="<?= $item["readstate"] ?>"
+			>
 
 			<?= $HTML->articleTags($item, [
 				"context" => ["about"],
 				"url" => "/start/tag"
 			]) ?>
 
+			<h3 class="headline"><a href="/start/<?= $item["fixed_url_identifier"] ?>"><?= strip_tags($item["name"]) ?></a></h3>
 
-			<h3 class="headline"><a href="/start/<?= $item["sindex"] ?>"><?= strip_tags($item["name"]) ?></a></h3>
-
-
-			<?= $HTML->articleInfo($item, "/start/".$item["sindex"], [
+			<?= $HTML->articleInfo($item, "/start/".$item["fixed_url_identifier"], [
 				"media" => $media
 			]) ?>
-
 
 			<? if($item["description"]): ?>
 			<div class="description" itemprop="description">
@@ -93,40 +133,63 @@ foreach($items as $i => $item) {
 			<? endif; ?>
 
 		</li>
-<?	endforeach; ?>
+	<? endforeach; ?>
 	</ul>
 
 
-	<ul class="topics read i:articleMiniList">
-<?	foreach($items_read as $item):
-		$media = $IC->sliceMedia($item); ?>
-		<li class="article topic item_id:<?= $item["item_id"] ?>"
-			data-readstate="<?= $item["readstate"] ?>"
+	<? if($budget || $timeline): ?>
+	<ul class="topics i:articleMiniList">
+		<? if($budget): ?>
+		<li class="article topic conclusion item_id:<?= $budget["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
+			data-readstate="<?= $budget["readstate"] ?>"
 			>
 
-
-			<?= $HTML->articleTags($item, [
+			<?= $HTML->articleTags($budget, [
 				"context" => ["about"],
-				"url" => "/start/tag",
+				"url" => "/stop/tag"
 			]) ?>
 
+			<h3 class="headline"><a href="/stop/<?= $budget["fixed_url_identifier"] ?>"><?= strip_tags($budget["name"]) ?></a></h3>
 
-			<h3 class="headline"><a href="/start/<?= $item["sindex"] ?>"><?= $item["name"] ?></a></h3>
-
-			<?= $HTML->articleInfo($item, "/start/".$item["sindex"], [
+			<?= $HTML->articleInfo($budget, "/stop/".$budget["fixed_url_identifier"], [
 				"media" => $media
 			]) ?>
 
-
-			<? if($item["description"]): ?>
+			<? if($budget["description"]): ?>
 			<div class="description" itemprop="description">
-				<p><?= nl2br($item["description"]) ?></p>
+				<p><?= nl2br($budget["description"]) ?></p>
 			</div>
 			<? endif; ?>
 
 		</li>
-<?	endforeach; ?>
-	</ul>
+		<? endif; ?>
 
+		<? if($timeline): ?>
+		<li class="article topic conclusion item_id:<?= $timeline["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
+			data-readstate="<?= $timeline["readstate"] ?>"
+			>
+
+			<?= $HTML->articleTags($timeline, [
+				"context" => ["about"],
+				"url" => "/stop/tag"
+			]) ?>
+
+			<h3 class="headline"><a href="/stop/<?= $timeline["fixed_url_identifier"] ?>"><?= strip_tags($timeline["name"]) ?></a></h3>
+
+			<?= $HTML->articleInfo($timeline, "/stop/".$timeline["fixed_url_identifier"], [
+				"media" => $media
+			]) ?>
+
+			<? if($timeline["description"]): ?>
+			<div class="description" itemprop="description">
+				<p><?= nl2br($timeline["description"]) ?></p>
+			</div>
+			<? endif; ?>
+
+		</li>
+		<? endif; ?>
+
+	</ul>
+	<? endif; ?>
 
 </div>

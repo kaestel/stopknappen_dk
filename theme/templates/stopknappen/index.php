@@ -11,14 +11,6 @@ if($page_item) {
 // topic items
 $items = $IC->getItems(array("itemtype" => $itemtype, "status" => 1, "order" => "position ASC", "extend" => array("tags" => true, "user" => true, "readstate" => true)));
 
-$items_read = [];
-// sort items in read and not read
-// foreach($items as $i => $item) {
-// 	if($item["readstate"]) {
-// 		array_push($items_read, $items[$i]);
-// 		unset($items[$i]);
-// 	}
-// }
 
 // find introduction and conclusion
 $introduction = false;
@@ -81,7 +73,6 @@ if($conclusion_index !== false) {
 <? endif; ?>
 
 
-
 	<? if($introduction): ?>
 	<ul class="topics i:articleMiniList">
 		<li class="article topic introduction item_id:<?= $introduction["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
@@ -93,9 +84,9 @@ if($conclusion_index !== false) {
 				"url" => "/stop/tag"
 			]) ?>
 
-			<h3 class="headline"><a href="/stop/<?= $introduction["sindex"] ?>"><?= strip_tags($introduction["name"]) ?></a></h3>
+			<h3 class="headline"><a href="/stop/<?= $introduction["fixed_url_identifier"] ?>"><?= strip_tags($introduction["name"]) ?></a></h3>
 
-			<?= $HTML->articleInfo($introduction, "/stop/".$introduction["sindex"], [
+			<?= $HTML->articleInfo($introduction, "/stop/".$introduction["fixed_url_identifier"], [
 				"media" => $media
 			]) ?>
 
@@ -109,6 +100,7 @@ if($conclusion_index !== false) {
 	</ul>
 	<? endif; ?>
 
+
 	<ul class="topics i:articleMiniList">
 	<? foreach($items as $item):
 		$media = $IC->sliceMedia($item); ?>
@@ -121,9 +113,9 @@ if($conclusion_index !== false) {
 				"url" => "/stop/tag"
 			]) ?>
 
-			<h3 class="headline"><a href="/stop/<?= $item["sindex"] ?>"><?= strip_tags($item["name"]) ?></a></h3>
+			<h3 class="headline"><a href="/stop/<?= $item["fixed_url_identifier"] ?>"><?= strip_tags($item["name"]) ?></a></h3>
 
-			<?= $HTML->articleInfo($item, "/stop/".$item["sindex"], [
+			<?= $HTML->articleInfo($item, "/stop/".$item["fixed_url_identifier"], [
 				"media" => $media
 			]) ?>
 
@@ -149,9 +141,9 @@ if($conclusion_index !== false) {
 				"url" => "/stop/tag"
 			]) ?>
 
-			<h3 class="headline"><a href="/stop/<?= $conclusion["sindex"] ?>"><?= strip_tags($conclusion["name"]) ?></a></h3>
+			<h3 class="headline"><a href="/stop/<?= $conclusion["fixed_url_identifier"] ?>"><?= strip_tags($conclusion["name"]) ?></a></h3>
 
-			<?= $HTML->articleInfo($conclusion, "/stop/".$conclusion["sindex"], [
+			<?= $HTML->articleInfo($conclusion, "/stop/".$conclusion["fixed_url_identifier"], [
 				"media" => $media
 			]) ?>
 

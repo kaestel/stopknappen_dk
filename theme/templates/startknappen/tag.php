@@ -26,10 +26,10 @@ $items = $IC->getItems(array("itemtype" => $itemtype, "status" => 1, "tags" => "
 			]) ?>
 
 
-			<h3 class="headline"><a href="/start/<?= $item["sindex"] ?>"><?= strip_tags($item["name"]) ?></a></h3>
+			<h3 class="headline"><a href="/start/<?= $item["fixed_url_identifier"] ?>"><?= strip_tags($item["name"]) ?></a></h3>
 
 
-			<?= $HTML->articleInfo($item, "/start/".$item["sindex"], [
+			<?= $HTML->articleInfo($item, "/start/".$item["fixed_url_identifier"], [
 				"media" => $media
 			]) ?>
 
