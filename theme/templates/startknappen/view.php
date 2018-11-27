@@ -51,7 +51,7 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 <? if($item):
 	$media = $IC->sliceMedia($item); ?>
 
-	<div class="i:article topic id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
+	<div class="i:article topic article id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
 		data-csrf-token="<?= session()->value("csrf") ?>"
 		data-readstate="<?= $item["readstate"] ?>"
 		data-readstate-add="<?= $this->validPath("/janitor/admin/profile/addReadstate/".$item["item_id"]) ?>" 
