@@ -99,7 +99,15 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 		<? if($editing_tag_index !== false && preg_match("/Kladde/", $item["tags"][arrayKeyValue($item["tags"], "context", "editing")]["value"])): ?>
 		<div class="disclaimer">
 			<h3>Dette emne er midt i en intens redigeringsprocess</h3>
-			<p>Du må gerne læse kladden, men den kan indeholde både halve sætninger og sågar sludder og vrøvl.</p>
+			<p>
+				Du må gerne læse kladden, men den kan indeholde både halve sætninger og udokumenteret sludder og 
+				vrøvl. Redigeringen er en ucensureret process og fordybelsen i et enkelt emne, kan nogle gange gøre 
+				redaktørene både følelsesladede og blinde for andre vinkler.
+			</p>
+			<p>
+				Hvis du læser noget du finder stødende eller forkert, så læg en kommentar eller stil spørgsmål 
+				nederst på siden – det er den bedste måde at sikre dig, at vi ikke overser dit perspektiv.
+			</p>
 		</div>
 		<? endif; ?>
 
