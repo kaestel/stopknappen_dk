@@ -1,4 +1,6 @@
+/* Skin */
 @import url(../../assets/parentnode-skin-default/css/seg_mobile.css);
 
+/* Project */
 @import url(mobile/s-pages.css);
 @import url(mobile/s-colorscheme.css);
