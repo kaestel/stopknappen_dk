@@ -3,6 +3,7 @@ document.write('<script type="text/javascript" src="/assets/parentnode-skin-defa
 
 // Additional includes from parentnode-skin-default
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/u-settings.js"></script>');
+document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/u-basics.js"></script>');
 
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/manipulator/src/u-textscaler.js"></script>');
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/manipulator/src/u-form-builder.js"></script>');
@@ -20,14 +21,15 @@ document.write('<script type="text/javascript" src="/assets/parentnode-skin-defa
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/desktop/i-qnas.js"></script>');
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/desktop/i-pagination.js"></script>');
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/desktop/i-article_mini_list.js"></script>');
-document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/u-basics.js"></script>');
+
 
 // Project specific
 document.write('<script type="text/javascript" src="/js/lib/u-settings.js"></script>');
+document.write('<script type="text/javascript" src="/js/lib/desktop/u-basics.js"></script>'); // Additional Code to skin u-basics
 
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-front.js"></script>'); // Different
+document.write('<script type="text/javascript" src="/js/lib/desktop/i-signup.js"></script>'); // Small js snippet
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-buttons.js"></script>'); // Not in skin
-document.write('<script type="text/javascript" src="/js/lib/desktop/i-signup.js"></script>'); // Small js snippet added aswell as u.showScene at bottom
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-stop.js"></script>'); // Not in skin
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-start.js"></script>'); // Not in skin
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-topic.js"></script>'); // Not in skin

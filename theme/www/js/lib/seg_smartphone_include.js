@@ -1,7 +1,7 @@
 // Skin
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/seg_smartphone.js"></script>');
 
-document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/desktop/u-settings.js"></script>');
+document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/u-settings.js"></script>');
 
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/manipulator/src/u-textscaler.js"></script>');
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/manipulator/src/u-form-builder.js"></script>');

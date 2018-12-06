@@ -3,6 +3,7 @@ document.write('<script type="text/javascript" src="/assets/parentnode-skin-defa
 
 // Additional includes from parentnode-skin-default
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/u-settings.js"></script>');
+document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/u-basics.js"></script>');
 
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/manipulator/src/u-textscaler.js"></script>');
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/manipulator/src/u-form-builder.js"></script>');
@@ -25,10 +26,11 @@ document.write('<script type="text/javascript" src="/assets/parentnode-skin-defa
 
 // Project specific
 document.write('<script type="text/javascript" src="/js/lib/u-settings.js"></script>');
+document.write('<script type="text/javascript" src="/js/lib/desktop/u-basics.js"></script>');
 
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-front.js"></script>');
-document.write('<script type="text/javascript" src="/js/lib/desktop/i-buttons.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-signup.js"></script>');
+document.write('<script type="text/javascript" src="/js/lib/desktop/i-buttons.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-stop.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-start.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-topic.js"></script>');
