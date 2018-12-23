@@ -56,7 +56,7 @@ class TypeStoptopic extends Itemtype {
 	}
 
 	// update fixed_url_identifier based on sindex (if not defined)
-	function postSave($item_id) {
+	function saved($item_id) {
 
 		$IC = new Items();
 		$item = $IC->getItem(["id" => $item_id, "extend" => true]);
@@ -69,7 +69,7 @@ class TypeStoptopic extends Itemtype {
 	}
 
 	// update fixed_url_identifier based on sindex (if not defined)
-	function postUpdate($item_id) {
+	function updated($item_id) {
 
 		$IC = new Items();
 		$item = $IC->getItem(["id" => $item_id, "extend" => true]);
