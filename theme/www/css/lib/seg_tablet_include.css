@@ -1,5 +1,14 @@
+/* Skin */
 @import url(../../assets/parentnode-skin-default/css/seg_tablet.css);
 
+@import url(../../assets/parentnode-skin-default/css/lib/desktop/s-comments.css);
+@import url(../../assets/parentnode-skin-default/css/lib/desktop/s-form.css);
+@import url(../../assets/parentnode-skin-default/css/lib/desktop/s-pagination.css);
+@import url(../../assets/parentnode-skin-default/css/lib/desktop/s-readstate.css);
+@import url(../../assets/parentnode-skin-default/css/lib/desktop/s-qnas.css);
+@import url(../../assets/parentnode-skin-default/css/lib/desktop/s-sharing.css);
+
+/* Project */
 @import url(desktop/s-pages.css);
 @import url(desktop/s-colorscheme.css);
 @import url(tablet/s-pages-active.css);

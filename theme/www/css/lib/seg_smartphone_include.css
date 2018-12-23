@@ -1,4 +1,11 @@
+/* Skin */
 @import url(../../assets/parentnode-skin-default/css/seg_smartphone.css);
 
+@import url(../../assets/parentnode-skin-default/css/lib/smartphone/s-comments.css);
+@import url(../../assets/parentnode-skin-default/css/lib/smartphone/s-form.css);
+@import url(../../assets/parentnode-skin-default/css/lib/smartphone/s-pagination.css);
+
+
+/* Project */
 @import url(smartphone/s-colorscheme.css);
 @import url(smartphone/s-pages.css);
