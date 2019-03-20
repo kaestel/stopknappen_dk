@@ -5,7 +5,6 @@ u.ga_account = 'UA-70121397-1';
 u.ga_domain = 'stopknappen.dk';
 
 
-u.txt = {};
 u.txt["share"] = "Del siden";
 u.txt["share-info-headline"] = "(Hvordan deler jeg?)";
 u.txt["share-info-txt"] = "Vi har med vilje ikke inkluderet social media plugins, fordi disse ofte misbruges til at indsamle data om dig. Vi ønsker heller ikke at promovere nogle kanaler over andre. I stedet kan du blot kopiere det viste link og selv dele det, dér hvor du finder det relevant.";
