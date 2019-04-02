@@ -21,7 +21,6 @@ if($action) {
 	// verificer/bekraeft
 	if($action[0] == "bekraeft") {
 
-		// verificer/bekraeft
 		if (count($action) == 1 && $page->validateCsrfToken()) {
 			
 			$username = session()->value("signup_email");
@@ -46,11 +45,10 @@ if($action) {
 			// code is not valid
 			else {
 				message()->addMessage("Forkert kode, prøv igen!", array("type" => "error"));
-				header("Location: /verify");
+				header("Location: /verificer");
 				exit();
 			}
 		}
-
 
 		// verificer/bekraeft/#email|mobile#/#verification_code#
 		else if(count($action) == 3) {
@@ -71,14 +69,14 @@ if($action) {
 
 			// code is valid
 			else if($result) {
-				header("Location: /verify/receipt");
+				header("Location: /verificer/kvittering");
 				exit();
 			}
 
 			// code is not valid
 			else {
 				// redirect to leave POST state
-				header("Location: /verify/error");
+				header("Location: /verificer/fejl");
 				exit();
 			}
 		}
