@@ -27,7 +27,7 @@ if($action) {
 		if(isset($user["user_id"])) {
 
 			// redirect to leave POST state
-			header("Location: kvittering");
+			header("Location: /verificer");
 			exit();
 
 		}
@@ -41,15 +41,6 @@ if($action) {
 			message()->addMessage("Beklager, serveren siger NEJ! <br />(Den siger ikke noget om hvorfor)", array("type" => "error"));
 		}
 
-	}
-
-	// /deltag/kvittering (user just signed up)
-	else if($action[0] == "kvittering") {
-
-		$page->page(array(
-			"templates" => "signup/receipt.php"
-		));
-		exit();
 	}
 
 	// /deltag/afmeld
