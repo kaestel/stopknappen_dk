@@ -3,16 +3,16 @@ global $action;
 global $model;
 
 $IC = new Items();
-$page_item = $IC->getItem(array("tags" => "page:signup-confirmed", "extend" => array("user" => true, "tags" => true, "mediae" => true)));
+$page_item = $IC->getItem(array("tags" => "page:verify-confirmed", "extend" => array("user" => true, "tags" => true, "mediae" => true)));
 if($page_item) {
 	$this->sharingMetaData($page_item);
 }
 
-$username = session()->value("signup_username");
-session()->reset("signup_username");
-
+$username = session()->value("signup_email");
+session()->reset("signup_email");
 ?>
-<div class="scene signup i:scene">
+
+<div class="scene verify confirmed i:scene">
 
 <? if($page_item && $page_item["status"]): 
 	$media = $IC->sliceMedia($page_item); ?>
@@ -44,7 +44,7 @@ session()->reset("signup_username");
 	</div>
 <? else:?>
 	<h1>Tak!</h1>
-	<p>Din konto er hermed bekræftet.</p>
+	<p><?= $username ?> hermed bekræftet.</p>
 	<p><a href="/janitor/admin/profile">Log ind</a>.</p>
 <? endif; ?>
 
