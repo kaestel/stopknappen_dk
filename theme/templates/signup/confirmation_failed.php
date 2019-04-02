@@ -8,10 +8,7 @@ if($page_item) {
 	$this->sharingMetaData($page_item);
 }
 
-$type = session()->value("signup_type");
 $username = session()->value("signup_username");
-
-session()->reset("signup_type");
 session()->reset("signup_username");
 ?>
 <div class="scene signup i:scene">
@@ -40,7 +37,7 @@ session()->reset("signup_username");
 
 		<? if($page_item["html"]): ?>
 		<div class="articlebody" itemprop="articleBody">
-			<?= preg_replace("/{type}/", $type, preg_replace("/{username}/", $username, $page_item["html"])) ?>
+			<?= preg_replace("/{username}/", $username, $page_item["html"]) ?>
 		</div>
 		<? endif; ?>
 	</div>

@@ -15,56 +15,10 @@ $page->bodyClass("signup");
 $page->pageTitle("Nysgerrig?");
 
 
-if(is_array($action) && count($action)) {
-
-	// /deltag/kvittering (user just signed up)
-	if($action[0] == "kvittering") {
-
-		$page->page(array(
-			"templates" => "signup/receipt.php"
-		));
-		exit();
-	}
-
-	// /deltag/bekraeft/email|mobile/#email|mobile#/#verification_code#
-	else if($action[0] == "bekraeft" && count($action) == 4) {
-
-		$username = $action[1];
-		$verification_code = $action[2];
-
-		if($model->confirmUsername($username, $verification_code)) {
-
-			// redirect to leave POST state
-			header("Location: /deltag/bekraeft/kvittering");
-			exit();
-
-		}
-		else {
-
-			// redirect to leave POST state
-			header("Location: /deltag/bekraeft/fejl");
-			exit();
-
-		}
-		exit();
-	}
-	else if($action[0] == "bekraeft" && $action[1] == "kvittering") {
-
-		$page->page(array(
-			"templates" => "signup/confirmed.php"
-		));
-		exit();
-	}
-	else if($action[0] == "bekraeft" && $action[1] == "fejl") {
-
-		$page->page(array(
-			"templates" => "signup/confirmation_failed.php"
-		));
-		exit();
-	}
+if($action) {
 
 	// /deltag/tilmelding
-	else if($action[0] == "tilmelding" && $page->validateCsrfToken()) {
+	if($action[0] == "tilmelding" && $page->validateCsrfToken()) {
 
 		// create new user
 		$user = $model->newUser(array("newUser"));
@@ -87,6 +41,15 @@ if(is_array($action) && count($action)) {
 			message()->addMessage("Beklager, serveren siger NEJ! <br />(Den siger ikke noget om hvorfor)", array("type" => "error"));
 		}
 
+	}
+
+	// /deltag/kvittering (user just signed up)
+	else if($action[0] == "kvittering") {
+
+		$page->page(array(
+			"templates" => "signup/receipt.php"
+		));
+		exit();
 	}
 
 	// /deltag/afmeld

@@ -46,6 +46,31 @@ session()->reset("signup_email");
 	</div>
 <? else:?>
 	<h1>Kvittering</h1>
-	<p>Tak for din tilmelding. Du hører fra os snart.</p>
+	<p>Tak for din tilmelding. Vi har sendt dig en email som du skal bruge til at aktivere din konto.</p>
+	<p>For at aktivere din konto kan du enten klikke på linket i emailen, eller kopiere aktiverings-koden ind i input feltet på denne side.</p>
 <? endif; ?>
+
+<?= $model->formStart("bekraeft", ["class" => "verify_code"]) ?>
+
+<?	if(message()->hasMessages(array("type" => "error"))): ?>
+		<p class="errormessage">
+<?		$messages = message()->getMessages(array("type" => "error"));
+		message()->resetMessages();
+		foreach($messages as $message): ?>
+			<?= $message ?><br>
+<?		endforeach;?>
+		</p>
+<?	endif; ?>
+
+		<fieldset>
+			<?= $model->input("verification_code"); ?>
+		</fieldset>
+
+		<ul class="actions">
+			<?= $model->submit("Aktiver min konto", array("class" => "primary", "wrapper" => "li.reset")) ?>
+		</ul>
+<?= $model->formEnd() ?>
+
+<?= print_r($_SESSION) ?>
+
 </div>
