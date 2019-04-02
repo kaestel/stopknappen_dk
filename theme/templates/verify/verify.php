@@ -45,9 +45,10 @@ session()->reset("signup_email");
 		<? endif; ?>
 	</div>
 <? else:?>
-	<h1>Tak</h1>
+	<h1>Tak!</h1>
 	<p>Tak for din tilmelding. Vi har sendt dig en email som du skal bruge til at bekræfte din konto.</p>
 	<p>For at bekræfte din konto kan du enten klikke på linket i emailen, eller kopiere koden ind i input feltet på denne side.</p>
+	<p>Du kan også vælge at springe over for nu, men du vil først kunne bruge din konto når du har bekræftet den.</p>
 <? endif; ?>
 
 <?= $model->formStart("bekraeft", ["class" => "verify_code"]) ?>
@@ -67,7 +68,8 @@ session()->reset("signup_email");
 		</fieldset>
 
 		<ul class="actions">
-			<?= $model->submit("Bekræft min konto", array("class" => "primary", "wrapper" => "li.reset")) ?>
+			<?= $model->submit("Bekræft min konto", array("class" => "primary", "wrapper" => "li.verify")) ?>
+			<li class="skip"><a href="/verificer/senere" class="button">Spring over</a></li>
 		</ul>
 <?= $model->formEnd() ?>
 
