@@ -14,6 +14,8 @@ document.write('<script type="text/javascript" src="/assets/parentnode-skin-defa
 
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/desktop/i-scene.js"></script>');
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/desktop/i-login.js"></script>');
+document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/desktop/i-signup.js"></script>');
+document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/desktop/i-verify.js"></script>');
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/desktop/i-comments.js"></script>');
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/desktop/u-sharing.js"></script>');
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/desktop/u-checkmark.js"></script>');
@@ -28,7 +30,6 @@ document.write('<script type="text/javascript" src="/js/lib/u-settings.js"></scr
 document.write('<script type="text/javascript" src="/js/lib/desktop/u-basics.js"></script>'); // Additional Code to skin u-basics
 
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-front.js"></script>'); // Different
-document.write('<script type="text/javascript" src="/js/lib/desktop/i-signup.js"></script>'); // Small js snippet
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-buttons.js"></script>'); // Not in skin
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-stop.js"></script>'); // Not in skin
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-start.js"></script>'); // Not in skin
