@@ -7,10 +7,8 @@ $page_item = $IC->getItem(array("tags" => "page:verify", "extend" => array("user
 if($page_item) {
 	$this->sharingMetaData($page_item);
 }
-
-$email = session()->value("signup_email");
-session()->reset("signup_email");
 ?>
+
 <div class="scene verify i:verify">
 <? if($page_item && $page_item["status"] && $email): 
 	$media = $IC->sliceMedia($page_item); ?>
