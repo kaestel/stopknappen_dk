@@ -71,6 +71,4 @@ if($page_item) {
 		</ul>
 <?= $model->formEnd() ?>
 
-<?= print_r($_SESSION) ?>
-
 </div>
