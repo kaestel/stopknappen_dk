@@ -21,7 +21,7 @@ document.write('<script type="text/javascript" src="/js/manipulator/src/u-textsc
 
 document.write('<script type="text/javascript" src="/js/manipulator/src/beta-u-form-onebuttonform.js"></script>');
 document.write('<script type="text/javascript" src="/js/manipulator/src/beta-u-animation-to.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/beta-u-fontsReady.js"></script>');
+document.write('<script type="text/javascript" src="/js/manipulator/src/beta-u-fontsready.js"></script>');
 
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-article_mini_list.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-comments.js"></script>');
