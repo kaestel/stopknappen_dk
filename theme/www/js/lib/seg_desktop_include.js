@@ -2,8 +2,8 @@
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/seg_desktop.js"></script>');
 
 // Additional includes from parentnode-skin-default
-document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/u-settings.js"></script>');
-document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/u-basics.js"></script>');
+// document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/u-settings.js"></script>');
+// document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/u-basics.js"></script>');
 
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/manipulator/src/u-textscaler.js"></script>');
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/manipulator/src/u-form-builder.js"></script>');
