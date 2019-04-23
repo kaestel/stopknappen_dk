@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2019-04-04 02:38:07
+asset-builder @ 2019-04-23 23:40:38
 */
 
 /*seg_smartphone_include.js*/
@@ -2650,7 +2650,7 @@ Util.Form = u.f = new function() {
 				min = Number(u.cv(iN.field, "min"));
 				max = Number(u.cv(iN.field, "max"));
 				min = min ? min : 8;
-				max = max ? max : 20;
+				max = max ? max : 255;
 				pattern = iN.getAttribute("pattern");
 				compare_to = iN.getAttribute("data-compare-to");
 				if(
@@ -4475,6 +4475,13 @@ u.txt["smartphone-switch-text"] = [
 ];
 u.txt["smartphone-switch-bn-hide"] = "Hide";
 u.txt["smartphone-switch-bn-switch"] = "Go to Smartphone version";
+u.f.fixFieldHTML = function(field) {
+	u.bug("fixFieldHTML");
+	var label = u.qs("label", field);
+	if(label) {
+		u.ae(label, field._indicator);
+	}
+}
 u.bug_console_only = true;
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
@@ -4506,15 +4513,17 @@ Util.Objects["page"] = new function() {
 				this.cN.scene.resized();
 			}
 			this.offsetHeight;
-			if(this.bn_nav.is_open) {
-				u.ass(page.hN, {
-					"height":window.innerHeight + "px"
-				});
-				u.ass(page.nN, {
-					"height":(window.innerHeight - page.hN.service.offsetHeight) + "px"
-				});
-				u.e.setDragPosition(page.nN.nav, 0, 0);
-				u.e.setDragBoundaries(page.nN.nav, page.nN);
+			if(this.bn_nav) {
+				if (this.bn_nav.is_open) {
+					u.ass(page.hN, {
+						"height":window.innerHeight + "px"
+					});
+					u.ass(page.nN, {
+						"height":(window.innerHeight - page.hN.service.offsetHeight) + "px"
+					});
+					u.e.setDragPosition(page.nN.nav, 0, 0);
+					u.e.setDragBoundaries(page.nN.nav, page.nN);
+				}
 			}
 		}
 		page.fixiOSScroll = function() {
@@ -4773,13 +4782,6 @@ Util.Objects["article"] = new function() {
 		}
 	}
 }
-u.f.fixFieldHTML = function(field) {
-	u.bug("fixFieldHTML");
-	var label = u.qs("label", field);
-	if(label) {
-		u.ae(label, field._indicator);
-	}
-}
 u.injectGeolocation = function(node) {
 	node.geolocation.node = node;
 	u.bug("node.geolocation:" + node.geolocation);
@@ -4828,32 +4830,6 @@ u.injectGeolocation = function(node) {
 		u.ac(node.geolocation, "active");
 	}
 }
-
-
-/*u-settings.js*/
-u.txt["share"] = "Share this page";
-u.txt["share-info-headline"] = "(How do I share?)";
-u.txt["share-info-txt"] = "We have not included social media plugins on this site, because they are frequently abused to collect data about you. Also we don't want to promote some channels over others. Instead, just copy the link and share it wherever you find relevant.";
-u.txt["share-info-ok"] = "OK";
-u.txt["readmore"] = "Read more.";
-u.txt["readstate-not_read"] = "Click to mark as read";
-u.txt["readstate-read"] = "Read";
-u.txt["add_comment"] = "Add comment";
-u.txt["comment"] = "Comment";
-u.txt["cancel"] = "Cancel";
-u.txt["login_to_comment"] = '<a href="/login">Login</a> or <a href="/signup">Sign up</a> to add comments.';
-u.txt["relogin"] = "Your session timed out - please login to continue.";
-u.txt["terms-headline"] = "We love <br />cookies and privacy";
-u.txt["terms-accept"] = "Accept";
-u.txt["terms-details"] = "Details";
-u.txt["smartphone-switch-headline"] = "Hello curious";
-u.txt["smartphone-switch-text"] = [
-	"If you are looking for a mobile version of this site, using an actual mobile phone is a better starting point.",
-	"We care about our endusers and <em>one-size fits one device</em>, the parentNode way, provides an optimized user experience with a smaller footprint, because it doesn't come with all sizes included.",
-	"But, since it is our mission to accommodate users, feel free to switch to the Smartphone segment and see if it serves your purpose better for the moment. We'll make sure to leave you with an option to return back to the Desktop segment.",
-];
-u.txt["smartphone-switch-bn-hide"] = "Hide";
-u.txt["smartphone-switch-bn-switch"] = "Go to Smartphone version";
 
 
 /*u-textscaler.js*/
@@ -5484,19 +5460,17 @@ u.fontsReady = function(node, fonts, _options) {
 	var loadkey = u.randomString(8);
 	if(window["_man_fonts_"].fontApi) {
 		window["_man_fonts_"+loadkey] = {};
-		window["_man_fonts_"+loadkey].t_timeout = u.t.setTimer(window["_man_fonts_"+loadkey], "checkFontsStatus", max_time);
 	}
 	else {
 		window["_man_fonts_"+loadkey] = u.ae(document.body, "div");
 		window["_man_fonts_"+loadkey].basenodes = {};
 	}
 	window["_man_fonts_"+loadkey].nodes = [];
+	window["_man_fonts_"+loadkey].t_timeout = u.t.setTimer(window["_man_fonts_"+loadkey], "fontCheckTimeout", max_time);
 	window["_man_fonts_"+loadkey].loadkey = loadkey;
 	window["_man_fonts_"+loadkey].callback_node = node;
-	window["_man_fonts_"+loadkey].callback_name = callback_loaded;
+	window["_man_fonts_"+loadkey].callback_loaded = callback_loaded;
 	window["_man_fonts_"+loadkey].callback_timeout = callback_timeout;
-	window["_man_fonts_"+loadkey].max_time = max_time;
-	window["_man_fonts_"+loadkey].start_time = new Date().getTime();
 	for(i = 0; i < fonts.length; i++) {
 		font = fonts[i];
 		font.style = font.style || "normal";
@@ -5511,8 +5485,8 @@ u.fontsReady = function(node, fonts, _options) {
 			node = {};
 		}
 		else {
-			if(!window["_man_fonts_"+loadkey].basenodes[font.style+font.weight]) {
-				window["_man_fonts_"+loadkey].basenodes[font.style+font.weight] = u.ae(window["_man_fonts_"+loadkey], "span", {"html":"I'm waiting for your fonts to load!","style":"font-family: Times !important; font-style: "+font.style+" !important; font-weight: "+font.weight+" !important; font-size: "+font.size+" !important; line-height: 1em !important; opacity: 0 !important;"});
+			if(!window["_man_fonts_"+loadkey].basenodes[u.normalize(font.style+font.weight)]) {
+				window["_man_fonts_"+loadkey].basenodes[u.normalize(font.style+font.weight)] = u.ae(window["_man_fonts_"+loadkey], "span", {"html":"I'm waiting for your fonts to load!","style":"font-family: Times !important; font-style: "+font.style+" !important; font-weight: "+font.weight+" !important; font-size: "+font.size+" !important; line-height: 1em !important; opacity: 0 !important;"});
 			}
 			node = u.ae(window["_man_fonts_"+loadkey], "span", {"html":"I'm waiting for your fonts to load!","style":"font-family: '"+font.family+"', Times !important; font-style: "+font.style+" !important; font-weight: "+font.weight+" !important; font-size: "+font.size+" !important; line-height: 1em !important; opacity: 0 !important;"});
 		}
@@ -5542,11 +5516,36 @@ u.fontsReady = function(node, fonts, _options) {
 					}
 				}.bind(node));
 			}
-			else {
-			}
 		}
 		if(fun(this.checkFontsStatus)) {
 			this.checkFontsStatus();
+		}
+	}
+	window["_man_fonts_"+loadkey].checkFontsFallback = function() {
+		var basenode, i, node;
+		for(i = 0; i < this.nodes.length; i++) {
+			node = this.nodes[i];
+			basenode = this.basenodes[u.normalize(node.font_style+node.font_weight)];
+			if(node.offsetWidth != basenode.offsetWidth || node.offsetHeight != basenode.offsetHeight) {
+				window["_man_fonts_"].fonts[node.font_id].status = "loaded";
+			}
+		}
+		this.t_fallback = u.t.setTimer(this, "checkFontsFallback", 30);
+		if(fun(this.checkFontsStatus)) {
+			this.checkFontsStatus();
+		}
+	}
+	window["_man_fonts_"+loadkey].fontCheckTimeout = function(event) {
+		u.t.resetTimer(this.t_fallback);
+		delete window["_man_fonts_"+this.loadkey];
+		if(this.parentNode) {
+			this.parentNode.removeChild(this);
+		}
+		if(fun(this.callback_node[this.callback_timeout])) {
+			this.callback_node[this.callback_timeout](this.nodes);
+		}
+		else if(fun(this.callback_node[this.callback_loaded])) {
+			this.callback_node[this.callback_loaded](this.nodes);
 		}
 	}
 	window["_man_fonts_"+loadkey].checkFontsStatus = function(event) {
@@ -5554,51 +5553,23 @@ u.fontsReady = function(node, fonts, _options) {
 		for(i = 0; i < this.nodes.length; i++) {
 			node = this.nodes[i];
 			if(window["_man_fonts_"].fonts[node.font_id].status == "waiting") {
-				if(this.start_time + this.max_time <= new Date().getTime()) {
-					if(fun(this.callback_node[this.callback_timeout])) {
-						this.callback_node[this.callback_timeout]();
-					}
-					else if(fun(this.callback_node[this.callback_name])) {
-						this.callback_node[this.callback_name]();
-					}
-					u.t.resetTimer(this.t_timeout);
-					delete window["_man_fonts_"+this.loadkey];
-				}
 				return;
 			}
 		}
-		if(fun(this.callback_node[this.callback_name])) {
-			this.callback_node[this.callback_name]();
-		}
 		u.t.resetTimer(this.t_timeout);
+		u.t.resetTimer(this.t_fallback);
 		delete window["_man_fonts_"+this.loadkey];
-	}
-	window["_man_fonts_"+loadkey].checkFontsFallback = function() {
-		var basenode, i, node, loaded = 0;
-		for(i = 0; i < this.nodes.length; i++) {
-			node = this.nodes[i];
-			basenode = this.basenodes[node.font_style+node.font_weight];
-			if(node.offsetWidth != basenode.offsetWidth || node.offsetHeight != basenode.offsetHeight) {
-				loaded++;
-			}
-		}
-		if(loaded == this.nodes.length) {
-			if(fun(this.callback_node[this.callback_name])) {
-				this.callback_node[this.callback_name]();
-			}
+		if(this.parentNode) {
 			this.parentNode.removeChild(this);
 		}
-		else {
-			if(this.start_time + this.max_time > new Date().getTime()) {
-				u.t.setTimer(this, "checkfonts", 30);
+		if(fun(this.callback_node[this.callback_loaded])) {
+			if(this.fontApi) {
+				this.callback_node[this.callback_loaded](this.nodes);
 			}
 			else {
-				if(fun(this.callback_node[this.callback_timeout])) {
-					this.callback_node[this.callback_timeout]();
-				}
-				else if(fun(this.callback_node[this.callback_name])) {
-					this.callback_node[this.callback_name]();
-				}
+				setTimeout(function() {
+					this.callback_node[this.callback_loaded](this.nodes); 
+				}.bind(this), 250);
 			}
 		}
 	}
@@ -5610,259 +5581,7 @@ u.fontsReady = function(node, fonts, _options) {
 	}
 }
 
-/*beta-u-eventchain.js*/
-u.eventChain = function(node, _options) {
-	node._ec_events = [];
-	node.addEvent = function(node, action, duration) {
-		this._ec_events.push({"node":node, "action":action, "duration":duration});
-	}
-	node.play = function() {
-		u.t.resetTimer(this.t_eventchain);
-		if(this._ec_events.length) {
-			var _event = this._ec_events.shift();
-			_event.action.call(_event.node);
-			this.t_eventchain = u.t.setTimer(this, "play", _event.duration);
-		}
-		else {
-			if(fun(this.eventChainEnded)) {
-				this.eventChainEnded();
-			}
-		}
-	}
-	node.stop = function() {
-		u.t.resetTimer(this.t_eventchain);
-		if(fun(this.eventChainEnded)) {
-			this.eventChainEnded();
-		}
-	}
-}
-
-
-/*beta-u-timeline.js*/
-u.timeline = function(node) {
-	node._timeline_future_actions = [];
-	node.atDo = function(timestamp, action, id) {
-		id = id || "";
-		this._timeline_future_actions.push({"timestamp":timestamp, "action":action, "id":id});
-	}
-	node.playTimeline = function(_options) {
-		var speed = 1;
-		var start = 0;
-		if(obj(_options)) {
-			var argument;
-			for(argument in _options) {
-				switch(argument) {
-					case "speed"       : speed             = _options[argument]; break;
-					case "start"       : start             = _options[argument]; break;
-				}
-			}
-		}
-		this._timeline_speed = speed;
-		this._timeline_start = start;
-		this._animationframe_cancelled = false;
-		this._animationframe = window[u.vendorProperty("requestAnimationFrame")](this._first_timeline_frame.bind(this));
-	}
-	node.stopTimeline = function() {
-		this._animationframe_cancelled = true;
-		window[u.vendorProperty("cancelAnimationFrame")](this._animationframe);
-		if(fun(this.timelineStopped)) {
-			this.timelineStopped();
-		}
-	}
-	node.finishTimelineAtOnce = function() {
-		this._animationframe_cancelled = true;
-		window[u.vendorProperty("cancelAnimationFrame")](this._animationframe);
-		var i, frame;
-		for(i = 0; i < this._timeline_future_actions.length; i++) {
-			frame = this._timeline_future_actions[i];
-			frame.action.bind(this)();
-		}
-		if(fun(this.timelineEnded)) {
-			this.timelineEnded();
-		}
-	}
-	node._first_timeline_frame = function(timestamp) {
-		this._animationframe_start = timestamp;
-		this._animationframe = window[u.vendorProperty("requestAnimationFrame")](this._timeline_frame.bind(this));
-	}
-	node._timeline_frame = function(timestamp) {
-		var progress = ((timestamp - this._animationframe_start) * this._timeline_speed) + this._timeline_start;
-		var i, frame;
-		for(i = 0; i < this._timeline_future_actions.length; i++) {
-			frame = this._timeline_future_actions[i];
-			if(frame.timestamp < progress) {
-				frame.action.bind(this)();
-				this._timeline_future_actions.splice(i, 1);
-				i--;
-			}
-			else {
-				break;
-			}
-		}
-		if(this._timeline_future_actions.length && !this._animationframe_cancelled) {
-			this._animationframe = window[u.vendorProperty("requestAnimationFrame")](this._timeline_frame.bind(this));
-		}
-		else {
-			if(fun(this.timelineEnded)) {
-				this.timelineEnded();
-			}
-		}
-	}
-}
-
-/*beta-u-paymentcards.js*/
-u.paymentCards = new function() {
-	this.payment_cards = [
-		{
-			"type": 'maestro',
-			"patterns": [5018, 502, 503, 506, 56, 58, 639, 6220, 67],
-			"format": /(\d{1,4})/g,
-			"card_length": [12,13,14,15,16,17,18,19],
-			"cvc_length": [3],
-			"luhn": true
-		},
-		{
-			"type": 'forbrugsforeningen',
-			"patterns": [600],
-			"format": /(\d{1,4})/g,
-			"card_length": [16],
-			"cvc_length": [3],
-			"luhn": true,
-		},
-		{
-			"type": 'dankort',
-			"patterns": [5019],
-			"format": /(\d{1,4})/g,
-			"card_length": [16],
-			"cvc_length": [3],
-			"luhn": true
-		},
-		{
-			"type": 'visa',
-			"patterns": [4],
-			"format": /([\d]{1,4})([\d]{1,4})?([\d]{1,4})?([\d]{1,4})?/,
-			"card_length": [13, 16],
-			"cvc_length": [3],
-			"luhn": true
-		},
-		{
-			"type": 'mastercard',
-			"patterns": [51, 52, 53, 54, 55, 22, 23, 24, 25, 26, 27],
-			"format": /(\d{1,4})/g,
-			"card_length": [16],
-			"cvc_length": [3],
-			"luhn": true
-		},
-		{
-			"type": 'amex',
-			"patterns": [34, 37],
-			"format": /(\d{1,4})([\d]{0,6})?(\d{1,5})?/,
-			"card_length": [15],
-			"cvc_length": [3,4],
-			"luhn": true
-		}
-	];
-	this.validateCardNumber = function(card_number) {
-		var card = this.getCardTypeFromNumber(card_number);
-		if(card && parseInt(card_number) == card_number) {
-			var i, allowed_length;
-			for(i = 0; i < card.card_length.length; i++) {
-				allowed_length = card.card_length[i];
-				if(card_number.length == allowed_length) {
-					if(card.luhn) {
-						return this.luhnCheck(card_number);
-					}
-					else {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
-	this.validateExpDate = function(month, year) {
-		if(
-			this.validateExpMonth(month) && 
-			this.validateExpYear(year) && 
-			new Date(year, month-1) >= new Date(new Date().getFullYear(), new Date().getMonth())
-		) {
-			return true;
-		}
-		return false;
-	}
-	this.validateExpMonth = function(month) {
-		if(month && parseInt(month) == month && month >= 1 && month <= 12) {
-			return true;
-		}
-		return false;
-	}
-	this.validateExpYear = function(year) {
-		if(year && parseInt(year) == year && new Date(year, 0) >= new Date(new Date().getFullYear(), 0)) {
-			return true;
-		}
-		return false;
-	}
-	this.validateCVC = function(cvc, card_number) {
-		var cvc_length = [3,4];
-		if(card_number && parseInt(card_number) == card_number) {
-			var card = this.getCardTypeFromNumber(card_number);
-			if(card) {
-				cvc_length = card.cvc_length;
-			}
-		}
-		if(cvc && parseInt(cvc) == cvc) {
-			var i, allowed_length;
-			for(i = 0; i < cvc_length.length; i++) {
-				allowed_length = cvc_length[i];
-				if(cvc.toString().length == allowed_length) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	this.getCardTypeFromNumber = function(card_number) {
-		var i, j, card, pattern, regex;
-		for(i = 0; card = this.payment_cards[i]; i++) {
-			for(j = 0; j < card.patterns.length; j++) {
-				pattern = card.patterns[j];
-				if(card_number.match('^' + pattern)) {
-					return card;
-				}
-			}
-		}
-		return false;
-	}
-	this.formatCardNumber = function(card_number) {
-		var card = this.getCardTypeFromNumber(card_number);
-		if(card) {
-			var matches = card_number.match(card.format);
-			if(matches) {
-				if(matches.length > 1 && matches[0] == card_number) {
-					matches.shift();
-					card_number = matches.join(" ").trim();
-				}
-				else {
-					card_number = matches.join(" ");
-				}
-			}
-		}
-		return card_number;
-	}
-	this.luhnCheck = function(card_number) {
-		var ca, sum = 0, mul = 1;
-		var len = card_number.length;
-		while (len--) {
-			ca = parseInt(card_number.charAt(len),10) * mul;
-			sum += ca - (ca>9)*9;
-			mul ^= 3;
-		};
-		return (sum%10 === 0) && (sum > 0);
-	};
-}
-
-
-/*beta-u-googlemaps.js*/
+/*u-googlemaps.js*/
 u.googlemaps = new function() {
 	this.api_loading = false;
 	this.api_loaded = false;
@@ -6026,6 +5745,106 @@ u.googlemaps = new function() {
 }
 
 
+/*beta-u-eventchain.js*/
+u.eventChain = function(node, _options) {
+	node._ec_events = [];
+	node.addEvent = function(node, action, duration) {
+		this._ec_events.push({"node":node, "action":action, "duration":duration});
+	}
+	node.play = function() {
+		u.t.resetTimer(this.t_eventchain);
+		if(this._ec_events.length) {
+			var _event = this._ec_events.shift();
+			_event.action.call(_event.node);
+			this.t_eventchain = u.t.setTimer(this, "play", _event.duration);
+		}
+		else {
+			if(fun(this.eventChainEnded)) {
+				this.eventChainEnded();
+			}
+		}
+	}
+	node.stop = function() {
+		u.t.resetTimer(this.t_eventchain);
+		if(fun(this.eventChainEnded)) {
+			this.eventChainEnded();
+		}
+	}
+}
+
+
+/*beta-u-timeline.js*/
+u.timeline = function(node) {
+	node._timeline_future_actions = [];
+	node.atDo = function(timestamp, action, id) {
+		id = id || "";
+		this._timeline_future_actions.push({"timestamp":timestamp, "action":action, "id":id});
+	}
+	node.playTimeline = function(_options) {
+		var speed = 1;
+		var start = 0;
+		if(obj(_options)) {
+			var argument;
+			for(argument in _options) {
+				switch(argument) {
+					case "speed"       : speed             = _options[argument]; break;
+					case "start"       : start             = _options[argument]; break;
+				}
+			}
+		}
+		this._timeline_speed = speed;
+		this._timeline_start = start;
+		this._animationframe_cancelled = false;
+		this._animationframe = window[u.vendorProperty("requestAnimationFrame")](this._first_timeline_frame.bind(this));
+	}
+	node.stopTimeline = function() {
+		this._animationframe_cancelled = true;
+		window[u.vendorProperty("cancelAnimationFrame")](this._animationframe);
+		if(fun(this.timelineStopped)) {
+			this.timelineStopped();
+		}
+	}
+	node.finishTimelineAtOnce = function() {
+		this._animationframe_cancelled = true;
+		window[u.vendorProperty("cancelAnimationFrame")](this._animationframe);
+		var i, frame;
+		for(i = 0; i < this._timeline_future_actions.length; i++) {
+			frame = this._timeline_future_actions[i];
+			frame.action.bind(this)();
+		}
+		if(fun(this.timelineEnded)) {
+			this.timelineEnded();
+		}
+	}
+	node._first_timeline_frame = function(timestamp) {
+		this._animationframe_start = timestamp;
+		this._animationframe = window[u.vendorProperty("requestAnimationFrame")](this._timeline_frame.bind(this));
+	}
+	node._timeline_frame = function(timestamp) {
+		var progress = ((timestamp - this._animationframe_start) * this._timeline_speed) + this._timeline_start;
+		var i, frame;
+		for(i = 0; i < this._timeline_future_actions.length; i++) {
+			frame = this._timeline_future_actions[i];
+			if(frame.timestamp < progress) {
+				frame.action.bind(this)();
+				this._timeline_future_actions.splice(i, 1);
+				i--;
+			}
+			else {
+				break;
+			}
+		}
+		if(this._timeline_future_actions.length && !this._animationframe_cancelled) {
+			this._animationframe = window[u.vendorProperty("requestAnimationFrame")](this._timeline_frame.bind(this));
+		}
+		else {
+			if(fun(this.timelineEnded)) {
+				this.timelineEnded();
+			}
+		}
+	}
+}
+
 /*i-scene.js*/
 Util.Objects["scene"] = new function() {
 	this.init = function(scene) {
@@ -6057,6 +5876,7 @@ Util.Objects["login"] = new function() {
 			u.f.init(this._form);
 			page.cN.scene = this;
 			u.showScene(this);
+			page.acceptCookies();
 			page.resized();
 		}
 		scene.ready();
@@ -6219,169 +6039,6 @@ Util.Objects["verify"] = new function() {
 			return new_error;
 		}
 		scene.ready();
-	}
-}
-
-
-/*u-basics.js*/
-u.smartphoneSwitch = new function() {
-	this.state = 0;
-	this.init = function(node) {
-		this.callback_node = node;
-		this.event_id = u.e.addWindowEvent(this, "resize", this.resized);
-		this.resized();
-	}
-	this.resized = function() {
-		if(u.browserW() < 500 && !this.state) {
-			this.switchOn();
-		}
-		else if(u.browserW() > 500 && this.state) {
-			this.switchOff();
-		}
-	}
-	this.switchOn = function() {
-		if(!this.panel) {
-			this.state = true;
-			this.panel = u.ae(document.body, "div", {"id":"smartphone_switch"});
-			u.ass(this.panel, {
-				opacity: 0
-			});
-			u.ae(this.panel, "h1", {html:u.stringOr(u.txt["smartphone-switch-headline"], "Hello curious")});
-			if(u.txt["smartphone-switch-text"].length) {
-				for(i = 0; i < u.txt["smartphone-switch-text"].length; i++) {
-					u.ae(this.panel, "p", {html:u.txt["smartphone-switch-text"][i]});
-				}
-			}
-			var ul_actions = u.ae(this.panel, "ul", {class:"actions"});
-			var li; 
-			li = u.ae(ul_actions, "li", {class:"hide"});
-			var bn_hide = u.ae(li, "a", {class:"hide button", html:u.txt["smartphone-switch-bn-hide"]});
-			li = u.ae(ul_actions, "li", {class:"switch"});
-			var bn_switch = u.ae(li, "a", {class:"switch button primary", html:u.txt["smartphone-switch-bn-switch"]});
-			u.e.click(bn_switch);
-			bn_switch.clicked = function() {
-				u.saveCookie("smartphoneSwitch", "on");
-				location.href = location.href.replace(/[&]segment\=desktop|segment\=desktop[&]?/, "") + (location.href.match(/\?/) ? "&" : "?") + "segment=smartphone";
-			}
-			u.e.click(bn_hide);
-			bn_hide.clicked = function() {
-				u.e.removeWindowEvent(u.smartphoneSwitch, "resize", u.smartphoneSwitch.event_id);
-				u.smartphoneSwitch.switchOff();
-			}
-			u.a.transition(this.panel, "all 0.5s ease-in-out");
-			u.ass(this.panel, {
-				opacity: 1
-			});
-			if(this.callback_node && typeof(this.callback_node.smartphoneSwitchedOn) == "function") {
-				this.callback_node.smartphoneSwitchedOn();
-			}
-		}
-	}
-	this.switchOff = function() {
-		if(this.panel) {
-			this.state = false;
-			this.panel.transitioned = function() {
-				this.parentNode.removeChild(this);
-				delete u.smartphoneSwitch.panel;
-			}
-			u.a.transition(this.panel, "all 0.5s ease-in-out");
-			u.ass(this.panel, {
-				opacity: 0
-			});
-			if(this.callback_node && typeof(this.callback_node.smartphoneSwitchedOff) == "function") {
-				this.callback_node.smartphoneSwitchedOff();
-			}
-		}
-	}
-}
-u.showScene = function(scene) {
-	var i, node;
-	var nodes = u.cn(scene);
-	if(nodes.length) {
-		var article = u.qs("div.article", scene);
-		if(nodes[0] == article) {
-			var article_nodes = u.cn(article);
-			nodes.shift();
-			for(x in nodes) {
-				article_nodes.push(nodes[x]);
-			}
-			nodes = article_nodes;
-		}
-		var headline = u.qs("h1,h2", scene);
-		for(i = 0; node = nodes[i]; i++) {
-			u.ass(node, {
-				"opacity":0,
-			});
-		}
-		u.ass(scene, {
-			"opacity":1,
-		});
-		u._stepA1.call(headline);
-		for(i = 0; node = nodes[i]; i++) {
-			u.a.transition(node, "all 0.2s ease-in "+((i*100)+200)+"ms");
-			u.ass(node, {
-				"opacity":1,
-				"transform":"translate(0, 0)"
-			});
-		}
-	}
-	else {
-		u.ass(scene, {
-			"opacity":1,
-		});
-	}
-}
-u._stepA1 = function() {
-	this.innerHTML = this.innerHTML.replace(/[ ]?<br[ \/]?>[ ]?/, " <br /> ");
-	this.innerHTML = '<span class="word">'+this.innerHTML.split(" ").join('</span> <span class="word">')+'</span>'; 
-	var word_spans = u.qsa("span.word", this);
-	var i, span;
-	for(i = 0; span = word_spans[i]; i++) {
-		if(span.innerHTML.match(/<br[ \/]?>/)) {
-			span.parentNode.replaceChild(document.createElement("br"), span);
-		}
-		else {
-			span.innerHTML = "<span>"+span.innerHTML.split("").join("</span><span>")+"</span>";
-		}
-	}
-	this.spans = u.qsa("span:not(.word)", this);
-	if(this.spans) {
-		var i, span;
-		for(i = 0; span = this.spans[i]; i++) {
-			span.innerHTML = span.innerHTML.replace(/ /, "&nbsp;");
-			u.ass(span, {
-				"transformOrigin": "0 100% 0",
-				"transform":"translate(0, 40px)",
-				"opacity":0
-			});
-		}
-		u.ass(this, {
-			"opacity":1
-		});
-		for(i = 0; span = this.spans[i]; i++) {
-			u.a.transition(span, "all 0.2s ease-in-out "+(15*u.random(0, 15))+"ms");
-			u.ass(span, {
-				"transform":"translate(0, 0)",
-				"opacity":1
-			});
-			span.transitioned = function(event) {
-				u.ass(this, {
-					"transform":"none"
-				});
-			}
-		}
-	}
-}
-u._stepA2 = function() {
-	if(this.spans) {
-		var i, span;
-		for(i = 0; span = this.spans[i]; i++) {
-			u.a.transition(span, "all 0.2s ease-in-out "+(15*u.random(0, 15))+"ms");
-			u.ass(span, {
-				"transform":"translate(0, -40px)",
-				"opacity":0
-			});
-		}
 	}
 }
 
