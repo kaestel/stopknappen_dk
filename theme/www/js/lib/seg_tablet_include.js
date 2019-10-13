@@ -12,8 +12,6 @@ document.write('<script type="text/javascript" src="/assets/parentnode-skin-defa
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/manipulator/src/beta-u-animation-to.js"></script>');
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/manipulator/src/beta-u-fontsReady.js"></script>');
 
-document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/desktop/i-scene.js"></script>');
-document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/desktop/i-login.js"></script>');
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/desktop/i-signup.js"></script>');
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/desktop/i-verify.js"></script>');
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/lib/desktop/i-comments.js"></script>');
