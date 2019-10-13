@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2019-04-23 23:40:38
+asset-builder @ 2019-05-14 12:53:42
 */
 
 /*seg_desktop_light_include.css*/
@@ -7,7 +7,7 @@ asset-builder @ 2019-04-23 23:40:38
 /*seg_desktop_light.css*/
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2019-04-18 08:54:59
+asset-builder @ 2019-05-13 22:10:14
 */
 @font-face {
 	font-family: 'OpenSans';
@@ -101,20 +101,16 @@ dd {display: block; font-size: 13px; line-height: 1.25em;}
 #header .logo {font-size: 30px; padding: 20px 50px 20px; color: #888888; cursor: pointer; display: block; width: 200px;
 	font-family: "PT Serif", Times, serif;
 }
-#header .logo:hover {text-decoration: underline;}
 #header .servicenavigation {position: absolute; top: 5px; right: 50px;}
 #header .servicenavigation li {display: inline; vertical-align: top; color: #bbbbbb; padding-left: 10px;}
 #header .servicenavigation li.navigation,
-#header .servicenavigation li.admin,
-#header .servicenavigation li.user,
-#header .servicenavigation li.cart {display: none;}
+#header .servicenavigation li.admin {display: none;}
 #navigation {position: absolute; right: 50px; top: 75px;}
 #navigation ul {}
 #navigation ul li {display: inline; vertical-align: top; padding: 0 0 0 20px; font-size: 20px; color: #888888;}
 #navigation ul li a {
 	font-family: "PT Serif", Times, serif;
 }
-#navigation ul li a:hover {text-decoration: underline;}
 #navigation ul li.front {display: none;}
 #footer {text-align: center; border-top: 1px solid #888888; margin: 0 50px;}
 #footer p {padding: 10px; cursor: pointer;}
@@ -122,7 +118,6 @@ dd {display: block; font-size: 13px; line-height: 1.25em;}
 #content .scene {position: relative; padding: 50px 0 70px;}
 #content .scene .link {cursor: pointer;}
 #content .scene a {color: #888888;}
-#content .scene a:hover {text-decoration: underline;}
 #content .scene h1,
 #content .scene h2,
 #content .scene h3,
@@ -236,7 +231,6 @@ dd {display: block; font-size: 13px; line-height: 1.25em;}
 #content .scene p.errormessage {color: #df0000;}
 #content .scene div.article {padding-bottom: 30px;}
 #content .scene div.article ul.tags {padding-bottom: 20px;}
-#content .scene ul.tags a:hover {color: #888888;}
 #content .scene .articlebody ul,
 #content .scene .articlebody ol {list-style-position: outside; margin-left: 15px; width: 485px;}
 #content .scene .articlebody ul {list-style-type: disc;}
@@ -250,6 +244,20 @@ dd {display: block; font-size: 13px; line-height: 1.25em;}
 	font-family: "PT Serif", Times, serif;
 }
 #content .scene .article ul.info ul.geo {padding: 0;}
+#header .logo:hover,
+#navigation ul li a:hover {text-decoration: underline;}
+#content .scene ul.tags a:hover {color: #888888;}
+#content .scene a:hover {text-decoration: underline;}
+#content ul.actions input.button:hover,
+#content ul.actions a.button:hover {background-color: #bebebe;}
+#content ul.actions input.button.primary:hover,
+#content ul.actions a.button.primary:hover {background-color: #313942;}
+#content ul.actions input.button.secondary:hover,
+#content ul.actions a.button.secondary:hover {background-color: #313942;}
+#content form input.button.disabled:hover {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
+#content .scene.docsindex .search .results .function:hover {background: #ededed;}
+#content .scene .pagination .next a:hover,
+#content .scene .pagination .previous a:hover {background-color: #313942;}
 
 
 /*s-comments.css*/
@@ -311,18 +319,11 @@ div.field.location.error input.error {margin: 0; border: 3px solid #a62300;}
 #content ul.actions a.button {text-decoration: none; display: block; font-size: 14px; padding: 6px 12px;}
 #content ul.actions input.button,
 #content ul.actions a.button {background-color: #dedede; color: #333333; border: none; cursor: pointer; font-size: 14px;}
-#content ul.actions input.button:hover,
-#content ul.actions a.button:hover {background-color: #bebebe;}
 #content ul.actions input.button.primary,
 #content ul.actions a.button.primary {background-color: #8c9399; color: #ffffff;}
-#content ul.actions input.button.primary:hover,
-#content ul.actions a.button.primary:hover {background-color: #313942;}
 #content ul.actions input.button.secondary,
 #content ul.actions a.button.secondary {background-color: #8c9399; color: #ffffff;}
-#content ul.actions input.button.secondary:hover,
-#content ul.actions a.button.secondary:hover {background-color: #313942;}
-#content form input.button.disabled,
-#content form input.button.disabled:hover {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
+#content form input.button.disabled {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
 div.field div.help {position: absolute; left: 455px; top: 6px; width: 200px;}
 div.field div.error,
 div.field div.hint {display: none; padding: 5px; font-size: 12px; margin-top: -3px;}
@@ -335,13 +336,17 @@ div.field.focus div.hint {display: block;}
 /*s-pagination.css*/
 #content .scene .pagination {margin: 0 70px 30px; padding: 20px 0;}
 #content .scene .pagination ul {padding: 0; overflow: hidden;}
-#content .scene .pagination .next,
-#content .scene .pagination .previous {background-color: #8c9399; text-decoration: none; height: 14px; padding: 6px 12px 10px; display: inline; float: right; color: #ffffff; border: none; cursor: pointer; font-size: 14px;}
-#content .scene .pagination .previous {float: left;}
+#content .scene .pagination ul li {display: inline-block; padding-bottom: 35px;}
+#content .scene .pagination li.next {float: right; text-align: right;}
+#content .scene .pagination li.previous {float: left; text-align: left;}
+#content .scene .pagination .next h2,
+#content .scene .pagination .previous h2 {padding: 3px 1px;	font-size: 13px; font-family: "OpenSans", Verdana, Arial, sans-serif;}
+#content .scene .pagination .next a,
+#content .scene .pagination .previous a {background-color: #8c9399; text-decoration: none; padding: 6px 12px; display: inline; float: right; color: #ffffff; border: none; cursor: pointer; font-size: 14px;}
+#content .scene .pagination .previous a {float: left;}
 #content .scene .pagination .next a,
 #content .scene .pagination .previous a {color: #ffffff;}
-#content .scene .pagination .next:hover,
-#content .scene .pagination .previous:hover {background-color: #313942;}
+
 
 /*s-pages.css*/
 #content .login form {display: none;}
@@ -383,6 +388,12 @@ div.field.focus div.hint {display: block;}
 #content .scene div.qnas {display: none;}
 
 
+/*s-pages-hovers.css*/
+#content ul.actions input.button.primary:hover,
+#content ul.actions a.button.primary:hover,
+#content .scene .pagination .next:hover,
+#content .scene .pagination .previous:hover {background-color: #26962d;}
+
 /*s-colorscheme.css*/
 * {color: #26962d;}
 body {}
@@ -394,10 +405,6 @@ body {}
 #content ul.actions a.button.primary,
 #content .scene .pagination .next,
 #content .scene .pagination .previous {background-color: #34cc3d;}
-#content ul.actions input.button.primary:hover,
-#content ul.actions a.button.primary:hover,
-#content .scene .pagination .next:hover,
-#content .scene .pagination .previous:hover {background-color: #26962d;}
 #footer {border-color: #ccdbcd;}
 .terms_notification .accept,
 .terms_notification .details {color: #34cc3d;}
