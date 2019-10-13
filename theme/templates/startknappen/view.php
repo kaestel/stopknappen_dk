@@ -72,7 +72,7 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 <div class="scene topic i:topic">
 
 <? if($item):
-	$media = $IC->sliceMedia($item); ?>
+	$media = $IC->sliceMediae($item); ?>
 
 	<div class="i:article topic article id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
 		data-csrf-token="<?= session()->value("csrf") ?>"
@@ -158,7 +158,7 @@ $related_topics = $IC->getRelatedItems($related_topic_pattern);
 		<h2>Relaterede emner <a href="/start">(Se alle)</a></h2>
 		<ul class="topics i:articleMiniList">
 		<? foreach($related_topics as $item):
-			$media = $IC->sliceMedia($item); ?>
+			$media = $IC->sliceMediae($item); ?>
 			<li class="article topic item_id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
 				data-readstate="<?= $item["readstate"] ?>"
 				>
