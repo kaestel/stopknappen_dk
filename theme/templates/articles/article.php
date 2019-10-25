@@ -4,7 +4,7 @@ global $action;
 global $itemtype;
 
 $sindex = $action[0];
-$item = $IC->getItem(array("sindex" => $sindex, "extend" => array("tags" => true, "user" => true, "mediae" => true, "comments" => true, "readstate" => true)));
+$item = $IC->getItem(array("sindex" => $sindex, "status" => 1, "extend" => array("tags" => true, "user" => true, "mediae" => true, "comments" => true, "readstate" => true)));
 if($item) {
 	$this->sharingMetaData($item);
 
@@ -29,7 +29,7 @@ $related_items = $IC->getRelatedItems($related_pattern);
 <div class="scene article i:scene">
 
 <? if($item):
-	$media = $IC->sliceMediae($item); ?>
+	$media = $IC->sliceMediae($item, "single_media"); ?>
 
 	<div class="article i:article id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
 		data-csrf-token="<?= session()->value("csrf") ?>"
@@ -94,7 +94,7 @@ $related_items = $IC->getRelatedItems($related_pattern);
 
 		<ul class="items articles i:articleMiniList">
 <?		foreach($related_items as $item): 
-			$media = $IC->sliceMediae($item); ?>
+			$media = $IC->sliceMediae($item, "single_media"); ?>
 			<li class="item article item_id:<?= $item["item_id"] ?>" itemscope itemtype="http://schema.org/Article"
 				data-readstate="<?= $item["readstate"] ?>"
 				>

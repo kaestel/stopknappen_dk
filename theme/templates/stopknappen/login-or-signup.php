@@ -1,7 +1,7 @@
 <?php
 $IC = new Items();
 
-$page_item = $IC->getItem(array("tags" => "page:stopstart", "extend" => array("comments" => true, "tags" => true, "mediae" => true)));
+$page_item = $IC->getItem(array("tags" => "page:stopstart", "status" => 1, "extend" => array("comments" => true, "tags" => true, "mediae" => true)));
 
 if($page_item) {
 	$this->sharingMetaData($page_item);
@@ -14,8 +14,8 @@ $this->pageTitle("STOP / START");
 	<div class="intro"></div>
 
 
-<? if($page_item && $page_item["status"]): 
-	$media = $IC->sliceMediae($page_item); ?>
+<? if($page_item): 
+	$media = $IC->sliceMediae($page_item, "single_media"); ?>
 	<div class="article i:article id:<?= $page_item["item_id"] ?>" itemscope itemtype="http://schema.org/Article">
 
 		<? if($media): ?>
