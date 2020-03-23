@@ -53,7 +53,8 @@ $model->setProperty("password", "value", "");
 <? endif; ?>
 
 	<?= $model->formStart("tilmelding", array("class" => "signup labelstyle:inject")) ?>
-		<?= $model->input("maillist", array("type" => "hidden", "value" => "Nysgerrig")); ?>
+		<?= $model->input("maillist", array("type" => "hidden", "value" => 1)); ?>
+		<?= $model->input("maillist_name", array("type" => "hidden", "value" => "Nysgerrig")); ?>
 
 		<?= $HTML->serverMessages() ?>
 

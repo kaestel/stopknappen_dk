@@ -27,11 +27,11 @@ $sql = "SELECT item_id FROM ".$model->db." WHERE fixed_url_identifier = '$fixed_
 $query = new Query;
 if($query->sql($sql)) {
 	$item_id = $query->result(0, "item_id");
-	$item = $IC->getItem(array("id" => $item_id, "extend" => array("tags" => true, "user" => true, "comments" => true, "readstate" => true)));
+	$item = $IC->getItem(array("id" => $item_id, "status" => 1, "extend" => array("tags" => true, "user" => true, "comments" => true, "readstate" => true)));
 }
 // attempt look up by sindex, for fallback purposes
 else {
-	$item = $IC->getItem(array("sindex" => $action[0], "extend" => array("tags" => true, "user" => true, "comments" => true, "readstate" => true)));
+	$item = $IC->getItem(array("sindex" => $action[0], "status" => 1, "extend" => array("tags" => true, "user" => true, "comments" => true, "readstate" => true)));
 }
 
 // Did we find the topic
