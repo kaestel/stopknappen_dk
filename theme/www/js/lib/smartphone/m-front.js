@@ -1,4 +1,4 @@
-Util.Objects["front"] = new function() {
+Util.Modules["front"] = new function() {
 	this.init = function(scene) {
 		// u.bug("scene init:", scene);
 
@@ -37,7 +37,7 @@ Util.Objects["front"] = new function() {
 		}
 
 		scene.scrolled = function(event) {
-//			// u.bug("scrolled:", this);
+			// u.bug("scrolled:", this);
 
 			if(this.intro_done) {
 				this.renderControl();
@@ -68,28 +68,14 @@ Util.Objects["front"] = new function() {
 		scene.ready = function() {
 			// u.bug("scene.ready:", this);
 
-			page.cN.scene = this;
-
 			// get main elements
 			this.intro = u.qs(".intro", this);
 			this.div_article = u.qs("div.article", this);
 			this.div_posts = u.qs("div.posts", this);
 
 
-			// required fonts loaded
-			this.fontsLoaded = function() {
-
-				page.resized();
-				this.initIntro();
-			}
-
-			// preload fonts
-			u.fontsReady(this, [
-				{"family":"OpenSans", "weight":"normal", "style":"normal"},
-				{"family":"OpenSans", "weight":"bold", "style":"normal"},
-				{"family":"OpenSans", "weight":"normal", "style":"italic"},
-				{"family":"PT Serif", "weight":"normal", "style":"normal"}
-			]);
+			page.resized();
+			this.initIntro();
 
 		}
 
@@ -99,7 +85,7 @@ Util.Objects["front"] = new function() {
 
 		// Prepare intro content for playback
 		scene.initIntro = function() {
-//			u.bug("initIntro")
+			// u.bug("initIntro");
 
 			// if intro exists
 			if(this.intro) {
@@ -111,7 +97,7 @@ Util.Objects["front"] = new function() {
 				// end intro on click
 				u.e.click(this.intro);
 				this.intro.clicked = function() {
-//					u.bug("intro clicked")
+					// u.bug("intro clicked");
 
 					// stop event chain
 					if(typeof(this.stopTimeline) == "function") {
@@ -472,8 +458,8 @@ Util.Objects["front"] = new function() {
 
 
 
-		// scene is ready
-		scene.ready();
+		// Map scene – page will call scene.ready
+		page.cN.scene = scene;
 
 	}
 

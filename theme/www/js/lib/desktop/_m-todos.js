@@ -1,4 +1,4 @@
-Util.Objects["todos"] = new function() {
+Util.Modules["todos"] = new function() {
 	this.init = function(div) {
 		// u.bug("todos init:", div);
 

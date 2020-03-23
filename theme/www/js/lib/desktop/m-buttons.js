@@ -1,4 +1,4 @@
-Util.Objects["buttons"] = new function() {
+Util.Modules["buttons"] = new function() {
 	this.init = function(scene) {
 		// u.bug("scene init:", scene);
 		
@@ -146,30 +146,14 @@ Util.Objects["buttons"] = new function() {
 			// u.bug("scene.ready:", this);
 
 
-			page.cN.scene = this;
-
 			// get main elements
 			this.intro = u.qs(".intro", this);
 			this.div_article = u.qs("div.article", this);
 
 
-			// required fonts loaded
-			this.fontsLoaded = function() {
-
-				page.resized();
-				this.initIntro();
-			}
-
-			// preload fonts
-			u.fontsReady(this, [
-				{"family":"OpenSans", "weight":"normal", "style":"normal"},
-				{"family":"OpenSans", "weight":"bold", "style":"normal"},
-				{"family":"OpenSans", "weight":"normal", "style":"italic"},
-				{"family":"PT Serif", "weight":"normal", "style":"normal"}
-			]);
-
-
 			page.resized();
+			this.initIntro();
+
 		}
 
 
@@ -448,7 +432,8 @@ Util.Objects["buttons"] = new function() {
 		}
 
 
-		// scene is ready
-		scene.ready();
+		// Map scene – page will call scene.ready
+		page.cN.scene = scene;
+
 	}
 }

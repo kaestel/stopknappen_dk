@@ -48,5 +48,5 @@ u.logoScroller = function() {
 		page.logo.css_rule.style.setProperty("height", u.logo_min_height+"px", "important");
 		page.logo.css_rule.style.setProperty("padding-top", u.logo_min_padding_top+"px", "important");
 	}
-	
+
 }

@@ -1,4 +1,4 @@
-Util.Objects["front"] = new function() {
+Util.Modules["front"] = new function() {
 	this.init = function(scene) {
 		// u.bug("scene init:", scene);
 
@@ -75,20 +75,8 @@ Util.Objects["front"] = new function() {
 			this.div_posts = u.qs("div.posts", this);
 
 
-			// required fonts loaded
-			this.fontsLoaded = function() {
-
-				page.resized();
-				this.initIntro();
-			}
-
-			// preload fonts
-			u.fontsReady(this, [
-				{"family":"OpenSans", "weight":"normal", "style":"normal"},
-				{"family":"OpenSans", "weight":"bold", "style":"normal"},
-				{"family":"OpenSans", "weight":"normal", "style":"italic"},
-				{"family":"PT Serif", "weight":"normal", "style":"normal"}
-			]);
+			page.resized();
+			this.initIntro();
 
 		}
 
@@ -469,9 +457,8 @@ Util.Objects["front"] = new function() {
 		}
 
 
-
-		// scene is ready
-		scene.ready();
+		// Map scene – page will call scene.ready
+		page.cN.scene = scene;
 
 	}
 
