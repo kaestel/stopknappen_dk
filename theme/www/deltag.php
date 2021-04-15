@@ -23,8 +23,17 @@ if($action) {
 		// create new user
 		$user = $model->newUser(array("newUser"));
 
+		// Detected bot signup
+		if(isset($user["BOT_SIGNUP"])) {
+
+			// redirect to leave POST state
+			header("Location: /verificer/kvittering");
+			exit();
+
+		}
+
 		// successful creation
-		if(isset($user["user_id"])) {
+		else if(isset($user["user_id"])) {
 
 			// redirect to leave POST state
 			header("Location: /verificer");

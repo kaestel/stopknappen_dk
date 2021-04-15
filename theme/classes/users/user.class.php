@@ -42,6 +42,28 @@ class User extends UserCore {
 
 			// Get posted values to make them available for models
 			$this->getPostedEntities();
+
+			$it_nato_bor = $this->getProperty("it_nato_bor", "value");
+			if($it_nato_bor) {
+
+				$email = $this->getProperty("email", "value");
+
+				$page->addLog("user->newUser: signup identified as BOT: $email");
+
+				// send notification email to admin
+				mailer()->send(array(
+					"subject" => SITE_URL . " - BOT SIGNUP DETECTED: " . $email, 
+					"message" => "no user was created",
+					"tracking" => false,
+					"template" => "system"
+				));
+
+				return ["BOT_SIGNUP" => true];
+			}
+
+
+			// PASSED bot honeyput
+
 			$terms = $this->getProperty("terms", "value");
 			$email = $this->getProperty("email", "value");
 
