@@ -62,7 +62,7 @@ $model->setProperty("password", "value", "");
 			<?= $model->input("nickname", array("label" => "Dit offentlige brugernavn", "value" => "Anonym", "required" => true, "hint_message" => "Indtast dit offentlige brugernavn. Der er ikke noget galt med at være anonym.", "error_message" => "Det indtastede er ikke en gyldigt.")); ?>
 			<?= $model->input("email", array("label" => "Din email", "required" => true, "hint_message" => "Indtast din email-adresse.", "error_message" => "Det indtastede er ikke en gyldig email-adresse.")); ?>
 			<?= $model->input("password", array("hint_message" => "Indtast dit nye kodeord - eller lad feltet være tomt, så genererer vi et til dig.", "error_message" => "Dit password skal være mellem 8 og 20 tegn.")); ?>
-			<?= $model->inputRobot(array("hint_message" => "Vis at du ikke er en robot", "error_message" => "Er du en robot? Dette skridt er desværre nødvendigt for at modvirke robot tilmeldinger.")); ?>
+			<?= $model->inputRobot(); ?>
 			<?= $model->input("terms", array("label" => "Jeg accepterer <a href=\"/vilkaar\" target=\"_blank\">vilkår</a> for stopknappen.dk", "hint_message" => "Indtast dit nye kodeord - eller lad feltet være tomt, så genererer vi et til dig.", "error_message" => "Dit password skal være mellem 8 og 20 tegn.")); ?>
 		</fieldset>
 
