@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2020-03-23 11:38:53
+asset-builder @ 2021-04-15 12:05:33
 */
 
 /*seg_desktop_light_include.css*/
@@ -397,6 +397,7 @@ body > div.pagination li.next a {padding-right: 0;}
 #content .scene div.qnas .field {padding-bottom: 10px;}
 
 /*s-pages.css*/
+#content div.it_nato_bor {display: none;}
 #content .login form {display: none;}
 #content .scene.front h1 {font-size: 100px;}
 #content .scene.front h1 a,

@@ -1,3 +1,6 @@
+#content div.it_nato_bor {display: none;}
+
+
 #header a.logo {display: block; width: 40px; height: 27px; padding: 0; top: 10px; left: 10px; border-radius: 20px; background-color: #26962d; color: #ffffff; font-size: 13px; text-align: center; line-height: 15px; padding-top: 13px;
 	font-family: "OpenSans", Verdana, Arial, sans-serif; font-weight: bold;
 } 

@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2020-03-23 11:38:53
+asset-builder @ 2021-04-15 12:05:33
 */
 
 /*seg_desktop_include.css*/
@@ -568,6 +568,7 @@ body > div.pagination li.next a {padding-right: 0;}
 
 
 /*s-pages.css*/
+#content div.it_nato_bor {display: none;}
 #header a.logo {display: block;
 	font-family: "OpenSans", Verdana, Arial, sans-serif; font-weight: bold; width: 50px; height: 34px; padding: 0; top: 30px; border-radius: 25px; font-size: 1em; text-align: center; line-height: 15px; padding-top: 16px;
 } 
