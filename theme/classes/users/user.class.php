@@ -35,7 +35,7 @@ class User extends UserCore {
 	function newUser($action) {
 
 		global $page;
-		$page->addLog("user->newUser: initiated");
+		logger()->addLog("user->newUser: initiated");
 
 		// only attempt user creation if signups are allowed for this site
 		if(defined("SITE_SIGNUP") && SITE_SIGNUP) {
@@ -48,7 +48,7 @@ class User extends UserCore {
 
 				$email = $this->getProperty("email", "value");
 
-				$page->addLog("user->newUser: signup identified as BOT: $email");
+				logger()->addLog("user->newUser: signup identified as BOT: $email");
 
 				// send notification email to admin
 				mailer()->send(array(
@@ -70,14 +70,14 @@ class User extends UserCore {
 
 			// if haven't accepted terms, return error
 			if(!$terms) {
-				$page->addLog("user->newUser: missing terms agreement");
+				logger()->addLog("user->newUser: missing terms agreement");
 				return array("status" => "MISSING_TERMS");
 			}
 
 
 			// if user already exists, return error
 			if($this->userExists(array("email" => $email))) {
-				$page->addLog("user->newUser: user exists ($email)");
+				logger()->addLog("user->newUser: user exists ($email)");
 				return array("status" => "USER_EXISTS");
 			}
 
@@ -176,7 +176,7 @@ class User extends UserCore {
 							// VERIFICATION EMAIL
 
 							// add log
-							$page->addLog("user->newUser: created: " . $email . ", user_id:$user_id");
+							logger()->addLog("user->newUser: created: " . $email . ", user_id:$user_id");
 
 							// success
 							// send activation email
@@ -279,7 +279,7 @@ class User extends UserCore {
 			}
 		}
 
-		$page->addLog("user->newUser failed: (missing info)");
+		logger()->addLog("user->newUser failed: (missing info)");
 		return false;
 	}
 

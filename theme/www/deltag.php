@@ -18,7 +18,7 @@ $page->pageTitle("Nysgerrig?");
 if($action) {
 
 	// /deltag/tilmelding
-	if($action[0] == "tilmelding" && $page->validateCsrfToken()) {
+	if($action[0] == "tilmelding" && security()->validateCsrfToken()) {
 
 		// create new user
 		$user = $model->newUser(array("newUser"));
@@ -54,7 +54,7 @@ if($action) {
 
 	// /deltag/afmeld
 	// post email + newsletter
-	else if($action[0] == "afmeld" && $page->validateCsrfToken()) {
+	else if($action[0] == "afmeld" && security()->validateCsrfToken()) {
 
 		// TODO
 

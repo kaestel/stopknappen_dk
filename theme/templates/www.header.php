@@ -42,9 +42,9 @@
 			<li class="keynav admin nofollow"><a href="/janitor">Janitor</a></li>
 <? endif; ?>
 <? if(session()->value("user_id") && session()->value("user_group_id") > 1): ?>
-			<li class="keynav user nofollow"><a href="?logoff=true">Log af</a></li>
+			<li class="keynav user logoff nofollow"><a href="?logoff=true">Log af</a></li>
 <? else: ?>
-			<li class="keynav user nofollow"><a href="/login">Log ind</a></li>
+			<li class="keynav user login nofollow"><a href="<?= SITE_LOGIN_URL ?>">Log ind</a></li>
 <? endif; ?>
 		</ul>
 	</div>

@@ -43,7 +43,7 @@ $page_item = $IC->getItem(array("tags" => "page:login", "extend" => true));
 
 
 <?	if(defined("SITE_SIGNUP") && SITE_SIGNUP): ?>
-	<p>Ikke registreret endnu? <a href="<?= SITE_SIGNUP ?>">Opret din konto nu</a>.</p>
+	<p>Ikke registreret endnu? <a href="<?= SITE_SIGNUP_URL ?>">Opret din konto nu</a>.</p>
 <?	endif; ?>
 
 	<?= $model->formStart("?login=true", array("class" => "labelstyle:inject")) ?>

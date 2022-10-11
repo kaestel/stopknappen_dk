@@ -21,7 +21,7 @@ if($action) {
 	// verificer/bekraeft
 	if($action[0] == "bekraeft") {
 
-		if (count($action) == 1 && $page->validateCsrfToken()) {
+		if (count($action) == 1 && security()->validateCsrfToken()) {
 			
 			$username = session()->value("signup_email");
 			$verification_code = getPost("verification_code");

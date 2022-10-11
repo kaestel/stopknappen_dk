@@ -199,7 +199,7 @@ class HTML extends HTMLCore {
 		$_ = '';
 
 		$_ .= '<div class="comments i:comments item_id:'.$item["item_id"].'"';
-		$_ .= '	data-comment-add="'.$page->validPath($add_path).'"';
+		$_ .= '	data-comment-add="'.security()->validPath($add_path).'"';
 		$_ .= '	data-csrf-token="'.session()->value("csrf").'"';
 		$_ .= '	>';
 		$_ .= '	<h2 class="comments">'.$headline.'</h2>';
@@ -231,7 +231,7 @@ class HTML extends HTMLCore {
 
 		$_ .= '<div class="qnas i:qnas item_id:'.$item["item_id"].'"';
 		$_ .= '	data-csrf-token="'.session()->value("csrf").'"';
-		$_ .= '	data-question-add="'. $page->validPath("/janitor/admin/qna/save").'"';
+		$_ .= '	data-question-add="'. security()->validPath("/janitor/admin/qna/save").'"';
 		$_ .= '	>';
 		$_ .= '	<h2 class="qnas">Spørgsmål og svar</h2>';
 
