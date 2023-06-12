@@ -30,7 +30,7 @@ $item = $IC->getItem(array("id" => $item_id, "extend" => array("tags" => true, "
 	</div>
 
 
-	<?= $JML->editTags($item) ?>
+	<?= $JML->editTags($item, ["context" => "about,editing"]) ?>
 
 	<?= $JML->editComments($item) ?>
 

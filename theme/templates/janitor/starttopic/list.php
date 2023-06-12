@@ -14,14 +14,14 @@ $items = $IC->getItems(array("itemtype" => $itemtype, "order" => "status DESC, p
 		<?= $JML->listNew(array("label" => "New topic")) ?>
 	</ul>
 
-	<div class="all_items i:defaultList taggable sortable filters"<?= $HTML->jsData(["order", "tags", "search"]) ?>>
+	<div class="all_items i:defaultList taggable sortable filters"<?= $HTML->jsData(["order", "tags", "search"], ["filter-tag-contexts" => "about,editing"]) ?>>
 <?		if($items): ?>
 		<ul class="items">
 <?			foreach($items as $item): ?>
 			<li class="item item_id:<?= $item["id"] ?>">
 				<h3><?= strip_tags($item["name"]) ?></h3>
 
-				<?= $JML->tagList($item["tags"]) ?>
+				<?= $JML->tagList($item["tags"], ["context" => "about,editing"]) ?>
 
 				<?= $JML->listActions($item) ?>
 			 </li>
