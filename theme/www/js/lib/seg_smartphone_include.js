@@ -3,7 +3,7 @@ document.write('<script type="text/javascript" src="/assets/parentnode-skin-defa
 
 // Include settings before analytics
 document.write('<script type="text/javascript" src="/js/lib/u-settings.js"></script>');
-// document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/manipulator/src/u-googleanalytics.js"></script>');
+document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/manipulator/src/u-googleanalytics.js"></script>');
 
 // Additional includes from parentnode-skin-default
 document.write('<script type="text/javascript" src="/assets/parentnode-skin-default/js/manipulator/src/u-textscaler.js"></script>');
